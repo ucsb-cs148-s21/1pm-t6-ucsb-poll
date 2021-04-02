@@ -7,3 +7,5 @@
 - Take turns leading the group
 
 - If we run into problems, we need to ask for help or help others
+
+- Always write code comments for the convenience of others.
