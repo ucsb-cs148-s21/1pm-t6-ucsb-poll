@@ -6,4 +6,4 @@ Meeting Time: lab01
 
 Type of meeting: 
 
-Team: Jasun Chen, Daniel Shamtob , TT Luo , Daniel Lohn , Zhengying Li
+Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying Li ✓
