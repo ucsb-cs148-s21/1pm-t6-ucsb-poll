@@ -2,8 +2,8 @@
 
 Mentor: Paul Kuang 
 
-Meeting Time: lec03
+Meeting Time: lab01
 
-Type of meeting: <sprint planning, daily scrum>
+Type of meeting: 
 
 Team: Jasun Chen, Daniel Shamtob , TT Luo , Daniel Lohn , Zhengying Li
