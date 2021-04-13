@@ -1,3 +1,15 @@
+# 1pm-t6-ucsb-poll
+Allows anyone with a UCSB email to vote on virtually anything. UCSB Polls will give information on what the student body's favorite beer is, what their favorite class was, what their favorite restaurant in IV is, etc.
+
+
+# Members
+- Jasun Chen @jasunchen
+- Daniel Lohn @DLohn
+- TT Luo @Randp
+- Zhengying Li @zhengyingl
+- Daniel Shamtob @dshamtob
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +80,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
