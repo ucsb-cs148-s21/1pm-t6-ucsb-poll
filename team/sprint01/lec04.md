@@ -2,7 +2,7 @@
 
 Mentor: Paul Kuang 
 
-Meeting Time: lec03
+Meeting Time: lec04
 
 Type of meeting: <sprint planning, daily scrum>
 
