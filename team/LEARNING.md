@@ -38,7 +38,7 @@ Daniel Lohn: some knowledge from CS 156
 
 ## Individual plans:
 - Daniel Shamtob: In week 3, I'm going to go through a React tutorial and refresh knowledge on Auth0 authentication. In week 4, I'll go through a Node.js tutorial.
-- Jasun: In week 3, I'll do a short introduction to HTML, CSS, and Javascript, and I'll learn about react through a tutorial. In week 4, I'll learn about Firebase and Node.js and how they work together.
+- Jasun: In week 3, I'll do a short introduction to HTML, CSS, and Javascript. Then I'll focus on Firebase and Node.js. In week 4, I'll learn about React to gain some sort of baseline for the front end.
 - Zhengying: In week 3, I'll review my labs and homewrok in CS 156 to learn about react and node.js. In week 4, I'll learn about databases and Node.js.
 - TT: In week 3, I'll work through a tutorial on databases and learn the basics of node.js. In week 4, I will try to connect the database knowledge with my current knowledge of the frontend.
 - Daniel Lohn: In week 3, I'll look at react and node.js tutorials. In week 4, I'll continue to learn about react.
