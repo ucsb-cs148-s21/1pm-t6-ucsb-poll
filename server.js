@@ -4,11 +4,11 @@ const path = require('path');
 
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'myapp/build')));
 
-// Anything that doesn't match the above, send back index.js
+// Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/myapp/index.js'))
+    res.sendFile(path.join(__dirname + '/myapp/build/index.html'))
   });
 
 
