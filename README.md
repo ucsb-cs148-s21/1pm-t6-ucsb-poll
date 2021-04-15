@@ -1,6 +1,7 @@
 # 1pm-t6-ucsb-poll
 Allows anyone with a UCSB email to vote on virtually anything. UCSB Polls will give information on what the student body's favorite beer is, what their favorite class was, what their favorite restaurant in IV is, etc.
 
+This is Daniel L's branch. This branch is deployed at: [https://cs148-1pm-t6-ucsb-poll-dlohn.herokuapp.com](https://cs148-1pm-t6-ucsb-poll-dlohn.herokuapp.com).
 
 # Members
 - Jasun Chen @jasunchen
