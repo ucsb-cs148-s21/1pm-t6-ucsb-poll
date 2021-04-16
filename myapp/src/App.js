@@ -38,36 +38,40 @@ class App extends Component {
                 <img class="card-img-top" src="poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool1</h5>
+                  <a href="#" class="btn btn-primary">go to vote</a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">?seconds ago</small>
+                  <small class="text-muted">?seconds ago(open)</small>
                 </div>
               </div>
               <div class="card">
                 <img class="card-img-top" src="poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool2</h5>
+                  <a href="#" class="btn btn-primary">go to vote</a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">?seconds ago</small>
+                  <small class="text-muted">?seconds ago(open)</small>
                 </div>
               </div>
               <div class="card">
                 <img class="card-img-top" src="poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool3</h5>
+                  <a href="#" class="btn btn-primary">go to vote</a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">?seconds ago</small>
+                  <small class="text-muted">?seconds ago(open)</small>
                 </div>
               </div>
               <div class="card">
                 <img class="card-img-top" src="poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool4</h5>
+                  <a href="#" class="btn btn-primary">go to vote</a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">?seconds ago</small>
+                  <small class="text-muted">?seconds ago(open)</small>
                 </div>
               </div>
               <div class="card">
@@ -76,7 +80,7 @@ class App extends Component {
                   <h5 class="card-title">Pool5</h5>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">?seconds ago</small>
+                  <small class="text-muted">?seconds ago(close)</small>
                 </div>
               </div>
               <div class="card">
@@ -85,7 +89,7 @@ class App extends Component {
                   <h5 class="card-title">Pool6</h5>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">?seconds ago</small>
+                  <small class="text-muted">?seconds ago(close)</small>
                 </div>
               </div>
             </div>
