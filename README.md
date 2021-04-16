@@ -1,7 +1,9 @@
 # 1pm-t6-ucsb-poll
-Allows anyone with a UCSB email to vote on virtually anything. UCSB Polls will give information on what the student body's favorite beer is, what their favorite class was, what their favorite restaurant in IV is, etc.
-
+Allows anyone with a UCSB email to vote on virtually anything. 
 Techstack: React / Node.js / (Express) / Firebase
+
+
+UCSB Polls will give information on what the student body's favorite beer is, what their favorite class was, what their favorite restaurant in IV is, etc. Users should be able to log in with their @ucsb.edu account and then vote and share different polls. 
 
 Users:
 - Users that look up, create, and vote on polls
