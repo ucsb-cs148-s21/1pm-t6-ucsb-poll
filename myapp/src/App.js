@@ -27,17 +27,34 @@ class App extends Component {
 
         <div class="jumbotron">
           <h1 class="display-4">Hello World, this is UCSB polls</h1> 
-      </div>
-        {posts.map((post) => (
-          <div className="card" key={post.id}>
-            <div className="card-header">
-              #{post.id} {post.title}
-            </div>
-            <div className="card-body">
-              <p className="card-text">{post.body}</p>
-            </div>
+      <div class="card-deck">
+        <div class="card">
+          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Pool1</h5>
           </div>
-        ))}
+          <div class="card-footer">
+            <small class="text-muted">?seconds ago</small>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Pool1</h5>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">?seconds ago</small>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Pool1</h5>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">?seconds ago</small>
+          </div>
+        </div>
       </div>
     );
   }
