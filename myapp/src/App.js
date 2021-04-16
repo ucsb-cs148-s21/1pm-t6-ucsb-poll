@@ -28,60 +28,68 @@ class App extends Component {
         <div class="jumbotron">
           <h1 class="display-4">Hello World, this is UCSB polls</h1> 
         </div>
-        <div class="card-columns">
-          <div class="card">
-            <img class="card-img-top" src="poll result graph" alt="result"/>
-            <div class="card-body">
-              <h5 class="card-title">Pool1</h5>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">?seconds ago</small>
-            </div>
+        <div class="card">
+          <div class="card-header">
+            recent poll
           </div>
-          <div class="card">
-            <img class="card-img-top" src="poll result graph" alt="result"/>
-            <div class="card-body">
-              <h5 class="card-title">Pool2</h5>
+          <div class="card-body">
+            <div class="card-columns">
+              <div class="card">
+                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <div class="card-body">
+                  <h5 class="card-title">Pool1</h5>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago</small>
+                </div>
+              </div>
+              <div class="card">
+                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <div class="card-body">
+                  <h5 class="card-title">Pool2</h5>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago</small>
+                </div>
+              </div>
+              <div class="card">
+                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <div class="card-body">
+                  <h5 class="card-title">Pool3</h5>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago</small>
+                </div>
+              </div>
+              <div class="card">
+                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <div class="card-body">
+                  <h5 class="card-title">Pool4</h5>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago</small>
+                </div>
+              </div>
+              <div class="card">
+                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <div class="card-body">
+                  <h5 class="card-title">Pool5</h5>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago</small>
+                </div>
+              </div>
+              <div class="card">
+                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <div class="card-body">
+                  <h5 class="card-title">Pool6</h5>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago</small>
+                </div>
+              </div>
             </div>
-            <div class="card-footer">
-              <small class="text-muted">?seconds ago</small>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="poll result graph" alt="result"/>
-            <div class="card-body">
-              <h5 class="card-title">Pool3</h5>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">?seconds ago</small>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="poll result graph" alt="result"/>
-            <div class="card-body">
-              <h5 class="card-title">Pool4</h5>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">?seconds ago</small>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="poll result graph" alt="result"/>
-            <div class="card-body">
-              <h5 class="card-title">Pool5</h5>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">?seconds ago</small>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="poll result graph" alt="result"/>
-            <div class="card-body">
-              <h5 class="card-title">Pool6</h5>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">?seconds ago</small>
-            </div>
+            <a href="#" class="btn btn-primary">view all</a>
           </div>
         </div>
       </div>
