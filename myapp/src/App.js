@@ -26,8 +26,7 @@ class App extends Component {
         <NavigationBar displaytext= "Navigation Bar" />
 
         <div class="jumbotron">
-          <h1 class="display-4">Hello World, this is UCSB polls</h1>
-      /* 
+          <h1 class="display-4">Hello World, this is UCSB polls</h1> 
       </div>
         {posts.map((post) => (
           <div className="card" key={post.id}>
@@ -40,7 +39,6 @@ class App extends Component {
           </div>
         ))}
       </div>
-      */
     );
   }
 }
