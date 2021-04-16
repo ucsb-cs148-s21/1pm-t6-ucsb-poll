@@ -3,6 +3,9 @@ Allows anyone with a UCSB email to vote on virtually anything. UCSB Polls will g
 
 Techstack: React / Node.js / (Express) / Firebase
 
+Users:
+- Users that look up, create, and vote on polls
+- Admins can remove polls to the system
 
 # Members
 - Jasun Chen @jasunchen
