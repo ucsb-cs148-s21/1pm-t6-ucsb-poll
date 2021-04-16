@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import NavigationBar from './NavigationBar'
+
 
 class App extends Component {
   constructor(props) {
@@ -15,10 +17,14 @@ class App extends Component {
     .then(json => this.setState({ posts: json }))
   }
 
+  
+
   render() {
     const { posts } = this.state;
     return (
       <div className="container">
+        <NavigationBar displaytext= "Navigation Bar" />
+
         <div class="jumbotron">
           <h1 class="display-4">Hello World, this is UCSB polls</h1>
         </div>
