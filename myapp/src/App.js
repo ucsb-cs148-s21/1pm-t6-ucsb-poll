@@ -27,7 +27,8 @@ class App extends Component {
 
         <div class="jumbotron">
           <h1 class="display-4">Hello World, this is UCSB polls</h1>
-        </div>
+      /* 
+      </div>
         {posts.map((post) => (
           <div className="card" key={post.id}>
             <div className="card-header">
@@ -39,6 +40,7 @@ class App extends Component {
           </div>
         ))}
       </div>
+      */
     );
   }
 }
