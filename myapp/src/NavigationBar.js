@@ -1,35 +1,103 @@
 //https://react-bootstrap.github.io/components/navbar/
 
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+//import AuthNav from "main/components/Nav/AuthNav";
+//import { useAuth0 } from "@auth0/auth0-react";
 
 
-export default class NavigationBar extends Component {
+export function NavigationBar ({isAdmin, isMember, adminPages}) {
+        return (
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="#home">
+                    <img
+                        src="PollsLogo.png"
+                        width= "75"
+                        height="32"
+                        className="d-inline-block align-top"
+                        alt="Polls logo"
+                    />
+                </Navbar.Brand>                
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="#home">Home</Nav.Link>
+                        {isMember && 
+                            <Nav.Link href="#profile">Profile</Nav.Link>
+                        }
+                        {isAdmin &&
+                            <NavDropdown title="Admin">
+                            {adminPages.map(item => (
+                                <NavDropdown.Item key={item.name} href={item.link}> {item.name} </NavDropdown.Item>
+                            ))}
+                            </NavDropdown>
+                        }
+                        <NavDropdown title="Polls" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">Browse</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Create a poll</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                        </NavDropdown>
+                        <Form inline>
+                        <FormControl type="text" placeholder="Search for a poll" className="mr-sm-2" />
+                        <Button variant="outline-success">Search</Button>
+                        </Form>
+                    </Nav>
+                    <Navbar.Collapse className="justify-content-end">
+                        <NavLoginAuth />
+                    </Navbar.Collapse>
+                </Navbar.Collapse>
+            </Navbar>
+        );
 
-render() {
-    return (
-        <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Navigation Bar</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#profile">Profile</Nav.Link>
-            <NavDropdown title="Polls" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Browse</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Create a poll</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
-            </Nav>
-            <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-            </Form>
-        </Navbar.Collapse>
-        </Navbar>
-  );
+    
+}
+
+
+function NavLoginAuth () {
+    // const { user } = useAuth0();
+    var user = true;
+    if (user)   {
+        return <Button variant="secondary">Log Out </Button>
+    }
+
+    else {
+        return <Button variant="primary"> Log In </Button>
+    }
+}
+
+
+function AppNavigationBar() {
+    // const { getAccessTokenSilently: getToken } = useAuth0();
+    // const { isAuthenticated, loginWithRedirect, logout} = useAutho0();
+    // const { data: roleInfo } = useSWR(
+    //   ["/api/myRole", getToken],
+    //   fetchWithToken
+    // );
+    // const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
+    // const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
+
+
+
+    /* 
+        return (
+            <div>
+            {!isAuthenticated && (
+                <button onClick={() => loginWithRedirect({})}>Log in</button>
+            )}
+
+            {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
+            </div>
+        );
+    */
+    const adminPages = [
+        {link:"/admin", name:"Maintain Admins",},
+        {link:"/admin/polls", name:"Moderate Polls",},
+      ];
+    return (<NavigationBar isAdmin={true} isMember={true} adminPages = {adminPages}/>);
 
 }
-}
+
+
+export default AppNavigationBar;
