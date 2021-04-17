@@ -30,7 +30,7 @@ class App extends Component {
         </div>
         <div class="card">
           <div class="card-header">
-            recent poll
+            popular polls
           </div>
           <div class="card-body">
             <div class="card-columns">
@@ -98,7 +98,7 @@ class App extends Component {
         </div>
         <div class="card">
           <div class="card-header">
-            popular poll
+            recent polls
           </div>
           <div class="card-body">
             <div class="card-columns">
