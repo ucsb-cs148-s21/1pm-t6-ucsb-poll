@@ -33,9 +33,9 @@ class App extends Component {
             recent poll
           </div>
           <div class="card-body">
-            <div class="card-columns">
+            <div class="card-deck">
               <div class="card">
-                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool1</h5>
                   <a href="#" class="btn btn-primary">go to vote</a>
@@ -45,7 +45,7 @@ class App extends Component {
                 </div>
               </div>
               <div class="card">
-                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool2</h5>
                   <a href="#" class="btn btn-primary">go to vote</a>
@@ -55,7 +55,7 @@ class App extends Component {
                 </div>
               </div>
               <div class="card">
-                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool3</h5>
                   <a href="#" class="btn btn-primary">go to vote</a>
@@ -65,7 +65,7 @@ class App extends Component {
                 </div>
               </div>
               <div class="card">
-                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool4</h5>
                   <a href="#" class="btn btn-primary">go to vote</a>
@@ -75,7 +75,7 @@ class App extends Component {
                 </div>
               </div>
               <div class="card">
-                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool5</h5>
                 </div>
@@ -84,7 +84,7 @@ class App extends Component {
                 </div>
               </div>
               <div class="card">
-                <img class="card-img-top" src="poll result graph" alt="result"/>
+                <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
                   <h5 class="card-title">Pool6</h5>
                 </div>
