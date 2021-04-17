@@ -33,7 +33,7 @@ class App extends Component {
             recent poll
           </div>
           <div class="card-body">
-            <div class="card-deck">
+            <div class="card-columns">
               <div class="card">
                 <img class="card-img-top" src=".../100px180/?text=poll result graph" alt="result"/>
                 <div class="card-body">
