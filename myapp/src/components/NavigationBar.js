@@ -2,7 +2,7 @@
 
 import React, {Component, useState} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-//import AuthNav from "main/components/Nav/AuthNav";
+import AuthenticationButton from "./login/AuthenticationButton";
 //import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -45,7 +45,9 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                         </Form>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
-                        <NavLoginAuth />
+                        <div className="navbar-nav ml-auto">
+                            <AuthenticationButton />
+                        </div>
                     </Navbar.Collapse>
                 </Navbar.Collapse>
             </Navbar>
@@ -80,17 +82,7 @@ const handleOnClick = async (e) => {
     const answer = await addNewUser(e);
 }
 
-function NavLoginAuth () {
-    // const { user } = useAuth0();
-    var user = true;
-    if (user)   {
-        return <Button variant="secondary">Log Out </Button>
-    }
 
-    else {
-        return <Button variant="primary"> Log In </Button>
-    }
-}
 
 
 function AppNavigationBar() {
