@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-
+import AuthenticationButton from "./components/AuthenticationButton";
 
 export default class NavigationBar extends Component {
 
@@ -27,6 +27,9 @@ render() {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
             </Form>
+            <div className="navbar-nav ml-auto">
+                <AuthenticationButton />
+            </div>
         </Navbar.Collapse>
         </Navbar>
   );

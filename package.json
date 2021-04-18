@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node -r dotenv/config server.js",
     "heroku-postbuild": "cd myapp && npm install && npm run build"
   },
   "repository": {
@@ -19,6 +19,13 @@
   },
   "homepage": "https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "passport": "^0.4.1",
+    "passport-auth0": "^1.4.0",
+    "stream-chat": "^3.7.0"
   }
 }
