@@ -41,7 +41,7 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                         </NavDropdown>
                         <Form inline>
                         <FormControl type="text" placeholder="Search for a poll" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
+                        <Button variant="outline-success" onClick = {handleOnClick}>Search</Button>
                         </Form>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
@@ -54,6 +54,31 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
     
 }
 
+const addNewUser = async (_event) => {
+    const url = "/addNewUser";
+
+    try {
+        const result = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: "John Smith",
+                id: "johnsmith22@temp.com",
+            }),
+        });
+        console.log(`result=${JSON.stringify(result)}`)
+        return result;
+    } catch (err) {
+        console.log(`err=${err}`)
+    }
+};
+
+const handleOnClick = async (e) => {
+    e.preventDefault();
+    const answer = await addNewUser(e);
+}
 
 function NavLoginAuth () {
     // const { user } = useAuth0();
