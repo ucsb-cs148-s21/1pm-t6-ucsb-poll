@@ -2,7 +2,7 @@
 
 import React, {Component, useState} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import AuthenticationButton from "./components/AuthenticationButton";
+import AuthenticationButton from "./components/login/AuthenticationButton";
 //import { useAuth0 } from "@auth0/auth0-react";
 
 
