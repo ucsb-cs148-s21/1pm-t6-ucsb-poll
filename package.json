@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "firebase": "^8.4.1"
   }
 }
