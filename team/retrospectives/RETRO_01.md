@@ -21,19 +21,19 @@ Measurement: At least one issue should be edited
 
 ## Optional
 
-###### Start
+##### Start
 - Planning sprints more directly with clear goals and deadlines 
 - Make the kanban board and user stories more clear 
 - Communicate meeting attendance
 - Pair programming 
 
 
-###### Stop
+##### Stop
 - Make sure the team isn't off pace with one another 
 - Ignoring which sprint we are in  
 
 
-###### Continue 
+##### Continue 
 - Creating pull requests and having the team look over them. 
 - Using slack for communication  
 
