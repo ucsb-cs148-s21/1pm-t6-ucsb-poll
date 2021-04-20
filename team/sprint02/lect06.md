@@ -6,7 +6,7 @@ Meeting Time: lec06
 
 Type of meeting: <daily scrum>
 
-Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn x, Zhengying Li ✓
+Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying Li ✓
 
 ## Daniel Shamtob
 - What did I do last time?
@@ -61,3 +61,15 @@ Continue to work on poll function.
 Nothing
 
 
+## Daniel Lohn
+- What did I do last time?
+
+Work on homepage polls. 
+
+- What will I do today?
+
+Work on retrospective for first sprint.  
+
+- What (if anything) is blocking my progress?
+
+Getting Auth0 working locally
