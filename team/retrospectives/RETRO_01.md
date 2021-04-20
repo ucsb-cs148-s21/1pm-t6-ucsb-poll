@@ -1,8 +1,9 @@
 # Date of Retrospective: 04/20/21
 
-* Led by: name-goes-here
-* Present: name1, name2, ... , nameN
-* Absent: name1, name2, ...
+* Led by: Jasun Chen
+* Present: Daniel Shamtob, Zhengying Li, TT Luo, Daniel Lohn, Jasun Chen 
+* Absent: 
+
 
 ## Action item
 
@@ -13,3 +14,16 @@
 ## Optional
 
 * Record anything else you think the team might want to remember from this retro
+
+
+
+
+
+
+
+## Retro Assessment
+
+* A brief description of what retro outline or process you used.
+* A brief assessment of how it went.
+* What advice would you give to the next person leading a retro
+  based on what you learned today?
