@@ -21,29 +21,30 @@ Measurement: At least one issue should be edited
 
 ## Optional
 
-# Start
+###### Start
 - Planning sprints more directly with clear goals and deadlines 
 - Make the kanban board and user stories more clear 
 - Communicate meeting attendance
 - Pair programming 
 
 
-# Stop
+###### Stop
 - Make sure the team isn't off pace with one another 
 - Ignoring which sprint we are in  
 
 
-# Continue 
+###### Continue 
 - Creating pull requests and having the team look over them. 
 - Using slack for communication  
 
 
 ## Retro Assessment
-
-* A brief description of what retro outline or process you used.
+A brief description of what retro outline or process you used.
 - Start/Stop/Continue format and then picked the top actions to convert into action items. 
-* A brief assessment of how it went.
+
+A brief assessment of how it went.
 - Pretty well, I think we got a decent list of items and also got a good sense of how the group feels about the first sprint. 
-* What advice would you give to the next person leading a retro
+
+What advice would you give to the next person leading a retro
   based on what you learned today?
 - Be more prepared to get other people involved in the discussion.
