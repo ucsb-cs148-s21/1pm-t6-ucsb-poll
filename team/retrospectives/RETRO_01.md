@@ -12,11 +12,17 @@
 * a measurement: identify at least one way to measure whether the change helped the team achieve the goal, or move closer to it.
 
 Goal: Sprints should be more clear with concrete goals and deadlines 
+
 Change: Define our goals. What should be done by the end of a sprint.
+
 Measurement: Number of user stories completed. 
 
+
+
 Goal: Kanban board and user stories should be more clear. 
+
 Change: Minmize conflicting description, make sure everybody is on the same page about the kanban board, make sure the issues are workable 
+
 Measurement: At least one issue should be edited 
 
 ## Optional
