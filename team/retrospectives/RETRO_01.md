@@ -17,7 +17,7 @@
 
 
 **Goal:**  Kanban board and user stories should be more clear. \
-**Change: ** Minmize conflicting description, make sure everybody is on the same page about the kanban board, make sure the issues are workable \
+**Change:** Minmize conflicting description, make sure everybody is on the same page about the kanban board, make sure the issues are workable \
 **Measurement:**  At least one issue should be edited 
 
 ## Optional
