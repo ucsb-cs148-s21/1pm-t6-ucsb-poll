@@ -103,7 +103,6 @@ function AppNavigationBar() {
             {!isAuthenticated && (
                 <button onClick={() => loginWithRedirect({})}>Log in</button>
             )}
-
             {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
             </div>
         );
