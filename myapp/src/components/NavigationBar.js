@@ -34,7 +34,7 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                         }
                         <NavDropdown title="Polls" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Browse</NavDropdown.Item>
-                            <NavDropdown.Item href="/poll">Create a poll</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Create a poll</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
@@ -103,7 +103,6 @@ function AppNavigationBar() {
             {!isAuthenticated && (
                 <button onClick={() => loginWithRedirect({})}>Log in</button>
             )}
-
             {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
             </div>
         );

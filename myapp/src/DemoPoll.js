@@ -1,7 +1,5 @@
-// src/App.js
+
 import React, { Component } from 'react';
-
-
 const list = [
   {
     id: 1,
