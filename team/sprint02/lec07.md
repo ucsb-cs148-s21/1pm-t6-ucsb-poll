@@ -8,9 +8,7 @@ Type of meeting: < sprint planning, daily scrum>
 
 Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying Li ✓
 
-## What will we do?
 
-## How will we do it?
 
 
 ## Daniel Shamtob
