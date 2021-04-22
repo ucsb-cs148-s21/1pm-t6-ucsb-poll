@@ -2,46 +2,46 @@
 
 Mentor: Paul Kuang 
 
-Meeting Time: lec04
+Meeting Time: lec05
 
-Type of meeting: <sprint planning, daily scrum>
+Type of meeting: <daily scrum>
 
 Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying Li ✓
 
 ## Daniel Shamtob
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file.
+Build the Kanban Board and decided on Node.js.
 
 - What will I do today?
 
-Deploy my branch on Heroku
+Create LEADERSHIP.md and LEARNING.md files.
 
 - What (if anything) is blocking my progress?
 
-My deployment is giving an error
+Nothing.
 
 ## Jasun Chen
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up Hello World webapp.
+Nothing.
 
 - What will I do today?
 
-Deploy my branch on Heroku.
+Work on LEADERSHIP.md and LEARNING.md files.
 
 - What (if anything) is blocking my progress?
 
-Nothing
+Nothing.
 
 ## Zhengying Li
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up and deployed Hello World webapp.
+Build the Kanban Board and decided on Node.js. Learned about Node.js
 
 - What will I do today?
 
-Decide on a backend framework.
+Work on LEADERSHIP.md and LEARNING.md files.
 
 - What (if anything) is blocking my progress?
 
@@ -50,11 +50,11 @@ Nothing
 ## TT Luo
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up and deployed Hello World webapp.
+Build the Kanban Board and decided on Node.js. Learned about Node.js
 
 - What will I do today?
 
-Decide on a backend framework. Add more functionality to Hello World app.
+Add more functionality to Hello World app. 
 
 - What (if anything) is blocking my progress?
 
@@ -63,11 +63,11 @@ Nothing
 ## Daniel Lohn
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up Hello World webapp.
+Contributed to the Kanban Board.
 
 - What will I do today?
 
-Decide on a backend framework.
+Finish lab01.
 
 - What (if anything) is blocking my progress?
 

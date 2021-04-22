@@ -2,73 +2,74 @@
 
 Mentor: Paul Kuang 
 
-Meeting Time: lec04
+Meeting Time: lec06
 
-Type of meeting: <sprint planning, daily scrum>
+Type of meeting: <daily scrum>
 
 Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying Li ✓
 
 ## Daniel Shamtob
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file.
+Added auth0 authentication. 
 
 - What will I do today?
 
-Deploy my branch on Heroku
+Work on retrospective for first sprint. 
 
 - What (if anything) is blocking my progress?
 
-My deployment is giving an error
+Nothing.
 
 ## Jasun Chen
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up Hello World webapp.
+Work on database and navigation bar. 
 
 - What will I do today?
 
-Deploy my branch on Heroku.
+Work on retrospective for first sprint. 
 
 - What (if anything) is blocking my progress?
 
-Nothing
+Nothing.
 
 ## Zhengying Li
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up and deployed Hello World webapp.
+Finished placeholder for homepage polls.
 
 - What will I do today?
 
-Decide on a backend framework.
+Work on retrospective for first sprint. 
 
 - What (if anything) is blocking my progress?
 
-Nothing
+Not familiar with firebase. 
 
 ## TT Luo
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up and deployed Hello World webapp.
+Work on poll function. 
 
 - What will I do today?
 
-Decide on a backend framework. Add more functionality to Hello World app.
+Continue to work on poll function. 
 
 - What (if anything) is blocking my progress?
 
 Nothing
+
 
 ## Daniel Lohn
 - What did I do last time?
 
-Started and finished our AGREEMENTS.md file and set up Hello World webapp.
+Work on homepage polls. 
 
 - What will I do today?
 
-Decide on a backend framework.
+Work on retrospective for first sprint.  
 
 - What (if anything) is blocking my progress?
 
-Nothing
+Getting Auth0 working locally
