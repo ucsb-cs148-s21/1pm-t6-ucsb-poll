@@ -82,3 +82,56 @@ app.post("/addNewUser", (req, res) => {
     res.write("Done");
   
 });
+
+app.post("/addNewPoll", (req, res) => {
+  console.log("Server requested to add new poll to DB");
+  console.log("request: ", req.body);
+
+  
+
+  db.collection("polls").doc(req.body.id).set({
+    name: req.body.name,
+    answerable: req.body.answerable,
+    date: firebase.firestore.Timestamp.fromDate(new Date("December 10, 2010")), 
+    options: req.body.options,
+    question: req.body.question,
+    })
+    .then(function () {
+      console.log("Doc Succesfully Written");
+    })
+    .catch(function (error) {
+      console.error("Error caught: ", error);
+    });
+});
+
+
+
+// get poll
+
+app.get("/getPoll", (req, res) => {
+  console.log("Client has requested server to get a poll.");
+  var pollDoc = db.collection("polls").doc(req.header('pollID'));
+
+  pollDoc.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        res.send(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+});
+
+
+
+
+
+
+
+app.listen(PORT, () => {
+  console.log(`Listening on http://localhost:${PORT}`);
+
+});
