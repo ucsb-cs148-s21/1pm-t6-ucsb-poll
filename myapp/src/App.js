@@ -17,23 +17,28 @@ var firebaseConfig = {
     	measurementId: "G-0HG55T6LG9"
 };
 
-  // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var database=firebase.database();
 database.ref('/').once('value', function(snapshot){
   console.log(snapshot.val());
 });
 
-//var rootRef=database().ref();
 var rootRef = database.ref('/');
 rootRef.once('value', function(snapshot){
   console.log(snapshot.val());
 });
-//poolDataRef = database.ref("/pools");
-//const pools=db.child('pools');
-database.ref('/pools').once('value', function(snapshot){
+/*
+function pools(){
+  var data = document.getElementById("dataValue").value;
+  var dataRef = database.ref('/pushData').push();
+  dataRef.set({
+    value: data
+  });
+}
+*/
+database.ref('/polls').once('value', function(snapshot){
   snapshot.forEach(function(data){
-    console.log("Below are the child keys of the values in 'pools'")
+    console.log("Below are the child keys of the values in 'polls'")
     console.log(data.key);
   });
   console.log(Object.keys(snapshot.val()));
