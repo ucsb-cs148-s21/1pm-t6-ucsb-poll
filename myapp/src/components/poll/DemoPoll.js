@@ -1,5 +1,7 @@
-import styles from './style.css'
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
+import styles from './DemoPoll.styles.css' // style sheets for making polls look nice later
+
 const list = [
   {
     id: 1,
@@ -23,6 +25,7 @@ const list = [
   }
 ];
 
+// potential colors for results
 const themes = {
     purple: ['#6D4B94', '#7C6497', '#6D4B943B'],
     red: ['#E23D3D', '#EF4545', '#FF28283B'],
@@ -35,10 +38,10 @@ const themes = {
 class DemoPoll extends Component {
   state = {
     members: [],
-    voted: false,
-    submitted: false,
+    voted: false, // has the user voted?
+    submitted: false, //has the user submitted their vote?
     totalVotes: 0
-  };
+  }
 
   componentDidMount() {
     this.setState({ members: list });
@@ -65,7 +68,7 @@ class DemoPoll extends Component {
 
 
     const { members } = this.state
-    const totalVotes = members.reduce((total, member) => total + member.votes, 1)
+    const totalVotes = members.reduce((total, member) => total + member.votes, 1) // adds up all the votes
     this.setState({
         totalVotes: totalVotes
       });
@@ -86,7 +89,9 @@ class DemoPoll extends Component {
     return `${parseInt((votes / total) * 100)}%`
   }
 
-  obtainColors = (customTheme) => {
+
+  // gets color for poll results
+  obtainColors = (customTheme) => { 
     const colors = themes[customTheme]
     if (!colors) {
       return themes['black']
@@ -118,7 +123,7 @@ class DemoPoll extends Component {
                 </div>
             ))}
             {voted && !submitted &&  <SubmitButton onSubmit={this.handleSubmit} />}
-            <p style={{paddingTop: 40, paddingBottom: 0, marginBottom: 0, color: "gray"}}>{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</p>
+            <p className={styles.votes}>{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</p>
         </div>
     );
   }
