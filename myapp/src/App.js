@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./DemoPoll";
 
+
+
 <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-var db = new Firebase('https://ucsb-polls.firebaseIO.com/');
+const db=firebase.database().ref();
 <div id='messagesDiv'></div>
 db.on('value', function(snapshot) {
 	var message = snapshot.val();
