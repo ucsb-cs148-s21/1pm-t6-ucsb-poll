@@ -41,6 +41,11 @@ https://console.firebase.google.com/project/ucsb-polls/firestore/data~2Fpolls?hl
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   */
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/firestore";
+
 var firebaseConfig = {
 	apiKey: "AIzaSyCmZ272B89syKA0FNLa7ujYHvfI60YB2M0",
    	authDomain: "ucsb-polls.firebaseapp.com",
@@ -50,23 +55,34 @@ var firebaseConfig = {
     	appId: "1:989606767140:web:cf485612653f0ba2a186b1",
     	measurementId: "G-0HG55T6LG9"
 };
-  // Initialize Firebase
+
 firebase.initializeApp(firebaseConfig);
 var database=firebase.database();
 database.ref('/').once('value', function(snapshot){
   console.log(snapshot.val());
 });
 
-//var rootRef=database().ref();
 var rootRef = database.ref('/');
 rootRef.once('value', function(snapshot){
   console.log(snapshot.val());
 });
-poolDataRef = database.ref("/pools");
-//const pools=db.child('pools');
-database.ref('/pools').once('value', function(snapshot){
+
+function polls(){
+  var data = document.getElementById("dataValue").value;
+  var dataRef = database.ref('/polls');
+  dataRef.set({
+    value: data
+  });
+}
+var pollsDataRef = database.ref("/polls");
+pollsDataRef.on("child_added", function(snapshot){
+  console.log("Below is the data from child_added");
+  console.log(snapshot.val());
+});
+
+database.ref('/polls').once('value', function(snapshot){
   snapshot.forEach(function(data){
-    console.log("Below are the child keys of the values in 'pools'")
+    console.log("Below are the child keys of the values in 'polls'")
     console.log(data.key);
   });
   console.log(Object.keys(snapshot.val()));
