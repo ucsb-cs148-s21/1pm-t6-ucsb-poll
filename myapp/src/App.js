@@ -4,17 +4,7 @@ import DemoPoll from "./DemoPoll";
 
 
 
-<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-const db=firebase.database().ref();
-<div id='messagesDiv'></div>
-db.on('value', function(snapshot) {
-	var message = snapshot.val();
-	displayMessage(message.answerable, message.date, message.question);
-});
-function displayMessage(answerable, daye, question) {
-    $('#messagesDiv').append('<div>answerable:'+answerable+',date:'+date+',question:'+question+'</div>');
-    $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-  };
+
 class App extends Component {
   constructor(props) {
     super(props);
