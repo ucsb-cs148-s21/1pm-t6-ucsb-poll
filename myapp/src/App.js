@@ -27,15 +27,20 @@ var rootRef = database.ref('/');
 rootRef.once('value', function(snapshot){
   console.log(snapshot.val());
 });
-/*
-function pools(){
+
+function polls(){
   var data = document.getElementById("dataValue").value;
-  var dataRef = database.ref('/pushData').push();
+  var dataRef = database.ref('/polls');
   dataRef.set({
     value: data
   });
 }
-*/
+pollsDataRef = database.ref("/polls");
+pushDataRef.on("child_added", function(snapshot){
+  console.log("Below is the data from child_added");
+  console.log(snapshot.val());
+});
+
 database.ref('/polls').once('value', function(snapshot){
   snapshot.forEach(function(data){
     console.log("Below are the child keys of the values in 'polls'")
