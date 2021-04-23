@@ -2,7 +2,7 @@
 
 import React, {Component, useState} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-//import AuthNav from "main/components/Nav/AuthNav";
+import AuthenticationButton from "./login/AuthenticationButton";
 //import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -41,11 +41,13 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                         </NavDropdown>
                         <Form inline>
                         <FormControl type="text" placeholder="Search for a poll" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
+                        <Button variant="outline-success" onClick = {handleOnClick}>Search</Button>
                         </Form>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
-                        <NavLoginAuth />
+                        <div className="navbar-nav ml-auto">
+                            <AuthenticationButton />
+                        </div>
                     </Navbar.Collapse>
                 </Navbar.Collapse>
             </Navbar>
@@ -54,18 +56,33 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
     
 }
 
+const addNewUser = async (_event) => {
+    const url = "/addNewUser";
 
-function NavLoginAuth () {
-    // const { user } = useAuth0();
-    var user = true;
-    if (user)   {
-        return <Button variant="secondary">Log Out </Button>
+    try {
+        const result = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: "John Smith",
+                id: "johnsmith22@temp.com",
+            }),
+        });
+        console.log(`result=${JSON.stringify(result)}`)
+        return result;
+    } catch (err) {
+        console.log(`err=${err}`)
     }
+};
 
-    else {
-        return <Button variant="primary"> Log In </Button>
-    }
+const handleOnClick = async (e) => {
+    e.preventDefault();
+    const answer = await addNewUser(e);
 }
+
+
 
 
 function AppNavigationBar() {
@@ -86,7 +103,6 @@ function AppNavigationBar() {
             {!isAuthenticated && (
                 <button onClick={() => loginWithRedirect({})}>Log in</button>
             )}
-
             {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
             </div>
         );
