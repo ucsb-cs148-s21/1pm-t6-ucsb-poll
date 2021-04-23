@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
-import DemoPoll from "./DemoPoll";
+import DemoPoll from "./components/poll/DemoPoll";
 
 class App extends Component {
   constructor(props) {
@@ -33,12 +33,12 @@ class App extends Component {
           <div class="card-body">
             <div class="card-columns">
               <div class="card">
-                <DemoPoll />
-               
                 <div class="card-body">
-                  <h2 class="card-title">Vote For Your Favorite Dinning Common!</h2>
+                  <h2 class="card-title">Vote For Your Favorite Dining Commons!</h2>
 
                 </div>
+                <DemoPoll />
+               
                 <div class="card-footer">
                   <small class="text-muted">?seconds ago(open)</small>
                 </div>
