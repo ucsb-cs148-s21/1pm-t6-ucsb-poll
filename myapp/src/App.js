@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./DemoPoll";
 
-
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/firestore";
 
 var firebaseConfig = {
 	apiKey: "AIzaSyCmZ272B89syKA0FNLa7ujYHvfI60YB2M0",
@@ -14,13 +17,6 @@ var firebaseConfig = {
     	measurementId: "G-0HG55T6LG9"
 };
 
-<script src="/__/firebase/7.14.2/firebase-app.js"></script>
-<script src="/__/firebase/7.14.2/firebase-auth.js"></script>
-<script src="/__/firebase/7.14.2/firebase-database.js"></script>
-<script src="/__/firebase/7.14.2/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
-<script src="/__/firebase/init.js"></script>
-<script src="app.js"></script>
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var database=firebase.database();
