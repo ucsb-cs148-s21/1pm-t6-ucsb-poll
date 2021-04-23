@@ -29,7 +29,7 @@ var rootRef = database.ref('/');
 rootRef.once('value', function(snapshot){
   console.log(snapshot.val());
 });
-poolDataRef = database.ref("/pools");
+//poolDataRef = database.ref("/pools");
 //const pools=db.child('pools');
 database.ref('/pools').once('value', function(snapshot){
   snapshot.forEach(function(data){
