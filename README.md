@@ -25,16 +25,22 @@ TODO: List what a user needs to have installed before running the installation i
 TODO: List which libraries / add-ons you added to the project, and the purpose each of those add-ons serves in your app.
 
 # Installation Steps
-- Set up Auth0
-- Pull the repository
+- Clone the repository
+- set up Auth0 for this app
+- cd into "myapp" and create a file called “.env.local”. This way you’ll be able to use Auth0 on localhost. That file should contain only these three lines, replacing the first set of Xs with the Auth0 domain, the second set with the Auth0 client ID, and the thrid set with the link to the heroku for this webapp:
 - cd into myapp and run: 'npm install' and then 'npm run build'
 - Go back into the root project directory and run: 'npm install' and then 'npm start' to run the project on localhost:8080. 
 
+REACT_APP_AUTH0_DOMAIN=XXXXXXX \
+REACT_APP_AUTH0_CLIENT_ID=XXXXXX \
+REACT_APP_AUTH0_AUDIENCE=XXXXXX 
 
-TODO: Describe the installation process (making sure you give complete instructions to get your project going from scratch). Instructions need to be such that a user can just copy/paste the commands to get things set up and running. Note that with the use of GitHub Actions, these instructions can eventually be fully automated (e.g. with act, you can run GitHub Actions locally).
 
 # Functionality
 TODO: Write usage instructions. Structuring it as a walkthrough can help structure this section, and showcase your features.
+
+- click the login button in the top right corner of the webpage to login through Auth0.
+- BOOKMARK
 
 # Known Problems
 TODO: Describe any known issues, bugs, odd behaviors or code smells. Provide steps to reproduce the problem and/or name a file or a function where the problem lives.
