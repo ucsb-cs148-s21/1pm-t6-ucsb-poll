@@ -35,8 +35,8 @@ function polls(){
     value: data
   });
 }
-pollsDataRef = database.ref("/polls");
-pushDataRef.on("child_added", function(snapshot){
+var pollsDataRef = database.ref("/polls");
+pollsDataRef.on("child_added", function(snapshot){
   console.log("Below is the data from child_added");
   console.log(snapshot.val());
 });
