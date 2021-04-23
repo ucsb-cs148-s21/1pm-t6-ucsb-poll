@@ -1,0 +1,16 @@
+{
+  "polls" : {
+    "-KoSihRoSxROg5OnjIvI" : {
+      "value" : "poll1"
+    },
+    "-KoSiihs02wl5U5LcA96" : {
+      "value" : "2222"
+    },
+    "-KoSilfSQxSI7Mq3OgKO" : {
+      "value" : "333"
+    }
+  },
+  "users":{
+    "value":"zo"
+  }
+}
