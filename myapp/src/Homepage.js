@@ -29,7 +29,7 @@ function displayMessage(answerable, daye, question) {
 https://console.firebase.google.com/project/ucsb-polls/firestore/data~2Fpolls?hl=zh-cn
 
 <script src="/__/firebase/init.js"></script>
-*/
+
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
 
@@ -40,16 +40,34 @@ https://console.firebase.google.com/project/ucsb-polls/firestore/data~2Fpolls?hl
 <script>
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyCmZ272B89syKA0FNLa7ujYHvfI60YB2M0",
-    authDomain: "ucsb-polls.firebaseapp.com",
-    projectId: "ucsb-polls",
-    storageBucket: "ucsb-polls.appspot.com",
-    messagingSenderId: "989606767140",
-    appId: "1:989606767140:web:cf485612653f0ba2a186b1",
-    measurementId: "G-0HG55T6LG9"
-  };
+  */
+var firebaseConfig = {
+	apiKey: "AIzaSyCmZ272B89syKA0FNLa7ujYHvfI60YB2M0",
+   	authDomain: "ucsb-polls.firebaseapp.com",
+    	projectId: "ucsb-polls",
+    	storageBucket: "ucsb-polls.appspot.com",
+    	messagingSenderId: "989606767140",
+    	appId: "1:989606767140:web:cf485612653f0ba2a186b1",
+    	measurementId: "G-0HG55T6LG9"
+};
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
+firebase.initializeApp(firebaseConfig);
+var database=firebase.database();
+database.ref('/').once('value', function(snapshot){
+  console.log(snapshot.val());
+});
+
+//var rootRef=database().ref();
+var rootRef = database.ref('/');
+rootRef.once('value', function(snapshot){
+  console.log(snapshot.val());
+});
+poolDataRef = database.ref("/pools");
+//const pools=db.child('pools');
+database.ref('/pools').once('value', function(snapshot){
+  snapshot.forEach(function(data){
+    console.log("Below are the child keys of the values in 'pools'")
+    console.log(data.key);
+  });
+  console.log(Object.keys(snapshot.val()));
+});
