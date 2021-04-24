@@ -4,8 +4,7 @@ const path = require('path');
 const bodyParser = require("body-parser");
 
 
-// Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
+// Firebase App (the core Firebase SDK)
 var firebase = require("firebase/app");
 require("firebase/firestore");
 
@@ -24,22 +23,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-
-// This will just immediately write into the database whenever the server is ran. 
-// db.collection("users").add({
-//   first: "Ada",
-//   last: "Lovelace",
-//   born: 1815
-// })
-// .then((docRef) => {
-//   console.log("Document written with ID: ", docRef.id);
-// })
-// .catch((error) => {
-//   console.error("Error adding document: ", error);
-// });
-
-
-
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'myapp/build')));
 
@@ -47,8 +30,6 @@ app.use(express.static(path.join(__dirname, 'myapp/build')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/myapp/build/index.html'))
   });
-
-
 
 // why does it say this is deprecated??? Only started working after I added this line
 app.use(bodyParser.json());
@@ -60,34 +41,61 @@ app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 
 
+
+//
+
 // BEGIN REQUESTS
+
+//
+
 
 //adds new user
 app.post("/addNewUser", (req, res) => {
   console.log("Server requested to add new user to DB");
   console.log("request: ", req.body);
 
-  db.collection("users").doc(req.body.id).set({
+  db.collection("users").doc(req.body.email).set({
     name: req.body.name,
-    num: 50,
-    })
+    email: req.body.email,
+    //id: req.body.id,
+    num: 53,
+    role: "admin",
+    }, {merge: true})
     .then(function () {
       console.log("Doc Succesfully Written");
     })
     .catch(function (error) {
       console.error("Error caught: ", error);
     });
-
-    //this can be removed tbh, doesn't do anything
-    res.write("Done");
-  
 });
 
+// get user information 
+app.get('/getUser/:userID', (req, res) => {
+  console.log("Client has requested server to get user information.");
+  var userdoc = db.collection("users").doc(req.params.userID);
+
+  userdoc.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        res.send(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+});
+
+app.get('/users/:userId/books/:bookId', function (req, res) {
+  res.send(req.params)
+})
+
+
+//add new poll
 app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);
-
-  
 
   db.collection("polls").doc(req.body.id).set({
     name: req.body.name,
@@ -105,9 +113,7 @@ app.post("/addNewPoll", (req, res) => {
 });
 
 
-
-// get poll
-
+// get poll 
 app.get("/getPoll", (req, res) => {
   console.log("Client has requested server to get a poll.");
   var pollDoc = db.collection("polls").doc(req.header('pollID'));
@@ -131,7 +137,3 @@ app.get("/getPoll", (req, res) => {
 
 
 
-app.listen(PORT, () => {
-  console.log(`Listening on http://localhost:${PORT}`);
-
-});

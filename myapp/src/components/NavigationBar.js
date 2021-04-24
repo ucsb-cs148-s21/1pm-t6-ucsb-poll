@@ -1,12 +1,39 @@
 //https://react-bootstrap.github.io/components/navbar/
-
 import React, {Component, useState} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import AuthenticationButton from "./login/AuthenticationButton";
-//import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import useSWR from "swr";
 
 
 export function NavigationBar ({isAdmin, isMember, adminPages}) {
+    const { user, getAccessTokenSilently: getToken } = useAuth0();
+    const addNewUser = async (event) => {
+        const url = "/addNewUser";
+        try {
+            const result = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: user.name,
+                    email: user.email,
+                    //id: "" + getToken,
+                }),
+            });
+            console.log(`result=${JSON.stringify(result)}`)
+            return result;
+        } catch (err) {
+            console.log(`err=${err}`)
+        }
+    };
+    
+    const handleOnClick = async (e) => {
+        e.preventDefault();
+        const answer = await addNewUser(e);
+    }
+
         return (
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#home">
@@ -56,62 +83,79 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
     
 }
 
-const addNewUser = async (_event) => {
-    const url = "/addNewUser";
-
-    try {
-        const result = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: "John Smith",
-                id: "johnsmith22@temp.com",
-            }),
-        });
-        console.log(`result=${JSON.stringify(result)}`)
-        return result;
-    } catch (err) {
-        console.log(`err=${err}`)
-    }
-};
-
-const handleOnClick = async (e) => {
-    e.preventDefault();
-    const answer = await addNewUser(e);
-}
-
-
-
 
 function AppNavigationBar() {
-    // const { getAccessTokenSilently: getToken } = useAuth0();
-    // const { isAuthenticated, loginWithRedirect, logout} = useAutho0();
-    // const { data: roleInfo } = useSWR(
-    //   ["/api/myRole", getToken],
-    //   fetchWithToken
-    // );
+    const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
+    if (isAuthenticated)
+        var email = user.email;
+    else
+        var email = "temp";
+    const { user: userData1 } = useSWR(
+        `/getUser/${email}`,
+        fetch
+     );
+    console.log("swr: ", JSON.stringify(userData1))
+    console.log("email: ", email);
+    const url = `/getUser/${email}`;
+    var userData;
+    try {
+            userData = fetch(url, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    //Authorization: `Bearer ${accessToken}`,
+
+                },
+
+            });
+            console.log(`result=${JSON.stringify(userData)}`)
+        } catch (err) {
+            console.log(`err=${err}`)
+    }
+    
+
+
+    // const getUserInfo = () => {
+    //     fetch(`/getUser/${email}`)
+    //       .then(result => result.json())
+    //       .then(body => setAssociations(body));
+    //   }; https://rapidapi.com/blog/create-react-app-express/
+
+
+    
     // const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
     // const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
+    // const getUser = async (event) => {
+    //     const url = "/getUser";
+    //     try {
+    //         const result = await fetch(url, {
+    //             method: "GET",
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `Bearer ${accessToken}`,
 
+    //             },
+    //             body: JSON.stringify({
+    //                 id: getToken,
+    //             }),
+    //         });
+    //         console.log(`result=${JSON.stringify(result)}`)
+    //         return result;
+    //     } catch (err) {
+    //         console.log(`err=${err}`)
+    //     }
+    // };
+    console.log("user data1:", (userData));
+    console.log("user data", JSON.stringify(userData));
+    const isAdmin = userData && userData.role && userData.role.toLowerCase() === "admin";
 
-
-    /* 
-        return (
-            <div>
-            {!isAuthenticated && (
-                <button onClick={() => loginWithRedirect({})}>Log in</button>
-            )}
-            {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-            </div>
-        );
-    */
     const adminPages = [
         {link:"/admin", name:"Maintain Admins",},
         {link:"/admin/polls", name:"Moderate Polls",},
       ];
-    return (<NavigationBar isAdmin={true} isMember={true} adminPages = {adminPages}/>);
+
+
+    return (<NavigationBar isAdmin={isAdmin} isMember={isAuthenticated} adminPages = {adminPages}/>);
 
 }
 
