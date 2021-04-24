@@ -49,3 +49,11 @@ A brief assessment of how it went.
 What advice would you give to the next person leading a retro
   based on what you learned today?
 - Be more prepared to get other people involved in the discussion.
+
+
+## Outcome
+**Goal:** Sprints should be more clear with concrete goals and deadlines \
+**Outcome:** More streamlined development process. We have a better idea of what we are going to do and a clearer timeline after having a sprint02 planning meeting. \
+
+**Goal:**  Kanban board and user stories should be more clear. \
+**Outcome:** We cut down on Kanban board acceptance criteria, and focused on issues that should be done for the MVP. This has made work on certain user stories less confusing and vague. \
