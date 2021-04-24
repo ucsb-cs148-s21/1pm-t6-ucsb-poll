@@ -26,20 +26,15 @@ const db = firebase.firestore();
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'myapp/build')));
 
-// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/myapp/build/index.html'))
-  });
+app.get("/", function (req, res) {
+  res.render("index.html");
+});
 
 // why does it say this is deprecated??? Only started working after I added this line
 app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
-
-
-
-
 
 
 //
@@ -70,7 +65,7 @@ app.post("/addNewUser", (req, res) => {
 });
 
 // get user information 
-app.get('/getUser/:userID', (req, res) => {
+app.get('/api/getUser/:userID', (req, res) => {
   console.log("Client has requested server to get user information.");
   var userdoc = db.collection("users").doc(req.params.userID);
 
@@ -86,6 +81,7 @@ app.get('/getUser/:userID', (req, res) => {
     console.log("Error getting document:", error);
   });
 });
+
 
 app.get('/users/:userId/books/:bookId', function (req, res) {
   res.send(req.params)

@@ -1,5 +1,5 @@
 //https://react-bootstrap.github.io/components/navbar/
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import AuthenticationButton from "./login/AuthenticationButton";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -19,7 +19,6 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                 body: JSON.stringify({
                     name: user.name,
                     email: user.email,
-                    //id: "" + getToken,
                 }),
             });
             console.log(`result=${JSON.stringify(result)}`)
@@ -33,6 +32,7 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
         e.preventDefault();
         const answer = await addNewUser(e);
     }
+
 
         return (
             <Navbar bg="light" expand="lg">
@@ -86,68 +86,23 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
 
 function AppNavigationBar() {
     const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
+
     if (isAuthenticated)
         var email = user.email;
     else
         var email = "temp";
-    const { user: userData1 } = useSWR(
-        `/getUser/${email}`,
-        fetch
-     );
-    console.log("swr: ", JSON.stringify(userData1))
-    console.log("email: ", email);
-    const url = `/getUser/${email}`;
-    var userData;
-    try {
-            userData = fetch(url, {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    //Authorization: `Bearer ${accessToken}`,
+        
 
-                },
+    //
+    // THIS WORKS
+    //
+    const fetcher = url => fetch(url).then(res => res.json())
+    const { data } = useSWR(
+        `/api/getUser/${email}`,
+        fetcher
+        );
+    const isAdmin2 = data && data.role === "admin";
 
-            });
-            console.log(`result=${JSON.stringify(userData)}`)
-        } catch (err) {
-            console.log(`err=${err}`)
-    }
-    
-
-
-    // const getUserInfo = () => {
-    //     fetch(`/getUser/${email}`)
-    //       .then(result => result.json())
-    //       .then(body => setAssociations(body));
-    //   }; https://rapidapi.com/blog/create-react-app-express/
-
-
-    
-    // const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
-    // const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
-    // const getUser = async (event) => {
-    //     const url = "/getUser";
-    //     try {
-    //         const result = await fetch(url, {
-    //             method: "GET",
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 Authorization: `Bearer ${accessToken}`,
-
-    //             },
-    //             body: JSON.stringify({
-    //                 id: getToken,
-    //             }),
-    //         });
-    //         console.log(`result=${JSON.stringify(result)}`)
-    //         return result;
-    //     } catch (err) {
-    //         console.log(`err=${err}`)
-    //     }
-    // };
-    console.log("user data1:", (userData));
-    console.log("user data", JSON.stringify(userData));
-    const isAdmin = userData && userData.role && userData.role.toLowerCase() === "admin";
 
     const adminPages = [
         {link:"/admin", name:"Maintain Admins",},
@@ -155,9 +110,64 @@ function AppNavigationBar() {
       ];
 
 
-    return (<NavigationBar isAdmin={isAdmin} isMember={isAuthenticated} adminPages = {adminPages}/>);
+    return (<NavigationBar isAdmin={isAdmin2} isMember={isAuthenticated} adminPages = {adminPages}/>);
 
 }
 
 
 export default AppNavigationBar;
+
+
+
+//one way
+/*
+    async function getUser() {
+        try {
+            let res = await fetch(`/api/getUser/${email}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+            return await res.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    let currentuser = getUser();
+    var role;
+    var role2;
+    //var isAdmin;
+    currentuser.then(function(result) {
+        console.log("result:", result);
+        role = result.role;
+        console.log("role1: ", role);
+
+     })
+
+*/
+
+
+//another way
+
+/*
+    fetch(`/api/getUser/${email}`, {
+        method: "GET",
+        headers: {
+             Accept: "application/json",
+            "Content-Type": "application/json",
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("real data: ", data);
+        role2 = data.role;
+        console.log("role2: ", role2);
+        var isAdmin3 = role2 === "admin";
+        console.log("isadmin3: ", isAdmin3);
+        //if (isAdmin3)
+                //setAdmin(true);
+
+    });
+*/
