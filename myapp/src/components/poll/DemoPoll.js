@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './DemoPoll.styles.css' // style sheets for making polls look nice later
+import './DemoPoll.css' // style sheets for making polls look nice later
 
 const list = [
   {
@@ -111,11 +111,11 @@ class DemoPoll extends Component {
                     {!submitted ? (
                         <DiningCom key={member.id} id={member.id} name={member.name} votes={member.votes} onVote={this.handleEvent} />
                     ) : (
-                        <div className={styles.result} style={{ color: colors[2], borderColor: colors[1] }}>
-                          <div className={styles.fill} style={{ width: this.calculatePercent(member.votes, totalVotes), backgroundColor: colors[2] }} />
+                        <div className="result" style={{ color: colors[2], borderColor: colors[1] }}>
+                          <div className="fill" style={{ width: this.calculatePercent(member.votes, totalVotes), backgroundColor: colors[2] }} />
                           <div>
-                              <span className={styles.percent} style={{ color: colors[0] }}>{this.calculatePercent(member.votes, totalVotes)}</span>
-                              <span className={styles.answer} style={{ color: colors[0] }}> {member.name}</span>
+                              <span className="result" >{this.calculatePercent(member.votes, totalVotes)}</span>
+                              <span className="result" > {member.name}</span>
                           </div>
                           
                         </div>
@@ -123,7 +123,7 @@ class DemoPoll extends Component {
                 </div>
             ))}
             {voted && !submitted &&  <SubmitButton onSubmit={this.handleSubmit} />}
-            <p className={styles.votes}>{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</p>
+            <div className="votes">{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</div>
         </div>
     );
   }

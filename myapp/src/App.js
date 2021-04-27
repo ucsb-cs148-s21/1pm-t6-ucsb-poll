@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./components/poll/DemoPoll";
+import NewVote from "./components/NewPolls/NewVote";
 
 class App extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class App extends Component {
       posts: []
     };
   }
+
 
   componentDidMount() {
     const url = "https://jsonplaceholder.typicode.com/posts";
@@ -39,6 +41,7 @@ class App extends Component {
                 </div>
                 <DemoPoll />
                
+               
                 <div class="card-footer">
                   <small class="text-muted">?seconds ago(open)</small>
                 </div>
@@ -46,6 +49,11 @@ class App extends Component {
           
         </div>
         </div>
+        
+        </div>
+        <div class="card">
+        <div class="card-header">Create a New Poll</div>
+        <NewVote />
         </div>
 
         <div class="card">
