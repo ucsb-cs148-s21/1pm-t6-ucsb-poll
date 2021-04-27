@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./components/poll/DemoPoll";
+import HelloMessage from "./hom.js";
 
 class App extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class App extends Component {
         </div>
         </div>
         </div>
-
+        <HelloMessage name="Taylor" />
         <div class="card">
           <div class="card-header">popular polls</div>
           <div class="card-body">
