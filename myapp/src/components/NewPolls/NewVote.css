@@ -1,0 +1,39 @@
+.new-action {
+  background-color:  white;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 100rem;
+  max-width: 95%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+.new-action button {
+  font: inherit;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 1px solid green;
+  background-color: green;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+}
+
+.new-action button:hover,
+.new-action button:active {
+  background-color: greenyellow;
+  border-color: greenyellow;
+}
+
+.new-action button.alternative {
+  color: green;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.new-action button.alternative:hover,
+.new-action button.alternative:active {
+  background-color: green;
+}

@@ -1,0 +1,43 @@
+.new-title__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  
+}
+
+.new-title__control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+  color:Green;
+}
+
+.new-title__control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 20rem;
+  max-width: 100%;
+}
+.new-VoteOp__control label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.new-VoteOp__control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 60rem;
+  max-width: 100%;
+}
+
+
+
+.new-expense__actions {
+  text-align: right;
+}
