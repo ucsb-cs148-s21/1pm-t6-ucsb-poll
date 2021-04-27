@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import styles from './DemoPoll.styles.css' // style sheets for making polls look nice later
+// import styles from './DemoPoll.module.css' // style sheets for making polls look nice later
+
 
 const list = [
   {
@@ -111,11 +112,11 @@ class DemoPoll extends Component {
                     {!submitted ? (
                         <DiningCom key={member.id} id={member.id} name={member.name} votes={member.votes} onVote={this.handleEvent} />
                     ) : (
-                        <div className={styles.result} style={{ color: colors[2], borderColor: colors[1] }}>
-                          <div className={styles.fill} style={{ width: this.calculatePercent(member.votes, totalVotes), backgroundColor: colors[2] }} />
+                        <div  style={{ color: colors[2], borderColor: colors[1] }}>
+                          <div  style={{ width: this.calculatePercent(member.votes, totalVotes), backgroundColor: colors[2] }} />
                           <div>
-                              <span className={styles.percent} style={{ color: colors[0] }}>{this.calculatePercent(member.votes, totalVotes)}</span>
-                              <span className={styles.answer} style={{ color: colors[0] }}> {member.name}</span>
+                              <span style={{ color: colors[0] }}>{this.calculatePercent(member.votes, totalVotes)}</span>
+                              <span style={{ color: colors[0] }}> {member.name}</span>
                           </div>
                           
                         </div>
@@ -123,7 +124,7 @@ class DemoPoll extends Component {
                 </div>
             ))}
             {voted && !submitted &&  <SubmitButton onSubmit={this.handleSubmit} />}
-            <p className={styles.votes}>{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</p>
+            <p className="votes">{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</p>
         </div>
     );
   }
@@ -135,7 +136,7 @@ class DiningCom extends Component {
   handleClick = () => this.props.onVote(this.props.id);
   render() {
     return (
-      <div className="App">
+      <div>
         {this.props.name} <button onClick={this.handleClick}>+</button> {this.props.votes}
       </div>
     );

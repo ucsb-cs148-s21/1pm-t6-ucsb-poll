@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.votes { /* for the total votes at the bottom of the poll*/
+  margin-top: 40px;
+  margin-bottom: 0;
+  margin-bottom: 0;
+  color: gray;
+}
+
+

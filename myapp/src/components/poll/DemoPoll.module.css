@@ -6,9 +6,3 @@
     align-items: center;
   }
 
-.votes { /* for the total votes at the bottom of the poll*/
-  padding-top: 40;
-  padding-bottom: 0;
-  margin-bottom: 0;
-  color: "gray";
-}

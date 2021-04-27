@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./components/poll/DemoPoll";
 
+import './index.css'
+import './App.css'
+
 class App extends Component {
   constructor(props) {
     super(props);
