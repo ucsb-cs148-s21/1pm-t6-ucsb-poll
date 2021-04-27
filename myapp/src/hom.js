@@ -6,6 +6,7 @@ import { ThemeProvider } from 'react-bootstrap';
 
 
 
+
 <body>
 <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js">
 </script>
@@ -27,80 +28,274 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 var db = firebase.firestore();
-/*
-function asyncFunction(list){
-  setTimeout(function(){
-    db.collection("users").get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc)  {
-          console.log(`${doc.id} => ${doc.data().name}`);
-          list.push(`${doc.data().name}`)  
-      });
-  });
-  });
-}
-*/
-class Poll {
-  constructor (answerable, date, question ) {
-      this.answerable = answerable;
-      this.date = date;
-      this.question = question;
-  }
-}
-// Firestore data converter
-const pollConverter = {
-  toFirestore: function(poll) {
-      return {
-          answerable: poll.answerable,
-          date: poll.date,
-          question: poll.question
-          };
-  },
-  fromFirestore: function(snapshot, options){
-      const data = snapshot.data(options);
-      return new Poll(data.answerable, data.date, data.question);
-  }
-};
+
 
 const initialList = [];
+function checkbut(num){
+  if(num=="(open)")
+  {return (<a href="#" class="btn btn-primary">
+    go to vote
+  </a>)
+  }
+  if(num=="(close)"){
+  return(
+    <a href="#" class="btn btn-primary">
+    view result
+  </a>)}
 
-function HelloMessage(){
-  const [list, setList] = React.useState(initialList);
-  db.collection("polls").orderBy("date").limit(6).onSnapshot("value", function(snapshot) {
-      snapshot.forEach(function(data) {
-        const newList = list.concat(JSON.stringify(data.data()))
-        setList(newList);
+}
+function Poppoll(){
+  const [qlist, setqList] = React.useState(initialList);
+  const qpo=[];
+  const [alist, setaList] = React.useState(initialList);
+  const apo=[];
+  const [dlist, setdList] = React.useState(initialList);
+  const dpo=[];
+  db.collection("polls").orderBy("attend").limit(6).onSnapshot("value", function(snapshot) {
+      snapshot.forEach(function(doc) {
+        //const newList = list.concat(JSON.stringify(`${doc.data().question}`))
+       // setList(newList);
+       qpo.push(JSON.stringify(`${doc.data().question}`));
+       if(`${doc.data().answerable}`=='false'){
+         apo.push('(close)')
+       }else{
+         apo.push('(open)')
+       }
+       let today=new Date();
+       dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+       
+
       });
-
+      setqList(qpo); 
+      setaList(apo);
+      setdList(dpo);
   });
 
   return (
-    <div>{list}</div>
+    <div class="card">
+          <div class="card-header">popular polls</div>
+          <div class="card-body">
+            <div class="card-columns">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[0]}</h5>
+                  {checkbut(alist[0])}
+                </div>
+                <div class="card-footer">
+  <small class="text-muted">{dlist[0]}days ago{alist[0]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[1]}</h5>
+                  {checkbut(alist[1])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[1]}days ago{alist[1]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[2]}</h5>
+                  {checkbut(alist[2])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[2]}days ago{alist[2]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[3]}</h5>
+                  {checkbut(alist[3])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[3]}days ago{alist[3]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[4]}</h5>
+                  {checkbut(alist[4])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[4]}days ago{alist[4]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[5]}</h5>
+                  {checkbut(alist[5])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[5]}days ago{alist[5]}</small>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="btn btn-primary">
+              view all
+            </a>
+          </div>
+        </div>
   );
 }
-// class HelloMessage extends React.Component {
-//     render() {
-//       var list=[];
-//   var poppp=[];
+
+function Repoll(){
+  const [qlist, setqList] = React.useState(initialList);
+  const qpo=[];
+  const [alist, setaList] = React.useState(initialList);
+  const apo=[];
+  const [dlist, setdList] = React.useState(initialList);
+  const dpo=[];
+  db.collection("polls").orderBy("date","desc").limit(6).onSnapshot("value", function(snapshot) {
+      snapshot.forEach(function(doc) {
+        //const newList = list.concat(JSON.stringify(`${doc.data().question}`))
+       // setList(newList);
+       qpo.push(JSON.stringify(`${doc.data().question}`));
+       if(`${doc.data().answerable}`=='false'){
+         apo.push('(close)')
+       }else{
+         apo.push('(open)')
+       }
+       let today=new Date();
+       dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
        
-//   db.collection("polls").orderBy("date").limit(6).onSnapshot("value", function(snapshot) {
-//       var questions = [];
-//       snapshot.forEach(function(data) {
-//           questions.push(data.data().question);
-//           poppp.push(data.data().question);
-//       });
-//       poppp.push(questions);
-//   });
-//     console.log("here")
-//     console.log(poppp)
-//     console.log(poppp.length)
-//     console.log(poppp[0])
-//     // console.log(poppp[2][0])
-//       return ( 
-//         <div>
-//           {list[0]}
-//         </div>
-//       );
-      
-//    }
-// }
-export default HelloMessage;
+
+      });
+      setqList(qpo); 
+      setaList(apo);
+      setdList(dpo);
+  });
+
+  return (
+    <div class="card">
+          <div class="card-header">recent polls</div>
+          <div class="card-body">
+            <div class="card-columns">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[0]}</h5>
+                  {checkbut(alist[0])}
+                </div>
+                <div class="card-footer">
+  <small class="text-muted">{dlist[0]}days ago{alist[0]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[1]}</h5>
+                  {checkbut(alist[1])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[1]}days ago{alist[1]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[2]}</h5>
+                  {checkbut(alist[2])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[2]}days ago{alist[2]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[3]}</h5>
+                  {checkbut(alist[3])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[3]}days ago{alist[3]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[4]}</h5>
+                  {checkbut(alist[4])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[4]}days ago{alist[4]}</small>
+                </div>
+              </div>
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src=".../100px180/?text=poll result graph"
+                  alt="result"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{qlist[5]}</h5>
+                  {checkbut(alist[5])}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{dlist[5]}days ago{alist[5]}</small>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="btn btn-primary">
+              view all
+            </a>
+          </div>
+        </div>
+  );
+}
+
+function Apoll(){
+  return(<div>{Poppoll()}{Repoll()}</div>)
+}
+
+export default Apoll;
