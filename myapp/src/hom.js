@@ -4,6 +4,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import { ThemeProvider } from 'react-bootstrap';
 
+import useSWR from "swr";
 
 
 
@@ -46,30 +47,22 @@ function checkbut(num){
 }
 function Poppoll(){
   const [qlist, setqList] = React.useState(initialList);
-  const qpo=[];
   const [alist, setaList] = React.useState(initialList);
-  const apo=[];
   const [dlist, setdList] = React.useState(initialList);
-  const dpo=[];
-  db.collection("polls").orderBy("attend").limit(6).onSnapshot("value", function(snapshot) {
-      snapshot.forEach(function(doc) {
-        //const newList = list.concat(JSON.stringify(`${doc.data().question}`))
-       // setList(newList);
-       qpo.push(JSON.stringify(`${doc.data().question}`));
-       if(`${doc.data().answerable}`=='false'){
-         apo.push('(close)')
-       }else{
-         apo.push('(open)')
-       }
-       let today=new Date();
-       dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
-       
 
-      });
-      setqList(qpo); 
-      setaList(apo);
-      setdList(dpo);
-  });
+  const fetcher = url => fetch(url)
+    .then(res => (res.json()))
+    .then(data => {
+      console.log("data: ", data);
+      setqList(data[0]);
+      setaList(data[1]);
+      setdList(data[2]);
+    });
+  const { data } = useSWR(
+    '/api/getPopularPollInformation',
+    fetcher
+  );
+
 
   return (
     <div class="card">
@@ -191,10 +184,24 @@ function Repoll(){
        
 
       });
-      setqList(qpo); 
-      setaList(apo);
-      setdList(dpo);
+      // setqList(qpo); 
+      // setaList(apo);
+      // setdList(dpo);
   });
+
+  const fetcher = url => fetch(url)
+  .then(res => (res.json()))
+  .then(data => {
+    console.log("data: ", data);
+    setqList(data[0]);
+    setaList(data[1]);
+    setdList(data[2]);
+  });
+  const { data } = useSWR(
+    '/api/getRecentPollInformation',
+    fetcher
+  );
+
 
   return (
     <div class="card">

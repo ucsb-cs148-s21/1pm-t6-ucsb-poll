@@ -37,6 +37,115 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 
+
+
+
+// //const [qlist, setqList] = React.useState(initialList);
+// const qpo=[];
+// //const [alist, setaList] = React.useState(initialList);
+// const apo=[];
+// //const [dlist, setdList] = React.useState(initialList);
+// const dpo=[];
+
+// db.collection("polls").orderBy("attend").limit(6).onSnapshot("value", function(snapshot) {
+//   snapshot.forEach(function(doc) {
+//     //const newList = list.concat(JSON.stringify(`${doc.data().question}`))
+//    // setList(newList);
+//    qpo.push(JSON.stringify(`${doc.data().question}`));
+//    if(`${doc.data().answerable}`=='false'){
+//      apo.push('(close)')
+//    }else{
+//      apo.push('(open)')
+//    }
+//    let today=new Date();
+//    dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+   
+
+//   });
+//   console.log("Lists: " );
+//   console.log(qpo);
+//   console.log(apo, dpo);
+//   const nestedArray = [];
+//   nestedArray.push(qpo);
+//   nestedArray.push(apo);
+//   nestedArray.push(dpo);
+//   console.log(nestedArray);
+//   console.log("JSON:");
+// }); 
+
+app.get('/api/getPopularPollInformation', (req, res) => {
+  console.log("Client has requested server to get popular poll information.");
+  const qpo=[];
+  const apo=[];
+  const dpo=[];
+  db.collection("polls").orderBy("attend").limit(6).onSnapshot("value", function(snapshot) {
+    snapshot.forEach(function(doc) {
+     qpo.push(JSON.stringify(`${doc.data().question}`));
+     if(`${doc.data().answerable}`=='false'){
+       apo.push('(close)')
+     }else{
+       apo.push('(open)')
+     }
+     let today=new Date();
+     dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+     
+  
+    });
+    console.log("Lists: " );
+    console.log(qpo);
+    console.log(apo, dpo);
+    const nestedArray = [];
+    nestedArray.push(qpo);
+    nestedArray.push(apo);
+    nestedArray.push(dpo);
+    console.log("arr: ", nestedArray);
+    res.json(nestedArray);
+  
+  }); 
+
+  // res.render('info', {
+  //   pollInfo : JSON.stringify(nestedArray),
+  // });
+});
+
+app.get('/api/getRecentPollInformation', (req, res) => {
+  console.log("Client has requested server to get recent poll information.");
+  const qpo=[];
+  const apo=[];
+  const dpo=[];
+  db.collection("polls").orderBy("date","desc").limit(6).onSnapshot("value", function(snapshot) {
+    snapshot.forEach(function(doc) {
+     qpo.push(JSON.stringify(`${doc.data().question}`));
+     if(`${doc.data().answerable}`=='false'){
+       apo.push('(close)')
+     }else{
+       apo.push('(open)')
+     }
+     let today=new Date();
+     dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+     
+  
+    });
+    console.log("Lists: " );
+    console.log(qpo);
+    console.log(apo, dpo);
+    const nestedArray = [];
+    nestedArray.push(qpo);
+    nestedArray.push(apo);
+    nestedArray.push(dpo);
+    console.log("arr: ", nestedArray);
+    res.json(nestedArray);
+  
+  }); 
+
+  // res.render('info', {
+  //   pollInfo : JSON.stringify(nestedArray),
+  // });
+});
+
+
+
+
 //
 
 // BEGIN REQUESTS
@@ -126,6 +235,4 @@ app.get("/getPoll", (req, res) => {
     console.log("Error getting document:", error);
   });
 });
-
-
 
