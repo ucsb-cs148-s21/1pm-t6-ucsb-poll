@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./components/poll/DemoPoll";
 import NewVote from "./components/NewPolls/NewVote";
-import Apoll from "./hom.js";
+import Apoll from "./components/homePagePolls.js";
 
 
 import './index.css'
