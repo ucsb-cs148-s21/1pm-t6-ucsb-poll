@@ -3,7 +3,7 @@ import NavigationBar from "./components/NavigationBar.js";
 import DemoPoll from "./components/poll/DemoPoll";
 import NewVote from "./components/NewPolls/NewVote";
 import Apoll from "./components/homePagePolls.js";
-
+import PollResults from "./components/NewPolls/NewPollResults.js"
 
 import './index.css'
 import './App.css'
@@ -50,11 +50,11 @@ class App extends Component {
                 <div class="card-footer">
                   <small class="text-muted">?seconds ago(open)</small>
                 </div>
+                <PollResults pollID = "FFcmP1ZAsVc2eYWNNk9Y" />
               </div>
           
         </div>
         </div>
-        
         </div>
         <div class="card">
         <div class="card-header">Create a New Poll</div>
