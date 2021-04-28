@@ -25,7 +25,7 @@ function Poppoll(){
   const fetcher = url => fetch(url)
     .then(res => (res.json()))
     .then(data => {
-      console.log("data: ", data);
+      //console.log("data: ", data);
       setqList(data[0]);
       setaList(data[1]);
       setdList(data[2]);
@@ -141,7 +141,7 @@ function Repoll(){
   const fetcher = url => fetch(url)
   .then(res => (res.json()))
   .then(data => {
-    console.log("data: ", data);
+    //console.log("data: ", data);
     setqList(data[0]);
     setaList(data[1]);
     setdList(data[2]);
