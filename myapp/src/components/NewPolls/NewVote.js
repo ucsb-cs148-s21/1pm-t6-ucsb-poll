@@ -7,9 +7,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import { ThemeProvider } from 'react-bootstrap';
 
-
-
-
 <body>
 <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js">
 </script>
@@ -41,7 +38,7 @@ const NewVote = (props) => {
       ...enteredVoteData,
       id: Math.random().toString(),
     };
-    db.collection("usertest").add(VoteData)
+    db.collection("NewPolls").add(VoteData)
   .then((docRef) => {
       console.log("Document written with ID: ", docRef.id);
   })
