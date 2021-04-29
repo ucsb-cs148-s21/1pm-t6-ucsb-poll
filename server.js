@@ -38,9 +38,6 @@ app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 
 
-
-
-
 //
 
 // BEGIN REQUESTS
@@ -87,9 +84,39 @@ app.get('/api/getUser/:userID', (req, res) => {
 });
 
 
-app.get('/users/:userId/books/:bookId', function (req, res) {
-  res.send(req.params)
-})
+//add new vote
+app.post("/api/addVote", (req, res) => {
+  console.log("Server requested to vote on poll");
+  console.log("request: ", req.body);
+
+  //TODO: Update profile information to show that the user has now voted. 
+
+  if (req.body.option === 0) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option0" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  else if (req.body.option === 1) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option1" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  else if (req.body.option === 2) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option2" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  else if (req.body.option === 3) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option3" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+
+});
 
 
 //add new poll
@@ -103,6 +130,7 @@ app.post("/addNewPoll", (req, res) => {
     date: firebase.firestore.Timestamp.fromDate(new Date("December 10, 2010")), 
     options: req.body.options,
     question: req.body.question,
+    
     })
     .then(function () {
       console.log("Doc Succesfully Written");
