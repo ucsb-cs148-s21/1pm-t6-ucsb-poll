@@ -115,11 +115,13 @@ app.post("/api/addVote", (req, res) => {
     })
   }
 
+  res.send()
 
 });
 
 
-//add new poll
+//add new poll 
+// TODO: update for new options structure
 app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);

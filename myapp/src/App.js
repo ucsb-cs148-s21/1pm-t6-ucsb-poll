@@ -41,7 +41,7 @@ class App extends Component {
           <div class="card-body">
             <div class="card-columns">
               <div class="card">
-                <div class="card-body">
+                {/* <div class="card-body">
                   <h2 class="card-title">Vote For Your Favorite Dining Commons!</h2>
 
                 </div>
@@ -50,7 +50,7 @@ class App extends Component {
                
                 <div class="card-footer">
                   <small class="text-muted">?seconds ago(open)</small>
-                </div>
+                </div> */}
                 <PollResults pollID = "FFcmP1ZAsVc2eYWNNk9Y" />
               </div>
           
