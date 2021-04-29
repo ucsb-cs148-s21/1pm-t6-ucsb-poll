@@ -141,7 +141,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
   const qpo=[];
   const apo=[];
   const dpo=[];
-  db.collection("polls").orderBy("attend").limit(6).get() 
+  db.collection("polls").orderBy("attend","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         qpo.push(JSON.stringify(`${doc.data().question}`));
