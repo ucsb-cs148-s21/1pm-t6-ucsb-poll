@@ -59,7 +59,6 @@ class PollResults extends Component {
     }
 
     handleUnvote = (e, member) => { // vote removed
-        console.log("HELLLLP")
         const orig = this.state.members
         for (var i = 0; i < orig.length; i++) {
             if (member.name === orig[i].name) {
