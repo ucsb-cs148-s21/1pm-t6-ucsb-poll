@@ -23,7 +23,9 @@ class PollResults extends Component {
         question: this.props.question,
         seconds: this.props.seconds,
         answerable: this.props.answerable,
-        voted: !(this.props.answerable)
+        voted: !(this.props.answerable),
+        pollID: this.props.pollID,
+        totalVotes: 0
     }
 
     componentDidMount() {
@@ -32,21 +34,30 @@ class PollResults extends Component {
             question: this.props.question,
             seconds: this.props.seconds,
             answerable: this.props.answerable,
-            voted: !(this.props.answerable)
-
+            voted: !(this.props.answerable),
+            pollID: this.props.pollID,
+            totalVotes: this.sumVotes()
         });
+
     }
 
 
     // handleVote = e => console.log('button clicked for ' + e);
     // handleUnvote = e => console.log('button clicked for ' + e);
 
+    sumVotes = () => {
+        const tot = this.state.members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
+
+        return tot
+
+    }
 
     handleVote = (e, member) => { // vote added
         const orig = this.state.members
         for (var i = 0; i < orig.length; i++) {
             if (member.name === orig[i].name) {
                 orig[i].chosen = true
+                orig[i].voteCount += 1
             };
 
         }
@@ -63,6 +74,7 @@ class PollResults extends Component {
         for (var i = 0; i < orig.length; i++) {
             if (member.name === orig[i].name) {
                 orig[i].chosen = false
+                orig[i].voteCount -= 1
             };
 
         }
@@ -73,11 +85,46 @@ class PollResults extends Component {
         
     }
 
-    handleSubmit = () => {
+    addVote = async (o) =>{
+        const url = "/api/addVote";
+        try {
+            const result = fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    pollID: this.state.pollID, //add the poll ID here
+                    option: o, //number represents which option you want to vote on 
+                }),
+            });
+            console.log(`result=${JSON.stringify(result)}`);
+
+            return result
+
+
+        } catch (err) {
+            console.log(`err=${err}`)
+        } 
+    }
+
+    handleSubmit = async () => {
+        var o = -1 // option number
+        for (var i = 0; i < this.state.members.length; i++) {
+            if (this.state.members[i].chosen === true) {
+                o = i
+            };
+        }
+
+        const answer = await this.addVote(o);
+        
+
+
         this.setState({
-            answerable: false
-          });
-      }
+            answerable: false,
+            totalVotes: this.sumVotes()
+            });
+    }
 
 
 
@@ -90,8 +137,7 @@ class PollResults extends Component {
 
 
     render() {
-        const { members, question, seconds, answerable, voted } = this.state
-        const totalVotes = members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
+        const { members, question, seconds, answerable, voted, totalVotes } = this.state
         return (
           <div class="card">
             <div class="card-body">
@@ -142,7 +188,7 @@ class PollResults extends Component {
 
 }
 
-function FormatResults(votes, options, question, seconds, answerable) {
+function FormatResults(votes, options, question, seconds, answerable, pollID) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
@@ -158,7 +204,13 @@ function FormatResults(votes, options, question, seconds, answerable) {
     if (!answerable) return ("No answerable")
 
 
-    return (<PollResults members = {members} question = {question} seconds = {seconds} answerable = {answerable}/>)
+    return (<PollResults
+        members = {members} 
+        question = {question} 
+        seconds = {seconds} 
+        answerable = {answerable} 
+        pollID = {pollID} 
+        />)
 }
 
 export function GetPollResults(pollID) {
@@ -200,7 +252,7 @@ export function GetPollResults(pollID) {
     const answerable = d[0].answerable
     
     
-    return (FormatResults(voteArray, options, question, seconds, answerable))
+    return (FormatResults(voteArray, options, question, seconds, answerable, pollID))
 
 }
 
