@@ -4,9 +4,6 @@ import VoteForm from './VoteForm';
 import './NewVote.css';
 import { ThemeProvider } from 'react-bootstrap';
 
-
-
-
 const NewVote = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
