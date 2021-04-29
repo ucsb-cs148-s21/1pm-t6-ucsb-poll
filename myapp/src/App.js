@@ -34,6 +34,7 @@ class App extends Component {
         <div class="jumbotron">
           <h1 class="display-4">Hello World, this is UCSB polls</h1>
         </div>
+        <Apoll />
         {/* Add demopoll components here*/}
         <div class="card">
           <div class="card-header">Demo Poll</div>
@@ -60,7 +61,7 @@ class App extends Component {
         <div class="card-header">Create a New Poll</div>
         <NewVote />
         </div>
-        <Apoll />
+        
         
         
       </div>
