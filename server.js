@@ -93,25 +93,32 @@ app.post("/api/addVote", (req, res) => {
 
   if (req.body.option === 0) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option0" : firebase.firestore.FieldValue.increment(1)
+      "option0" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
     })
   }
 
   else if (req.body.option === 1) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option1" : firebase.firestore.FieldValue.increment(1)
+      "option1" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
     })
   }
 
   else if (req.body.option === 2) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option2" : firebase.firestore.FieldValue.increment(1)
+      "option2" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
     })
   }
 
   else if (req.body.option === 3) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option3" : firebase.firestore.FieldValue.increment(1)
+      "option3" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
     })
   }
 
@@ -125,13 +132,19 @@ app.post("/api/addVote", (req, res) => {
 app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);
-
-  db.collection("polls").doc(req.body.id).set({
-    name: req.body.name,
+  let today = new Date();
+  db.collection("polls").doc().set({
     answerable: req.body.answerable,
-    date: firebase.firestore.Timestamp.fromDate(new Date("December 10, 2010")), 
-    options: req.body.options,
-    question: req.body.question,
+    date: today, // change date to current date
+    dueDate: req.body.date, 
+    options: req.body.options, 
+    question: req.body.question, 
+    category: req.body.category, 
+    option0: 0,
+    option1: 0,
+    option2: 0,
+    option3: 0,
+    attend: 0,
     
     })
     .then(function () {

@@ -5,10 +5,10 @@ import useSWR from "swr";
 
 const initialList = [];
 function checkbut(num){
-  if(num=="(open)")
+  if(num==="(open)")
   {return (<button class="w3-border-green w3-white w3-quarter w3-round-large w3-opacity">vote</button>)
   }
-  if(num=="(close)"){
+  if(num==="(close)"){
   return(
     <button class="  w3-quarter w3-round-large w3-border-indigo w3-white w3-opacity">result</button>)}
 
