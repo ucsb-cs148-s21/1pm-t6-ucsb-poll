@@ -114,17 +114,17 @@ app.post("/addNewPoll", (req, res) => {
 
 
 // get poll 
-app.get("/getPoll", (req, res) => {
+app.get('/getPoll/:pollID', (req, res) => {
   console.log("Client has requested server to get a poll.");
-  var pollDoc = db.collection("polls").doc(req.header('pollID'));
+  var pollDoc = db.collection("polls").doc(req.params.pollID);
 
   pollDoc.get().then((doc) => {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
+        // console.log("Document data:", doc.data());
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such poll with id " + req.params.pollID);
     }
   }).catch((error) => {
     console.log("Error getting document:", error);

@@ -61,16 +61,15 @@ class DemoPoll extends Component {
     });
     
 
-    this.setState({
-      members: updatedList,
-      voted: true
-    });
+   
 
 
     const { members } = this.state
     const totalVotes = members.reduce((total, member) => total + member.votes, 1) // adds up all the votes
     this.setState({
-        totalVotes: totalVotes
+      members: updatedList,
+      voted: true,
+      totalVotes: totalVotes
       });
 
   };
@@ -98,6 +97,8 @@ class DemoPoll extends Component {
     }
     return colors
   }
+
+  
 
 
   render() {
@@ -135,7 +136,7 @@ class DiningCom extends Component {
   handleClick = () => this.props.onVote(this.props.id);
   render() {
     return (
-      <div className="App">
+      <div>
         {this.props.name} <button onClick={this.handleClick}>+</button> {this.props.votes}
       </div>
     );
