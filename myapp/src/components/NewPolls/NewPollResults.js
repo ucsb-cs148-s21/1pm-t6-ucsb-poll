@@ -192,7 +192,6 @@ export function GetPollResults(pollID) {
     voteArray.push(d[0].option1);
     voteArray.push(d[0].option2);
     voteArray.push(d[0].option3);
-    console.log(voteArray);
 
     //const votes = d[0].votes
     const options = d[0].options
