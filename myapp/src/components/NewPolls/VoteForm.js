@@ -49,7 +49,7 @@ const VoteForm = (props) => {
 
     };
 
-    props.onSavevoteData(VoteData);
+    props.onSaveVoteData(VoteData);
     setEnteredQuestions('');
     setEnteredCategories('');
     setEnterDueDate('');
@@ -123,7 +123,7 @@ const VoteForm = (props) => {
         </div>
 
       
-      <div className='new-expense'>
+      <div className='new-action'>
         <button type="button" onClick={props.onCancel}>Cancel</button>
         <button type='submit'>Submit</button>
       </div>
