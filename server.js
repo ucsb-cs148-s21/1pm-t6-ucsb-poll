@@ -37,6 +37,7 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 
+
 //
 
 // BEGIN REQUESTS
@@ -83,12 +84,44 @@ app.get('/api/getUser/:userID', (req, res) => {
 });
 
 
-app.get('/users/:userId/books/:bookId', function (req, res) {
-  res.send(req.params)
-})
+//add new vote
+app.post("/api/addVote", (req, res) => {
+  console.log("Server requested to vote on poll");
+  console.log("request: ", req.body);
+
+  //TODO: Update profile information to show that the user has now voted. 
+
+  if (req.body.option === 0) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option0" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  else if (req.body.option === 1) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option1" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  else if (req.body.option === 2) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option2" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  else if (req.body.option === 3) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option3" : firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
+  res.send()
+
+});
 
 
-//add new poll
+//add new poll 
+// TODO: update for new options structure
 app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);
@@ -99,6 +132,7 @@ app.post("/addNewPoll", (req, res) => {
     date: firebase.firestore.Timestamp.fromDate(new Date("December 10, 2010")), 
     options: req.body.options,
     question: req.body.question,
+    
     })
     .then(function () {
       console.log("Doc Succesfully Written");
@@ -110,22 +144,88 @@ app.post("/addNewPoll", (req, res) => {
 
 
 // get poll 
-app.get("/getPoll", (req, res) => {
+app.get('/getPoll/:pollID', (req, res) => {
   console.log("Client has requested server to get a poll.");
-  var pollDoc = db.collection("polls").doc(req.header('pollID'));
+  var pollDoc = db.collection("polls").doc(req.params.pollID);
 
   pollDoc.get().then((doc) => {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
+        // console.log("Document data:", doc.data());
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such poll with id " + req.params.pollID);
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
   });
 });
+
+
+
+
+
+// get popular polls for homepage
+app.get('/api/getPopularPollInformation', (req, res) => {
+  console.log("Client has requested server to get popular poll information.");
+  const qpo=[];
+  const apo=[];
+  const dpo=[];
+  db.collection("polls").orderBy("attend","desc").limit(6).get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        qpo.push(JSON.stringify(`${doc.data().question}`));
+        if(`${doc.data().answerable}`=='false'){
+          apo.push('(close)')
+        }else{
+          apo.push('(open)')
+        }
+        let today=new Date();
+        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+      });
+      // console.log("Lists: " );
+      // console.log(qpo);
+      // console.log(apo, dpo);
+      const nestedArray = [];
+      nestedArray.push(qpo);
+      nestedArray.push(apo);
+      nestedArray.push(dpo);
+      //console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
+// get recent polls for home page
+app.get('/api/getRecentPollInformation', (req, res) => {
+  console.log("Client has requested server to get recent poll information.");
+  const qpo=[];
+  const apo=[];
+  const dpo=[];
+  db.collection("polls").orderBy("date","desc").limit(6).get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        qpo.push(JSON.stringify(`${doc.data().question}`));
+        if(`${doc.data().answerable}`=='false'){
+          apo.push('(close)')
+        }else{
+          apo.push('(open)')
+        }
+        let today=new Date();
+        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+      });
+      // console.log("Lists: " );
+      // console.log(qpo);
+      // console.log(apo, dpo);
+      const nestedArray = [];
+      nestedArray.push(qpo);
+      nestedArray.push(apo);
+      nestedArray.push(dpo);
+      //console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
+
 
 
 
