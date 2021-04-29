@@ -47,7 +47,7 @@ function Poppoll(){
    
           
     
-    <div class="card-columns">   
+     
     <div class="w3-card-4 " > 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[0]}</h1>
@@ -125,7 +125,7 @@ function Poppoll(){
     
     </div>
     <h1 class=" w3-extralarge"></h1>
-    </div>
+    
     <h1 class=" w3-extralarge"></h1>
     </div>
     
