@@ -173,7 +173,7 @@ export function GetPollResults(pollID) {
     // makes sure everything necessary loads
     if (error) return ("Failed to retrieve poll")
     if (!data) return ("Loading poll")
-    if (!data.votes) return ("No votes")
+    //if (!data.votes) return ("No votes")
     if (!data.options) return ("No options")
     if (!data.question) return ("No question")
     
@@ -187,14 +187,20 @@ export function GetPollResults(pollID) {
     d += ']'
     d = JSON.parse(d)
 
-    const votes = d[0].votes
+    var voteArray = [];
+    voteArray.push(d[0].option0);
+    voteArray.push(d[0].option1);
+    voteArray.push(d[0].option2);
+    voteArray.push(d[0].option3);
+
+    //const votes = d[0].votes
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
     const answerable = d[0].answerable
     
     
-    return (FormatResults(votes, options, question, seconds, answerable))
+    return (FormatResults(voteArray, options, question, seconds, answerable))
 
 }
 
