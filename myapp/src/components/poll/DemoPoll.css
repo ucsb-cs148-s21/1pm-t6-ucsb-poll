@@ -1,6 +1,12 @@
 /* this file currently is not working */
 
-.fill .result{ /*does nothing yet*/
+.fill 
+{ /*does nothing yet*/
+  height: 100%;
+  border-radius: 3px;
+  align-items: center;
+}
+.result{ /*does nothing yet*/
     height: 100%;
     border-radius: 3px;
     align-items: center;
@@ -10,5 +16,5 @@
   padding-top: 40;
   padding-bottom: 0;
   margin-bottom: 0;
-  color: "gray";
+  color: blue;
 }

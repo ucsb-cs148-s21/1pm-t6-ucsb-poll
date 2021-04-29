@@ -37,6 +37,10 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 
+
+
+
+
 //
 
 // BEGIN REQUESTS
@@ -110,17 +114,17 @@ app.post("/addNewPoll", (req, res) => {
 
 
 // get poll 
-app.get("/getPoll", (req, res) => {
+app.get('/getPoll/:pollID', (req, res) => {
   console.log("Client has requested server to get a poll.");
-  var pollDoc = db.collection("polls").doc(req.header('pollID'));
+  var pollDoc = db.collection("polls").doc(req.params.pollID);
 
   pollDoc.get().then((doc) => {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
+        // console.log("Document data:", doc.data());
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such poll with id " + req.params.pollID);
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
@@ -129,3 +133,64 @@ app.get("/getPoll", (req, res) => {
 
 
 
+
+
+// get popular polls for homepage
+app.get('/api/getPopularPollInformation', (req, res) => {
+  console.log("Client has requested server to get popular poll information.");
+  const qpo=[];
+  const apo=[];
+  const dpo=[];
+  db.collection("polls").orderBy("attend").limit(6).get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        qpo.push(JSON.stringify(`${doc.data().question}`));
+        if(`${doc.data().answerable}`=='false'){
+          apo.push('(close)')
+        }else{
+          apo.push('(open)')
+        }
+        let today=new Date();
+        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+      });
+      // console.log("Lists: " );
+      // console.log(qpo);
+      // console.log(apo, dpo);
+      const nestedArray = [];
+      nestedArray.push(qpo);
+      nestedArray.push(apo);
+      nestedArray.push(dpo);
+      //console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
+// get recent polls for home page
+app.get('/api/getRecentPollInformation', (req, res) => {
+  console.log("Client has requested server to get recent poll information.");
+  const qpo=[];
+  const apo=[];
+  const dpo=[];
+  db.collection("polls").orderBy("date","desc").limit(6).get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        qpo.push(JSON.stringify(`${doc.data().question}`));
+        if(`${doc.data().answerable}`=='false'){
+          apo.push('(close)')
+        }else{
+          apo.push('(open)')
+        }
+        let today=new Date();
+        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+      });
+      // console.log("Lists: " );
+      // console.log(qpo);
+      // console.log(apo, dpo);
+      const nestedArray = [];
+      nestedArray.push(qpo);
+      nestedArray.push(apo);
+      nestedArray.push(dpo);
+      //console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
