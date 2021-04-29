@@ -126,12 +126,17 @@ app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);
 
-  db.collection("polls").doc(req.body.id).set({
-    name: req.body.name,
-    answerable: req.body.answerable,
+  db.collection("polls").doc().set({
+    answerable: req.body.answerable, 
     date: firebase.firestore.Timestamp.fromDate(new Date("December 10, 2010")), 
-    options: req.body.options,
-    question: req.body.question,
+    dateTemp: req.body.date, 
+    options: req.body.options, 
+    question: req.body.question, 
+    category: req.body.category, 
+    option0: 0,
+    option1: 0,
+    option2: 0,
+    option3: 0,
     
     })
     .then(function () {

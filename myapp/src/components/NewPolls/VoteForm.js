@@ -37,16 +37,19 @@ const VoteForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    var vote = [];
+    vote.push(enterVoteOp1);
+    vote.push(enterVoteOp2);
+    vote.push(enterVoteOp3);
+    vote.push(enterVoteOp4);
+
 
     const VoteData = {
-      Questions: enteredQuestions,
-      Categories: enteredCategories,
+      question: enteredQuestions,
+      category: enteredCategories,
+      answerable: true,
       date: new Date(enterDueDate),
-      voteOp1: enterVoteOp1,
-      voteOp2: enterVoteOp2,
-      voteOp3: enterVoteOp3,
-      voteOp4: enterVoteOp4,
-
+      options: vote,
     };
 
     props.onSaveVoteData(VoteData);
