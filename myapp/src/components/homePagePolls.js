@@ -29,7 +29,7 @@ function Poppoll(){
     });
   const { data } = useSWR(
     '/api/getPopularPollInformation',
-    fetcher
+    fetcher 
   );
 
 
