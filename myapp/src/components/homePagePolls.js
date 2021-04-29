@@ -47,7 +47,7 @@ function Poppoll(){
    
           
     
-     
+    <div class="card-columns">   
     <div class="w3-card-4 " > 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[0]}</h1>
@@ -60,7 +60,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[0]} days ago{alist[0]}</h5>
     </footer>
     </div>
-       
+    <h1 class=" w3-extralarge"></h1> 
     <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[1]}</h1>
@@ -73,7 +73,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[1]} days ago{alist[1]}</h5>
     </footer>
     </div>  
-    
+    <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[2]}</h1>
@@ -86,6 +86,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[2]} days ago{alist[2]}</h5>
     </footer>
     </div>
+    <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[3]}</h1>
@@ -98,6 +99,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[3]} days ago{alist[3]}</h5>
     </footer>
     </div>
+    <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[4]}</h1>
@@ -110,6 +112,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[4]} days ago{alist[4]}</h5>
     </footer>
     </div>
+    <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[5]}</h1>
@@ -125,7 +128,7 @@ function Poppoll(){
     
     </div>
     <h1 class=" w3-extralarge"></h1>
-    
+    </div>
     <h1 class=" w3-extralarge"></h1>
     </div>
     
