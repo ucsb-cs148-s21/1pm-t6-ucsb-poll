@@ -12,27 +12,8 @@ function checkbut(num){
   }
   if(num=="(close)"){
   return(
-    <a href="#" class="btn btn-primary">
-    view result
-  </a>)}
+    <button class="w3-button w3-pale-green">view all</button>)}
 
-}
-function show(i){
-  return(
-    <div class="w3-card-4"> 
-    <header class="w3-container w3-light-gray">
-    <h1 class="w3-large"></h1>
-    </header>
-
-    <div class="w3-container">
-    <p></p>
-    </div>
-
-    <footer class="w3-container w3-light-gray">
-    <h5 w3-large></h5>
-    </footer>
-    </div>
-  )
 }
 
 function Poppoll(){
@@ -58,11 +39,11 @@ function Poppoll(){
     <div>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
     <div class="w3-panel w3-border ">  
-    <div class="w3-container  w3-pale-green" >
+    <div class="w3-container" >
       
     <header class="w3-container ">
     <h1 class="w3-threequarter w3-extralarge">Popular polls</h1>
-    <button class="w3-button w3-blue w3-quarter">view all</button>
+    <button class="w3-button w3-pale-green w3-quarter">view all</button>
     </header>
    
           
