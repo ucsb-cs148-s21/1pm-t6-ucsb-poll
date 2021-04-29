@@ -61,16 +61,15 @@ class DemoPoll extends Component {
     });
     
 
-    this.setState({
-      members: updatedList,
-      voted: true
-    });
+   
 
 
     const { members } = this.state
     const totalVotes = members.reduce((total, member) => total + member.votes, 1) // adds up all the votes
     this.setState({
-        totalVotes: totalVotes
+      members: updatedList,
+      voted: true,
+      totalVotes: totalVotes
       });
 
   };
