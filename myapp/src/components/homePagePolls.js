@@ -6,9 +6,7 @@ import useSWR from "swr";
 const initialList = [];
 function checkbut(num){
   if(num=="(open)")
-  {return (<a href="#" class="btn btn-primary">
-    go to vote
-  </a>)
+  {return (<button class="w3-button w3-pale-green">go to vote</button>)
   }
   if(num=="(close)"){
   return(
@@ -42,14 +40,15 @@ function Poppoll(){
     <div class="w3-container" >
       
     <header class="w3-container ">
+    <h1 class=" w3-extralarge"></h1>
     <h1 class="w3-threequarter w3-extralarge">Popular polls</h1>
     <button class="w3-button w3-pale-green w3-quarter">view all</button>
     </header>
    
           
     
-    <div class="w3-padding">   
-    <div class="w3-card-4 w3-third" > 
+    <div class="card-columns">   
+    <div class="w3-card-4 " > 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[0]}</h1>
     </header>
@@ -62,7 +61,7 @@ function Poppoll(){
     </footer>
     </div>
        
-    <div class="w3-card-4 w3-third"> 
+    <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
@@ -75,7 +74,7 @@ function Poppoll(){
     </footer>
     </div>  
     
-    <div class="w3-card-4 w3-third"> 
+    <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
@@ -87,7 +86,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[2]} days ago{alist[2]}</h5>
     </footer>
     </div>
-    <div class="w3-card-4 w3-third"> 
+    <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
@@ -99,7 +98,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[3]} days ago{alist[3]}</h5>
     </footer>
     </div>
-    <div class="w3-card-4 w3-third"> 
+    <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
@@ -111,7 +110,7 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[4]} days ago{alist[4]}</h5>
     </footer>
     </div>
-    <div class="w3-card-4 w3-third"> 
+    <div class="w3-card-4 "> 
     <header class="w3-container w3-light-gray">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
@@ -123,11 +122,13 @@ function Poppoll(){
     <h5 class="w3-medium">{dlist[5]} days ago{alist[5]}</h5>
     </footer>
     </div>
-    </div>
-    </div>
     
     </div>
-       
+    <h1 class=" w3-extralarge"></h1>
+    </div>
+    <h1 class=" w3-extralarge"></h1>
+    </div>
+    
     </div>
         
   );
