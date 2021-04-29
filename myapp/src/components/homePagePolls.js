@@ -6,11 +6,11 @@ import useSWR from "swr";
 const initialList = [];
 function checkbut(num){
   if(num=="(open)")
-  {return (<button class="w3-border-green w3-white w3-quarter w3-round-large w3-opacity">go to vote</button>)
+  {return (<button class="w3-border-green w3-white w3-quarter w3-round-large w3-opacity">vote</button>)
   }
   if(num=="(close)"){
   return(
-    <button class="  w3-quarter w3-round-large w3-border-indigo w3-white w3-opacity">view result</button>)}
+    <button class="  w3-quarter w3-round-large w3-border-indigo w3-white w3-opacity">result</button>)}
 
 }
 
@@ -47,83 +47,86 @@ function Poppoll(){
    
           
     
-    <div class="card-columns">   
+    <div class="card-columns">  
+     
     <div class="w3-card-4 " > 
-    <header class="w3-container w3-pale-green">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large ">{qlist[0]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[0])}
     </div>
     
-    <footer class="w3-container w3-light-gray">
+    <footer class="w3-container ">
       
     <h5 class="w3-tiny">{dlist[0]} days ago{alist[0]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1> 
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-pale-green">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[1])}
     </div>
-    <footer class="w3-container w3-light-gray">
+    <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[1]} days ago{alist[1]}</h5>
     </footer>
     </div>  
     <h1 class=" w3-extralarge"></h1>
+    
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-pale-green">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[2])}
     </div>
-    <footer class="w3-container w3-light-gray">
+    <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[2]} days ago{alist[2]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1>
-    <div class="w3-card-4 "> 
-    <header class="w3-container w3-pale-green">
+    
+    <div class="w3-card-4"> 
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[3])}
     </div>
-    <footer class="w3-container w3-light-gray">
+    <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[3]} days ago{alist[3]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-pale-green">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[4])}
     </div>
-    <footer class="w3-container w3-light-gray">
+    <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[4]} days ago{alist[4]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-pale-green">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[5])}
     </div>
-    <footer class="w3-container w3-light-gray">
+    <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[5]} days ago{alist[5]}</h5>
     </footer>
     </div>
@@ -171,82 +174,87 @@ function Repoll(){
    
           
     
-    <div class="card-columns">   
+    <div class="card-columns">  
+     
     <div class="w3-card-4 " > 
-    <header class="w3-container w3-light-gray">
-    <h1 class="w3-large">{qlist[0]}</h1>
+    <header class="w3-container w3-sand">
+    <h1 class="w3-large ">{qlist[0]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[0])}
     </div>
-    <footer class="w3-container w3-light-gray">
-    <h5 class="w3-medium">{dlist[0]} days ago{alist[0]}</h5>
+    
+    <footer class="w3-container ">
+      
+    <h5 class="w3-tiny">{dlist[0]} days ago{alist[0]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1> 
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-light-gray">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[1])}
     </div>
-    <footer class="w3-container w3-light-gray">
-    <h5 class="w3-medium">{dlist[1]} days ago{alist[1]}</h5>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">{dlist[1]} days ago{alist[1]}</h5>
     </footer>
     </div>  
     <h1 class=" w3-extralarge"></h1>
+    
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-light-gray">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[2])}
     </div>
-    <footer class="w3-container w3-light-gray">
-    <h5 class="w3-medium">{dlist[2]} days ago{alist[2]}</h5>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">{dlist[2]} days ago{alist[2]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1>
-    <div class="w3-card-4 "> 
-    <header class="w3-container w3-light-gray">
+    
+    <div class="w3-card-4"> 
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[3])}
     </div>
-    <footer class="w3-container w3-light-gray">
-    <h5 class="w3-medium">{dlist[3]} days ago{alist[3]}</h5>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">{dlist[3]} days ago{alist[3]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-light-gray">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[4])}
     </div>
-    <footer class="w3-container w3-light-gray">
-    <h5 class="w3-medium">{dlist[4]} days ago{alist[4]}</h5>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">{dlist[4]} days ago{alist[4]}</h5>
     </footer>
     </div>
     <h1 class=" w3-extralarge"></h1>
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-light-gray">
+    <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
-    <div class="w3-container w3-light-gray">
+    <div class="w3-container ">
     <p >result</p>
     {checkbut(alist[5])}
     </div>
-    <footer class="w3-container w3-light-gray">
-    <h5 class="w3-medium">{dlist[5]} days ago{alist[5]}</h5>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">{dlist[5]} days ago{alist[5]}</h5>
     </footer>
     </div>
     
@@ -255,6 +263,7 @@ function Repoll(){
     </div>
     <h1 class=" w3-extralarge"></h1>
     </div>
+    
     
   );
 }
