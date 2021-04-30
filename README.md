@@ -51,6 +51,7 @@ TODO: Write usage instructions. Structuring it as a walkthrough can help structu
 
 # Known Problems
 - Code is very messy for the front page. We will combine some of the code into one file to make the components more clear. 
+- You do not have to be signed into to vote. And you can also vote multiple times right now. 
 
 # Contributing
 
