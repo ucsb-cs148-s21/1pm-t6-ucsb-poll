@@ -32,10 +32,10 @@ class App extends Component {
         <NavigationBar displaytext="Navigation Bar" />
 
         <div class="jumbotron">
-          <h1 class="display-4">Hello World, this is UCSB polls</h1>
+        <h1 class="display-4">Welcome to UCSB polls</h1>
         </div>
         <Apoll />
-        {/* Add demopoll components here*/}
+        {/* Add demopoll components here
         <div class="card">
           <div class="card-header">Demo Poll</div>
           <div class="card-body">
@@ -50,13 +50,14 @@ class App extends Component {
                
                 <div class="card-footer">
                   <small class="text-muted">?seconds ago(open)</small>
-                </div> */}
+                </div> 
                 <PollResults pollID = "FFcmP1ZAsVc2eYWNNk9Y" />
               </div>
           
         </div>
         </div>
         </div>
+        */}
         <div class="card">
         <div class="card-header">Create a New Poll</div>
         <NewVote />
