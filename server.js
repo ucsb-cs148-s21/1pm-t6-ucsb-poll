@@ -184,6 +184,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
   const qpo=[];
   const apo=[];
   const dpo=[];
+  const docID = [];
   db.collection("polls").orderBy("attend","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -195,6 +196,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
         }
         let today=new Date();
         dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+        docID.push(doc.id);
       });
       // console.log("Lists: " );
       // console.log(qpo);
@@ -203,6 +205,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
+      nestedArray.push(docID);
       //console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
@@ -214,6 +217,8 @@ app.get('/api/getRecentPollInformation', (req, res) => {
   const qpo=[];
   const apo=[];
   const dpo=[];
+  const docID = [];
+
   db.collection("polls").orderBy("date","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -225,6 +230,8 @@ app.get('/api/getRecentPollInformation', (req, res) => {
         }
         let today=new Date();
         dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+        docID.push(doc.id);
+
       });
       // console.log("Lists: " );
       // console.log(qpo);
@@ -233,6 +240,8 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
+      nestedArray.push(docID);
+
       //console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
