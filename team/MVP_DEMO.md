@@ -1,3 +1,3 @@
 # MVP DEMO
 
-The MVP Demo video can be found on [youtube](https://github.com/facebook/create-react-app).
+The MVP Demo video can be found on [youtube](https://youtu.be/gx5IzyjFOiM).
