@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import useSWR from "swr";
-
+import PollResults from "./NewPolls/tempnewpollcopyforhomepage.js"
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 
 const initialList = [];
@@ -18,6 +18,7 @@ function Poppoll(){
   const [qlist, setqList] = React.useState(initialList);
   const [alist, setaList] = React.useState(initialList);
   const [dlist, setdList] = React.useState(initialList);
+  const [idlist, setidList] = React.useState(initialList);
 
   const fetcher = url => fetch(url)
     .then(res => (res.json()))
@@ -26,6 +27,7 @@ function Poppoll(){
       setqList(data[0]);
       setaList(data[1]);
       setdList(data[2]);
+      setidList(data[3]);
     });
   const { data } = useSWR(
     '/api/getPopularPollInformation',
@@ -47,94 +49,99 @@ function Poppoll(){
    
           
     
-    <div class="card-columns">  
-     
+    <div class="card-columns">
+    <div class="card">
     <div class="w3-card-4 " > 
     <header class="w3-container w3-sand">
     <h1 class="w3-large ">{qlist[0]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[0])}
+    <p ><PollResults pollID = {(idlist[0]+"").substring(1,21)} /></p>
     </div>
-    
     <footer class="w3-container ">
       
     <h5 class="w3-tiny">{dlist[0]} days ago{alist[0]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1> 
+    </div>
+
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[1])}
+    <p ><PollResults pollID = {(idlist[1]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[1]} days ago{alist[1]}</h5>
     </footer>
     </div>  
-    <h1 class=" w3-extralarge"></h1>
+    </div>
     
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[2])}
+    
+    <p ><PollResults pollID = {(idlist[2]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[2]} days ago{alist[2]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1>
+    </div>
     
+    <div class="card">
     <div class="w3-card-4"> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[3])}
+    <p ><PollResults pollID = {(idlist[3]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[3]} days ago{alist[3]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1>
+    </div>
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[4])}
+    <p ><PollResults pollID = {(idlist[4]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[4]} days ago{alist[4]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1>
+    </div>
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[5])}
+    <p ><PollResults pollID = {(idlist[5]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[5]} days ago{alist[5]}</h5>
     </footer>
     </div>
-    
     </div>
+    </div>
+     
     <h1 class=" w3-extralarge"></h1>
     </div>
-    <h1 class=" w3-extralarge"></h1>
     </div>
     
    
@@ -146,17 +153,20 @@ function Repoll(){
   const [qlist, setqList] = React.useState(initialList);
   const [alist, setaList] = React.useState(initialList);
   const [dlist, setdList] = React.useState(initialList);
+  const [idlist, setidList] = React.useState(initialList);
+
   const fetcher = url => fetch(url)
-  .then(res => (res.json()))
-  .then(data => {
-    //console.log("data: ", data);
-    setqList(data[0]);
-    setaList(data[1]);
-    setdList(data[2]);
-  });
+    .then(res => (res.json()))
+    .then(data => {
+      //console.log("data: ", data);
+      setqList(data[0]);
+      setaList(data[1]);
+      setdList(data[2]);
+      setidList(data[3]);
+    });
   const { data } = useSWR(
     '/api/getRecentPollInformation',
-    fetcher
+    fetcher 
   );
 
 
@@ -174,104 +184,113 @@ function Repoll(){
    
           
     
-    <div class="card-columns">  
-     
+    <div class="card-columns">
+    <div class="card">
     <div class="w3-card-4 " > 
     <header class="w3-container w3-sand">
     <h1 class="w3-large ">{qlist[0]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[0])}
+    <p ><PollResults pollID = {(idlist[0]+"").substring(1,21)} /></p>
     </div>
-    
     <footer class="w3-container ">
       
     <h5 class="w3-tiny">{dlist[0]} days ago{alist[0]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1> 
+    </div>
+
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[1])}
+    <p ><PollResults pollID = {(idlist[1]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[1]} days ago{alist[1]}</h5>
     </footer>
     </div>  
-    <h1 class=" w3-extralarge"></h1>
+    </div>
     
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[2])}
+    
+    <p ><PollResults pollID = {(idlist[2]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[2]} days ago{alist[2]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1>
+    </div>
     
+    <div class="card">
     <div class="w3-card-4"> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[3])}
+    <p ><PollResults pollID = {(idlist[3]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[3]} days ago{alist[3]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1>
+    </div>
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[4])}
+    <p ><PollResults pollID = {(idlist[4]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[4]} days ago{alist[4]}</h5>
     </footer>
     </div>
-    <h1 class=" w3-extralarge"></h1>
+    </div>
+    <div class="card">
     <div class="w3-card-4 "> 
     <header class="w3-container w3-sand">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
     <div class="w3-container ">
-    <p >result</p>
-    {checkbut(alist[5])}
+    <p ><PollResults pollID = {(idlist[5]+"").substring(1,21)} /></p>
+    
     </div>
     <footer class="w3-container ">
     <h5 class="w3-tiny">{dlist[5]} days ago{alist[5]}</h5>
     </footer>
     </div>
-    
     </div>
+    </div>
+     
     <h1 class=" w3-extralarge"></h1>
     </div>
-    <h1 class=" w3-extralarge"></h1>
     </div>
     
-    
+   
+        
   );
 }
 
 function Apoll(){
-  return(<div>{Poppoll()}
-                                              
-  {Repoll()}</div>)
+  return(
+    <div>
+    <Poppoll />
+    <Repoll />
+    </div>
+  )
 }
 
 export default Apoll;

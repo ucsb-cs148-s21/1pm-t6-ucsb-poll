@@ -184,9 +184,11 @@ app.get('/api/getPopularPollInformation', (req, res) => {
   const qpo=[];
   const apo=[];
   const dpo=[];
+  const idpo=[];
   db.collection("polls").orderBy("attend","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
         if(`${doc.data().answerable}`=='false'){
           apo.push('(close)')
@@ -203,6 +205,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
+      nestedArray.push(idpo);
       //console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
@@ -214,9 +217,11 @@ app.get('/api/getRecentPollInformation', (req, res) => {
   const qpo=[];
   const apo=[];
   const dpo=[];
+  const idpo=[];
   db.collection("polls").orderBy("date","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
         if(`${doc.data().answerable}`=='false'){
           apo.push('(close)')
@@ -233,6 +238,7 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
+      nestedArray.push(idpo);
       //console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
