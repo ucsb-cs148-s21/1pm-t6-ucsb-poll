@@ -27,8 +27,21 @@ Prerequisites
 
 
 # Dependencies
-- React.js for the front end
-
+    "@auth0/auth0-react": "^1.4.0",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^4.6.0",
+    "firebase": "^8.4.2",
+    "isomorphic-unfetch": "^3.1.0",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.5.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "swr": "^0.5.5",
+    "web-vitals": "^1.1.1"
 # Installation Steps
 - Clone the repository
 - set up Auth0 for this app
