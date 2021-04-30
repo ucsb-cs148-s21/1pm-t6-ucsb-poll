@@ -18,11 +18,16 @@ Users:
 
 
 # Installation
+
+
 Prerequisites
-TODO: List what a user needs to have installed before running the installation instructions below (e.g., git, which version(s) of your framework(s) of choice)
+- Javascript
+- Node.js
+- Express
+
 
 # Dependencies
-TODO: List which libraries / add-ons you added to the project, and the purpose each of those add-ons serves in your app.
+- React.js for the front end
 
 # Installation Steps
 - Clone the repository
