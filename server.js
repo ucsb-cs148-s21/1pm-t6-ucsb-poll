@@ -158,7 +158,7 @@ app.post("/addNewPoll", (req, res) => {
 
 // get poll 
 app.get('/getPoll/:pollID', (req, res) => {
-  console.log("Client has requested server to get a poll.");
+  //console.log("Client has requested server to get a poll.");
   var pollDoc = db.collection("polls").doc(req.params.pollID);
 
   pollDoc.get().then((doc) => {
@@ -180,7 +180,7 @@ app.get('/getPoll/:pollID', (req, res) => {
 
 // get popular polls for homepage
 app.get('/api/getPopularPollInformation', (req, res) => {
-  console.log("Client has requested server to get popular poll information.");
+ // console.log("Client has requested server to get popular poll information.");
   const qpo=[];
   const apo=[];
   const dpo=[];
@@ -213,7 +213,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
 
 // get recent polls for home page
 app.get('/api/getRecentPollInformation', (req, res) => {
-  console.log("Client has requested server to get recent poll information.");
+  //console.log("Client has requested server to get recent poll information.");
   const qpo=[];
   const apo=[];
   const dpo=[];
