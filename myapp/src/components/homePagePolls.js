@@ -13,7 +13,74 @@ function checkbut(num){
     <button class="  w3-quarter w3-round-large w3-border-indigo w3-white w3-opacity">result</button>)}
 
 }
+function RecomPoll(){
+return(
+  <div>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+     
+    <div class="w3-container " >
+      
+    <header class="w3-container">
+    <h1 class=" w3-extralarge"></h1>
+    <h1 class="w3-threequarter w3-extralarge w3-opacity ">Recommended Polls</h1>
+    
+    </header>
+   
+          
+    
+    <div class="card-columns">
+    <div class="card">
+    <div class="w3-card-4 " > 
+    <header class="w3-container w3-sand">
+    <h1 class="w3-large ">"Favorite topping on a pizza?"</h1>
+    </header>
+    <div class="w3-container ">
+    <p ><PollResults pollID = "FFcmP1ZAsVc2eYWNNk9Y" /></p>
+    </div>
+    <footer class="w3-container ">
+      
+    <h5 class="w3-tiny">14 days ago(open)</h5>
+    </footer>
+    </div>
+    </div>
 
+    <div class="card">
+    <div class="w3-card-4 "> 
+    <header class="w3-container w3-sand">
+    <h1 class="w3-large">"Favorite soda drink?"</h1>
+    </header>
+    <div class="w3-container ">
+    <p ><PollResults pollID = "M6qsfGs1daQlI3Luqiib" /></p>
+    
+    </div>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">16 days ago(open)</h5>
+    </footer>
+    </div>  
+    </div>
+    <div class="card">
+    <div class="w3-card-4 "> 
+    <header class="w3-container w3-sand">
+    <h1 class="w3-large">What's your favorite book?</h1>
+    </header>
+    <div class="w3-container ">
+    <p ><PollResults pollID = "ldWrJjKj7wPudp3ovuWO" /></p>
+    
+    </div>
+    <footer class="w3-container ">
+    <h5 class="w3-tiny">1 days ago(open)</h5>
+    </footer>
+    </div>  
+    </div>
+    
+    </div>
+     
+    <h1 class=" w3-extralarge"></h1>
+    </div>
+    </div>
+    
+)
+}
 function Poppoll(){
   const [qlist, setqList] = React.useState(initialList);
   const [alist, setaList] = React.useState(initialList);
@@ -52,7 +119,7 @@ function Poppoll(){
     <div class="card-columns">
     <div class="card">
     <div class="w3-card-4 " > 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-pale-green">
     <h1 class="w3-large ">{qlist[0]}</h1>
     </header>
     <div class="w3-container ">
@@ -67,7 +134,7 @@ function Poppoll(){
 
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-pale-green">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
     <div class="w3-container ">
@@ -82,7 +149,7 @@ function Poppoll(){
     
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-pale-green">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
     <div class="w3-container ">
@@ -98,7 +165,7 @@ function Poppoll(){
     
     <div class="card">
     <div class="w3-card-4"> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-pale-green">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
     <div class="w3-container ">
@@ -112,7 +179,7 @@ function Poppoll(){
     </div>
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-pale-green">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
     <div class="w3-container ">
@@ -126,7 +193,7 @@ function Poppoll(){
     </div>
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-pale-green">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
     <div class="w3-container ">
@@ -187,7 +254,7 @@ function Repoll(){
     <div class="card-columns">
     <div class="card">
     <div class="w3-card-4 " > 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-light-blue">
     <h1 class="w3-large ">{qlist[0]}</h1>
     </header>
     <div class="w3-container ">
@@ -202,7 +269,7 @@ function Repoll(){
 
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-light-blue">
     <h1 class="w3-large">{qlist[1]}</h1>
     </header>
     <div class="w3-container ">
@@ -217,7 +284,7 @@ function Repoll(){
     
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-light-blue">
     <h1 class="w3-large">{qlist[2]}</h1>
     </header>
     <div class="w3-container ">
@@ -233,7 +300,7 @@ function Repoll(){
     
     <div class="card">
     <div class="w3-card-4"> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-light-blue">
     <h1 class="w3-large">{qlist[3]}</h1>
     </header>
     <div class="w3-container ">
@@ -247,7 +314,7 @@ function Repoll(){
     </div>
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-light-blue">
     <h1 class="w3-large">{qlist[4]}</h1>
     </header>
     <div class="w3-container ">
@@ -261,7 +328,7 @@ function Repoll(){
     </div>
     <div class="card">
     <div class="w3-card-4 "> 
-    <header class="w3-container w3-sand">
+    <header class="w3-container w3-light-blue">
     <h1 class="w3-large">{qlist[5]}</h1>
     </header>
     <div class="w3-container ">
@@ -287,6 +354,7 @@ function Repoll(){
 function Apoll(){
   return(
     <div>
+    <RecomPoll />
     <Poppoll />
     <Repoll />
     </div>
