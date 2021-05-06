@@ -35,15 +35,25 @@ class App extends Component {
         <NavigationBar displaytext="Navigation Bar" />
 
         <div class="jumbotron">
-          <h1 class="display-4">Welcome to UCSB polls</h1>
+        <h1 class="display-4">Welcome to UCSB polls</h1>
         </div>
-
-        {/* Add demopoll components here*/}
+        <Apoll />
+        {/* Add demopoll components here
         <div class="card">
           <div class="card-header">Recommended Polls</div>
           <div class="card-body">
             <div class="card-columns">
               <div class="card">
+                {/* <div class="card-body">
+                  <h2 class="card-title">Vote For Your Favorite Dining Commons!</h2>
+
+                </div>
+                <DemoPoll />
+               
+               
+                <div class="card-footer">
+                  <small class="text-muted">?seconds ago(open)</small>
+                </div> 
                 <PollResults pollID = "FFcmP1ZAsVc2eYWNNk9Y" />
               </div>
               <div class="card">
@@ -56,9 +66,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-
-        <Apoll />
-
+        */}
         <div class="card">
           <div class="card-header">Create a New Poll</div>
           <NewVote />

@@ -180,14 +180,15 @@ app.get('/getPoll/:pollID', (req, res) => {
 
 // get popular polls for homepage
 app.get('/api/getPopularPollInformation', (req, res) => {
- // console.log("Client has requested server to get popular poll information.");
+  //console.log("Client has requested server to get popular poll information.");
   const qpo=[];
   const apo=[];
   const dpo=[];
-  const docID = [];
+  const idpo=[];
   db.collection("polls").orderBy("attend","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
         if(`${doc.data().answerable}`=='false'){
           apo.push('(close)')
@@ -205,7 +206,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
-      nestedArray.push(docID);
+      nestedArray.push(idpo);
       //console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
@@ -217,11 +218,11 @@ app.get('/api/getRecentPollInformation', (req, res) => {
   const qpo=[];
   const apo=[];
   const dpo=[];
-  const docID = [];
-
+  const idpo=[];
   db.collection("polls").orderBy("date","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
         if(`${doc.data().answerable}`=='false'){
           apo.push('(close)')
@@ -240,8 +241,7 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
-      nestedArray.push(docID);
-
+      nestedArray.push(idpo);
       //console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
