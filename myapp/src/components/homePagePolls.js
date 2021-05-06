@@ -103,43 +103,16 @@ function Poppoll(){
 
 
   return (
-    <div class="card">
-    <div class="card-header">Popular Polls</div>
-    <div class="card-body">
-      <div class="card-columns">
-        <div class="card">
-          <PollResults pollID = {IDlist[0]} />
-        </div>
-        <div class="card">
-          <PollResults pollID = {IDlist[1]} />
-        </div>
-        <div class="card">
-          <PollResults pollID = {IDlist[2]} />
-        </div>
-        <div class="card">
-          <PollResults pollID = {IDlist[3]} />
-        </div>
-        <div class="card">
-          <PollResults pollID = {IDlist[4]} />
-        </div>
-        <div class="card">
-          <PollResults pollID = {IDlist[5]} />
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-    // <div>
-    // <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+    <div>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
      
-    // <div class="w3-container " >
+    <div class="w3-container " >
       
-    // <header class="w3-container">
-    // <h1 class=" w3-extralarge"></h1>
-    // <h1 class="w3-threequarter w3-extralarge w3-opacity ">Popular polls</h1>
-    // <button class="w3-large w3-quarter w3-round-large w3-opacity">view all</button>
-    // </header>
+    <header class="w3-container">
+    <h1 class=" w3-extralarge"></h1>
+    <h1 class="w3-threequarter w3-extralarge w3-opacity ">Popular polls</h1>
+    <button class="w3-large w3-quarter w3-round-large w3-opacity">view all</button>
+    </header>
    
           
     
@@ -265,46 +238,16 @@ function Repoll(){
 
 
   return (
-    <div class="card">
-      <div class="card-header">Recent Polls</div>
-      <div class="card-body">
-        <div class="card-columns">
-          <div class="card">
-            <PollResults pollID = {IDlist[0]} />
-          </div>
-          <div class="card">
-            <PollResults pollID = {IDlist[1]} />
-          </div>
-          <div class="card">
-            <PollResults pollID = {IDlist[2]} />
-          </div>
-          <div class="card">
-            <PollResults pollID = {IDlist[3]} />
-          </div>
-          <div class="card">
-            <PollResults pollID = {IDlist[4]} />
-          </div>
-          <div class="card">
-            <PollResults pollID = {IDlist[5]} />
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-
-
-    // <div>
-    // <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+    <div>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
      
-    // <div class="w3-container " >
+    <div class="w3-container " >
       
-    // <header class="w3-container">
-    // <h1 class=" w3-extralarge"></h1>
-    // <h1 class="w3-threequarter w3-extralarge w3-opacity ">Recent polls</h1>
-    // <button class="w3-large w3-quarter w3-round-large w3-opacity">view all</button>
-    // </header>
+    <header class="w3-container">
+    <h1 class=" w3-extralarge"></h1>
+    <h1 class="w3-threequarter w3-extralarge w3-opacity ">Recent polls</h1>
+    <button class="w3-large w3-quarter w3-round-large w3-opacity">view all</button>
+    </header>
    
           
     
