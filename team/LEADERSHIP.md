@@ -5,4 +5,4 @@
 | Mon 04/8  | Daniel Shamtob    | Led first sprint planning meeting                      | 
 | Tue 04/20 | Jasun Chen        | Will lead first Retro                                  | 
 | Wed 04/21 | Zhengying Li      | Lead sprint02 planning meeting                         | 
-| Thu 05/06 | TT Luo            | Will lead 2nd retrospective
+| Fri 05/07 | TT Luo            | Will lead 2nd retrospective
