@@ -43,3 +43,20 @@
 - leaning from others.
 
 
+
+## Retro Assessment
+A brief description of what retro outline or process you used.
+- Start/Stop/Continue format and then exaimed and combined different ideas to goals.
+
+A brief assessment of how it went.
+- Pretty well, individual talked about their opinions for the development process and reflected to other's ideas.\
+- We had a mutual agreement on what we are going to do in the next sprint.\
+
+What advice would you give to the next person leading a retro
+  based on what you learned today?
+- Be more prepared to get other people involved in the discussion.
+
+
+
+
+
