@@ -93,25 +93,32 @@ app.post("/api/addVote", (req, res) => {
 
   if (req.body.option === 0) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option0" : firebase.firestore.FieldValue.increment(1)
+      "option0" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
     })
   }
 
   else if (req.body.option === 1) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option1" : firebase.firestore.FieldValue.increment(1)
+      "option1" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
     })
   }
 
   else if (req.body.option === 2) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option2" : firebase.firestore.FieldValue.increment(1)
+      "option2" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
     })
   }
 
   else if (req.body.option === 3) {
     db.collection("polls").doc(req.body.pollID).update({
-      "option3" : firebase.firestore.FieldValue.increment(1)
+      "option3" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
     })
   }
 
@@ -125,13 +132,19 @@ app.post("/api/addVote", (req, res) => {
 app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);
-
-  db.collection("polls").doc(req.body.id).set({
-    name: req.body.name,
+  let today = new Date();
+  db.collection("polls").doc().set({
     answerable: req.body.answerable,
-    date: firebase.firestore.Timestamp.fromDate(new Date("December 10, 2010")), 
-    options: req.body.options,
-    question: req.body.question,
+    date: today, // change date to current date
+    dueDate: req.body.date, 
+    options: req.body.options, 
+    question: req.body.question, 
+    category: req.body.category, 
+    option0: 0,
+    option1: 0,
+    option2: 0,
+    option3: 0,
+    attend: 0,
     
     })
     .then(function () {
@@ -145,7 +158,7 @@ app.post("/addNewPoll", (req, res) => {
 
 // get poll 
 app.get('/getPoll/:pollID', (req, res) => {
-  console.log("Client has requested server to get a poll.");
+  //console.log("Client has requested server to get a poll.");
   var pollDoc = db.collection("polls").doc(req.params.pollID);
 
   pollDoc.get().then((doc) => {
@@ -167,13 +180,15 @@ app.get('/getPoll/:pollID', (req, res) => {
 
 // get popular polls for homepage
 app.get('/api/getPopularPollInformation', (req, res) => {
-  console.log("Client has requested server to get popular poll information.");
+  //console.log("Client has requested server to get popular poll information.");
   const qpo=[];
   const apo=[];
   const dpo=[];
+  const idpo=[];
   db.collection("polls").orderBy("attend","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
         if(`${doc.data().answerable}`=='false'){
           apo.push('(close)')
@@ -182,6 +197,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
         }
         let today=new Date();
         dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+        //docID.push(doc.id);
       });
       // console.log("Lists: " );
       // console.log(qpo);
@@ -190,20 +206,23 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
-      //console.log("arr: ", nestedArray);
+      nestedArray.push(idpo);
+      console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
 });
 
 // get recent polls for home page
 app.get('/api/getRecentPollInformation', (req, res) => {
-  console.log("Client has requested server to get recent poll information.");
+  //console.log("Client has requested server to get recent poll information.");
   const qpo=[];
   const apo=[];
   const dpo=[];
+  const idpo=[];
   db.collection("polls").orderBy("date","desc").limit(6).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
         qpo.push(JSON.stringify(`${doc.data().question}`));
         if(`${doc.data().answerable}`=='false'){
           apo.push('(close)')
@@ -212,6 +231,8 @@ app.get('/api/getRecentPollInformation', (req, res) => {
         }
         let today=new Date();
         dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+        //docID.push(doc.id);
+
       });
       // console.log("Lists: " );
       // console.log(qpo);
@@ -220,7 +241,8 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
-      //console.log("arr: ", nestedArray);
+      nestedArray.push(idpo);
+      console.log("arr: ", nestedArray);
       res.json(nestedArray);
     });
 });
