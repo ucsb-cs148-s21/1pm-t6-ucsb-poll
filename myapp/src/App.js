@@ -5,6 +5,9 @@ import NewVote from "./components/NewPolls/NewVote";
 import Apoll from "./components/homePagePolls.js";
 import PollResults from "./components/NewPolls/NewPollResults.js"
 
+
+
+
 import './index.css'
 import './App.css'
 
@@ -37,7 +40,7 @@ class App extends Component {
         <Apoll />
         {/* Add demopoll components here
         <div class="card">
-          <div class="card-header">Demo Poll</div>
+          <div class="card-header">Recommended Polls</div>
           <div class="card-body">
             <div class="card-columns">
               <div class="card">
@@ -53,17 +56,21 @@ class App extends Component {
                 </div> 
                 <PollResults pollID = "FFcmP1ZAsVc2eYWNNk9Y" />
               </div>
-          
-        </div>
-        </div>
+              <div class="card">
+                <PollResults pollID = "M6qsfGs1daQlI3Luqiib" />
+              </div>
+              <div class="card">
+                <PollResults pollID = "ldWrJjKj7wPudp3ovuWO" />
+              </div>
+
+            </div>
+          </div>
         </div>
         */}
         <div class="card">
-        <div class="card-header">Create a New Poll</div>
-        <NewVote />
+          <div class="card-header">Create a New Poll</div>
+          <NewVote />
         </div>
-        
-        
         
       </div>
     );
