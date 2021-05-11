@@ -18,11 +18,11 @@ const themes = {
 
 class PollResults extends Component {
 
-
     state = {
         members: this.props.members,
         question: this.props.question,
-        seconds: this.props.seconds,
+        days: this.props.days,
+        hours: this.props.hours,
         answerable: this.props.answerable,
         voted: !(this.props.answerable),
         pollID: this.props.pollID,
@@ -33,7 +33,8 @@ class PollResults extends Component {
         this.setState({ 
             members: this.props.members,
             question: this.props.question,
-            seconds: this.props.seconds,
+            days: this.props.days,
+            hours: this.props.hours,
             answerable: this.props.answerable,
             voted: !(this.props.answerable),
             pollID: this.props.pollID,
@@ -138,7 +139,8 @@ class PollResults extends Component {
 
 
     render() {
-        const { members, question, seconds, answerable, voted, totalVotes } = this.state
+        const { members, question, days, hours, answerable, voted, totalVotes } = this.state
+        
         return (
           <div class="card">
             <div class="card-body">
@@ -180,7 +182,10 @@ class PollResults extends Component {
            
            
             <div class="card-footer">
-              <small class="text-muted">Poll opened {parseInt(seconds/3600)} hours and {parseInt((seconds % 3600)/60)} minutes ago</small>
+              {/* <small class="text-muted">Poll opened {parseInt(seconds/3600)} hours and {parseInt((seconds % 3600)/60)} minutes ago</small> */}
+              <small class="text-muted">Poll opened {days} days and {hours} hours ago</small>
+
+
             </div>
           </div>
 
@@ -189,7 +194,7 @@ class PollResults extends Component {
 
 }
 
-function FormatResults(votes, options, question, seconds, answerable, pollID) {
+function FormatResults(votes, options, question, days, hours, answerable, pollID) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
@@ -208,7 +213,8 @@ function FormatResults(votes, options, question, seconds, answerable, pollID) {
     return (<PollResults
         members = {members} 
         question = {question} 
-        seconds = {seconds} 
+        days = {days} 
+        hours = {hours}
         answerable = {answerable} 
         pollID = {pollID} 
         />)
@@ -246,14 +252,12 @@ export function GetPollResults(pollID) {
     voteArray.push(d[0].option2);
     voteArray.push(d[0].option3);
 
-    //const votes = d[0].votes
     const options = d[0].options
     const question = d[0].question
-    const seconds = d[0].date.seconds
+    const days = ((Math.floor(Date.now() / 1000) - d[0].date.seconds)/(60*60*24)).toFixed(0);
+    const hours = (((Math.floor(Date.now() / 1000) - d[0].date.seconds)%(60*60*24))/(60*60)).toFixed(0);
     const answerable = d[0].answerable
-    
-    
-    return (FormatResults(voteArray, options, question, seconds, answerable, pollID))
+    return (FormatResults(voteArray, options, question, days, hours, answerable, pollID))
 
 }
 
