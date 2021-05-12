@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import NewVote from "./NewPolls/NewVote";
 
 
-//import './index.css'
-//import './App.css'
-
 class ProfilePage extends Component {
   render() {
     return (

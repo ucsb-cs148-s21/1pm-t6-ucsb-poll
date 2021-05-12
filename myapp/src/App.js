@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
-import DemoPoll from "./components/poll/DemoPoll";
-import NewVote from "./components/NewPolls/NewVote";
-import Apoll from "./components/homePagePolls.js";
-import PollResults from "./components/NewPolls/NewPollResults.js"
 import Main from "./Main";
 
 

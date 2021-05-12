@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import NavigationBar from "./NavigationBar.js";
 import NewVote from "./NewPolls/NewVote";
 import Apoll from "./homePagePolls.js";
-import PollResults from "./NewPolls/NewPollResults.js"
-
-//import './index.css'
-//import './App.css'
 
 class HomePage extends Component {
   constructor(props) {
