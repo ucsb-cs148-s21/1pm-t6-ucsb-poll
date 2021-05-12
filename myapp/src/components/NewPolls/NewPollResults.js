@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import useSWR from "swr";
 
+import './NewPollResults.css' // style sheets for making polls look nice later
 
 
 
