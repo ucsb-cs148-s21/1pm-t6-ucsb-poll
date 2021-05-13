@@ -249,5 +249,10 @@ app.get('/api/getRecentPollInformation', (req, res) => {
 
 
 
-
-
+// app.get('/*', function(req, res) {
+//   res.sendFile((express.static(path.join(__dirname, 'myapp/build/index.html'))), function(err) {
+//     if (err) {
+//       res.status(500).send(err)
+//     }
+//   })
+// })
