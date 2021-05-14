@@ -6,7 +6,7 @@ Meeting Time: 5-14
 
 Type of meeting: <daily scrum> 
 
-Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn , Zhengying Li ✓
+Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn x , Zhengying Li ✓
 
 
 
