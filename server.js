@@ -195,7 +195,7 @@ app.get('/api/getPopularPollInformation', (req, res) => {
         let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
 
-        let daysSinceClose = today - dateClosed
+        let daysSinceClose = dateClosed - today
         // if(daysSinceClose <= 0){
         //   apo.push('Closed')
         // }else{
@@ -235,7 +235,7 @@ app.get('/api/getRecentPollInformation', (req, res) => {
         let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
 
-        let daysSinceClose = today - dateClosed
+        let daysSinceClose = dateClosed - today
         // if(daysSinceClose <= 0){
         //   apo.push('Closed')
         // }else{

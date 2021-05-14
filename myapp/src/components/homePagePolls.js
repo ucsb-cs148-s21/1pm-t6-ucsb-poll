@@ -131,7 +131,7 @@ function Poppoll() {
               <div key={i}>
               <div class="card">
                 <div class="w3-card-4 ">
-                  <header class="w3-container w3-light-blue">
+                  <header class="w3-container w3-pale-green">
                     <h1 class="w3-large ">{qlist[i]}</h1>
                   </header>
                   <div class="w3-container ">
