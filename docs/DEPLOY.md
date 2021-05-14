@@ -19,7 +19,8 @@ TODO: Summarize main Instructions from cs156?
 - cd in myapp & npm run build? (Trouble shooting if heroku is not working properly) 
 
 ## Running on Local Host
-5. cd into myapp and run: 'npm install' and then 'npm run build'
-5. Go back into the root project directory and run: 'npm install' and then 'npm start' to run the project on localhost:8080. 
+- cd into myapp and run: 'npm install' and then 'npm run build'
+- Go back into the root project directory and run: 'npm install' and then 'npm start' to run the project on localhost:8080.
+- Note: You can run the front end and back end seperately too. 
 
 
