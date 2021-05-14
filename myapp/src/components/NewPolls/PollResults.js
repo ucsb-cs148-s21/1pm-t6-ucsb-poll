@@ -157,7 +157,8 @@ class PollResults extends Component {
                                 </div>
                             ) : (
                                 <div>
-                                    <span style={{marginRight: 10}}>{member.chosen && <button className="btn btn-success btn-sm" onClick={(e) => this.handleUnvote(e, member)}>-</button>}</span>
+                                    {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
+                                    {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
                                     <span>{member.name}</span>
                                 </div>
                             )
