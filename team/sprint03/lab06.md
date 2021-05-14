@@ -13,7 +13,7 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn , Zhengying Li 
 ## Daniel Shamtob
 - What did I do last time?
  
-  Finished the poll result view
+  Finished the poll result view,and did the System Architecture diagram
 
 - What will I do today?
   
@@ -27,7 +27,7 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn , Zhengying Li 
 ## Jasun Chen
 - What did I do last time?
 
-  Nothing
+  Did the System Architecture diagram
 
 - What will I do today?
 
@@ -41,11 +41,11 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn , Zhengying Li 
 ## Zhengying Li
 - What did I do last time?
 
-  Nothing
+  Did the System Architecture diagram
 
 - What will I do today?
 
- Started my issue
+ Started my issue, design document and working on leadship roles
   
 
 - What (if anything) is blocking my progress?
@@ -55,11 +55,11 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn , Zhengying Li 
 ## TT Luo
 - What did I do last time?
 
-  Did the diagram
+  Did the System Architecture diagram
 
 - What will I do today?
 
- Working on the design diagram and design document and leadship role
+  Design document and working on leadship roles
   
 
 - What (if anything) is blocking my progress?
@@ -67,14 +67,5 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn , Zhengying Li 
   Nothing
 
 
-## Daniel Lohn
-- What did I do last time?
 
-
-
-- What will I do today?
-
-
-
-- What (if anything) is blocking my progress?
 
