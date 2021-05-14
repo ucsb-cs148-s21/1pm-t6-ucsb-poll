@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import useSWR from "swr";
+import { Checkmark } from 'react-checkmark'
 
 
 import './NewPollResults.css' // style sheets for making polls look nice later
@@ -16,7 +17,9 @@ class PollResults extends Component {
         answerable: this.props.answerable,
         voted: !(this.props.answerable),
         pollID: this.props.pollID,
-        totalVotes: 0
+        totalVotes: 0,
+        showResults: !(this.props.answerable), // related to show results button clicked state
+        optionVotedOn: null
     }
 
     componentDidMount() {
@@ -27,7 +30,7 @@ class PollResults extends Component {
             answerable: this.props.answerable,
             voted: !(this.props.answerable),
             pollID: this.props.pollID,
-            totalVotes: this.sumVotes()
+            totalVotes: this.sumVotes(),
         });
 
     }
@@ -117,6 +120,15 @@ class PollResults extends Component {
             });
     }
 
+    handleShowResults = () => {        
+        this.setState({showResults: true})
+    }
+
+    handleReturn = () => {        
+        this.setState({showResults: false})
+    }
+
+
 
 
     calculatePercent = (votes, total) => {
@@ -128,34 +140,37 @@ class PollResults extends Component {
 
 
     render() {
-        const { members, question, seconds, answerable, voted, totalVotes } = this.state
+        const { showResults, question, seconds, answerable, voted, totalVotes } = this.state
         const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
 
         return (
           <div >
-            <div style={{padding: 10}}>
+            <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
                 {this.state.members.map((member, index) => (
                     <div key={member.name}>
-                        {answerable ? (
+                        {(answerable && !showResults) ? (
                             !voted ? (
                                 <div>
-                                    <button style={{marginRight: 10}} onClick={(e) => this.handleVote(e, member)}>+</button>
+                                    <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
                                     <span >{member.name}</span>
                                 </div>
                             ) : (
                                 <div>
-                                    <span style={{marginRight: 10}}>{member.chosen && <button onClick={(e) => this.handleUnvote(e, member)}>-</button>}</span>
+                                    {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
+                                    {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
                                     <span>{member.name}</span>
                                 </div>
                             )
                             
                         ) : (
                                 <div className="result">
-                                    <div style={{marginBottom: 50}}>
+                                    <div style={{marginBottom: 20}}>
                                         <span className="result" > {member.name}</span>
-                                        <div>
-                                            <div class={bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%"}}></div>
-                                            <span className="result" style={{float: "right"}}>{this.calculatePercent(member.voteCount, totalVotes)}</span>
+                                        <div id="blockContainer">
+                                            <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
+                                            <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
+                                            <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
                                         </div>
                                     </div >
                                     
@@ -164,8 +179,14 @@ class PollResults extends Component {
                         }
                     </div>
                 ))}
+                </div>
                 {voted && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                <div className="votes">{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</div>
+                {!voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+
+                <div className="votes">
+                    {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
+                    {!voted && !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
+                </div>
             </div>
           </div>
 
@@ -241,8 +262,16 @@ export function GetPollResults(pollID) {
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
-    const answerable = d[0].answerable
+    // const answerable = d[0].answerable
     
+    const dateClosed = new Date(d[0].dueDate)
+    const today = new Date()
+    var answerable = true
+    const daysSinceClose = dateClosed - today
+    if(daysSinceClose <= 0){   
+        answerable = false
+    } 
+
     
     return (FormatResults(voteArray, options, question, seconds, answerable, pollID))
 
@@ -252,8 +281,30 @@ class SubmitButton extends Component {
     handleClick = () => this.props.onSubmit(this.props.id);
     render() {
       return (
-        <div>
-          <button onClick={this.handleClick}>Submit</button>
+        <div style={{marginTop: 10}}>
+          <button className="btn btn-primary" onClick={this.handleClick}>Submit</button>
+        </div>
+      );
+    }
+}
+
+class ShowResultsButton extends Component {
+    handleClick = () => this.props.onSubmit(this.props.id);
+    render() {
+      return (
+        <div style={{marginTop: 10}}>
+          <button className="btn btn-secondary btn-sm" onClick={this.handleClick}>show results</button>
+        </div>
+      );
+    }
+}
+
+class ReturnButton extends Component {
+    handleClick = () => this.props.onSubmit(this.props.id);
+    render() {
+      return (
+        <div style={{marginTop: 10}}>
+          <button className="btn btn-primary" onClick={this.handleClick}>Go Back</button>
         </div>
       );
     }

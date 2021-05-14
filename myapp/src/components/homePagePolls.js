@@ -92,7 +92,7 @@ function RecomPoll() {
 }
 function Poppoll() {
   const [qlist, setqList] = React.useState(initialList);
-  const [alist, setaList] = React.useState(initialList);
+  // const [alist, setaList] = React.useState(initialList);
   const [dlist, setdList] = React.useState(initialList);
   const [idlist, setidList] = React.useState(initialList);
 
@@ -100,9 +100,9 @@ function Poppoll() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        //console.log("data: ", data);
+        console.log("data: ", data);
         setqList(data[0]);
-        setaList(data[1]);
+        // setaList(data[1]);
         setdList(data[2]);
         setidList(data[3]);
       });
@@ -127,111 +127,28 @@ function Poppoll() {
         </header>
 
         <div class="card-columns">
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-pale-green">
-                <h1 class="w3-large ">{qlist[0]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[0] + "").substring(1, 21)} />
-                </p>
+          {[0, 1, 2, 3, 4, 5].map(i => (
+              <div key={i}>
+              <div class="card">
+                <div class="w3-card-4 ">
+                  <header class="w3-container w3-pale-green">
+                    <h1 class="w3-large ">{qlist[i]}</h1>
+                  </header>
+                  <div class="w3-container ">
+                    <p>
+                      <PollResults pollID={(idlist[i] + "").substring(1, 21)} />
+                    </p>
+                  </div>
+                  <footer class="w3-container ">
+                  {(dlist[i] > 0) ? 
+                      <h5 class="w3-tiny">Closing in {dlist[i]} days</h5> : 
+                      <h5 class="w3-tiny">Closed {-(dlist[i])} days ago</h5>
+                    }
+                  </footer>
+                </div>
               </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[0]} days ago{alist[0]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-pale-green">
-                <h1 class="w3-large">{qlist[1]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[1] + "").substring(1, 21)} />
-                </p>
               </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[1]} days ago{alist[1]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-pale-green">
-                <h1 class="w3-large">{qlist[2]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[2] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[2]} days ago{alist[2]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="w3-card-4">
-              <header class="w3-container w3-pale-green">
-                <h1 class="w3-large">{qlist[3]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[3] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[3]} days ago{alist[3]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-pale-green">
-                <h1 class="w3-large">{qlist[4]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[4] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[4]} days ago{alist[4]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-pale-green">
-                <h1 class="w3-large">{qlist[5]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[5] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[5]} days ago{alist[5]}
-                </h5>
-              </footer>
-            </div>
-          </div>
+          ))}
         </div>
 
         <h1 class=" w3-extralarge"></h1>
@@ -242,7 +159,7 @@ function Poppoll() {
 
 function Repoll() {
   const [qlist, setqList] = React.useState(initialList);
-  const [alist, setaList] = React.useState(initialList);
+  // const [alist, setaList] = React.useState(initialList);
   const [dlist, setdList] = React.useState(initialList);
   const [idlist, setidList] = React.useState(initialList);
 
@@ -252,12 +169,12 @@ function Repoll() {
       .then((data) => {
         //console.log("data: ", data);
         setqList(data[0]);
-        setaList(data[1]);
+        // setaList(data[1]);
         setdList(data[2]);
         setidList(data[3]);
       });
   const { data } = useSWR("/api/getRecentPollInformation", fetcher);
-
+  
   return (
     <div>
       <link
@@ -277,111 +194,26 @@ function Repoll() {
         </header>
 
         <div class="card-columns">
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-light-blue">
-                <h1 class="w3-large ">{qlist[0]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[0] + "").substring(1, 21)} />
-                </p>
+          {[0, 1, 2, 3, 4, 5].map(i => (
+            <div class="card">
+              <div class="w3-card-4 ">
+                <header class="w3-container w3-light-blue">
+                  <h1 class="w3-large ">{qlist[i]}</h1>
+                </header>
+                <div class="w3-container ">
+                  <p>
+                    <PollResults pollID={(idlist[i] + "").substring(1, 21)} />
+                  </p>
+                </div>
+                <footer class="w3-container ">
+                {(dlist[i] > 0) ? 
+                    <h5 class="w3-tiny">Closing in {dlist[i]} days</h5> : 
+                    <h5 class="w3-tiny">Closed {-(dlist[i])} days ago</h5>
+                  }
+                </footer>
               </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[0]} days ago{alist[0]}
-                </h5>
-              </footer>
             </div>
-          </div>
-
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-light-blue">
-                <h1 class="w3-large">{qlist[1]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[1] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[1]} days ago{alist[1]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-light-blue">
-                <h1 class="w3-large">{qlist[2]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[2] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[2]} days ago{alist[2]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="w3-card-4">
-              <header class="w3-container w3-light-blue">
-                <h1 class="w3-large">{qlist[3]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[3] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[3]} days ago{alist[3]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-light-blue">
-                <h1 class="w3-large">{qlist[4]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[4] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[4]} days ago{alist[4]}
-                </h5>
-              </footer>
-            </div>
-          </div>
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-light-blue">
-                <h1 class="w3-large">{qlist[5]}</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID={(idlist[5] + "").substring(1, 21)} />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">
-                  {dlist[5]} days ago{alist[5]}
-                </h5>
-              </footer>
-            </div>
-          </div>
+          ))}
         </div>
 
         <h1 class=" w3-extralarge"></h1>
