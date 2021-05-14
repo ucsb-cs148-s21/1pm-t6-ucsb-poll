@@ -2,7 +2,7 @@
 
 Mentor: Paul Kuang 
 
-Meeting Time: 5-6
+Meeting Time: 5-14
 
 Type of meeting: <daily scrum> 
 
