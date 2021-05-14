@@ -190,13 +190,19 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
-        if(`${doc.data().answerable}`=='false'){
-          apo.push('(close)')
-        }else{
-          apo.push('(open)')
-        }
+
+        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
+        let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+
+        let daysSinceClose = today - dateClosed
+        // if(daysSinceClose <= 0){
+        //   apo.push('Closed')
+        // }else{
+        //   apo.push('Closing')
+        // }
+
+        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
         //docID.push(doc.id);
       });
       // console.log("Lists: " );
@@ -224,13 +230,19 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
         qpo.push(JSON.stringify(`${doc.data().question}`));
-        if(`${doc.data().answerable}`=='false'){
-          apo.push('(close)')
-        }else{
-          apo.push('(open)')
-        }
+
+        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
+        let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+
+        let daysSinceClose = today - dateClosed
+        // if(daysSinceClose <= 0){
+        //   apo.push('Closed')
+        // }else{
+        //   apo.push('Closing in')
+        // }
+
+        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
         //docID.push(doc.id);
 
       });

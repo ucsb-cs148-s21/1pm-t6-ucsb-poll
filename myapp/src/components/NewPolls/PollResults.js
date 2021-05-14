@@ -241,8 +241,16 @@ export function GetPollResults(pollID) {
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
-    const answerable = d[0].answerable
+    // const answerable = d[0].answerable
     
+    const dateClosed = new Date(d[0].dueDate)
+    const today = new Date()
+    var answerable = true
+    const daysSinceClose = today - dateClosed
+    if(daysSinceClose <= 0){   
+        answerable = false
+    } 
+
     
     return (FormatResults(voteArray, options, question, seconds, answerable, pollID))
 
