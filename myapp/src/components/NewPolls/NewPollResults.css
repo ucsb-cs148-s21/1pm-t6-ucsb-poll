@@ -1,0 +1,25 @@
+
+.ResultBar{
+    height:10px;
+    margin:10px 0px 10px 0px;
+}
+.BlueBar {
+    background-color:#7d9bff;
+}
+
+.RedBar {
+    background-color:#ff8ea6;
+}
+
+.GreenBar {
+    background-color:#81ffb3;
+}
+
+.YellowBar {
+    background-color:#f6ff76;
+}
+
+
+#blockContainer {
+    display: flex;
+}

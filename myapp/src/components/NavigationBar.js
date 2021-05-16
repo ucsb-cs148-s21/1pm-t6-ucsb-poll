@@ -4,6 +4,8 @@ import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-boots
 import AuthenticationButton from "./login/AuthenticationButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
+import { Link } from 'react-router';
+
 
 
 export function NavigationBar ({isAdmin, isMember, adminPages}) {
@@ -48,10 +50,13 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
                         {isMember && 
-                            <Nav.Link href="#profile">Profile</Nav.Link>
+                            <Nav.Link href="/#/profile">Profile</Nav.Link>
                         }
+
+                        {/* <Link to="/some/where">Click me</Link> */}
+
                         {isAdmin &&
                             <NavDropdown title="Admin">
                             {adminPages.map(item => (

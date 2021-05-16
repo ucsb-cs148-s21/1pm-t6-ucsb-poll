@@ -6,19 +6,19 @@ import './App.js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router } from "react-router-dom"; // must be ancestor of auth0-provider-with-history
 import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history"; // for auth0 routing
+import { HashRouter } from 'react-router-dom';
 
 
-ReactDOM.render(
-  <Router>
+ReactDOM.render((
+  <HashRouter>
     <Auth0ProviderWithHistory>
-      
-      <App />
+      <App /> {/* The various pages will be displayed by the `Main` component. */}
     </Auth0ProviderWithHistory>
-  </Router>,
-  document.getElementById("root")
+  </HashRouter>
+  ), document.getElementById('root')
 );
+
 
 
 // If you want to start measuring performance in your app, pass a function
