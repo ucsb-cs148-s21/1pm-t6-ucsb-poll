@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import useSWR from "swr";
 import PollResults from "./NewPolls/PollResults.js";
+import { Link } from 'react-router-dom'
 <script src="https://www.w3schools.com/lib/w3.js"></script>;
 
 const initialList = [];
@@ -121,7 +122,7 @@ function Poppoll() {
           <h1 class="w3-threequarter w3-extralarge w3-opacity ">
             Popular polls
           </h1>
-          <button class="w3-large w3-quarter w3-round-large w3-opacity">
+          <button class="w3-large w3-quarter w3-round-large w3-opacity" >
             view all
           </button>
         </header>
@@ -132,7 +133,9 @@ function Poppoll() {
               <div class="card">
                 <div class="w3-card-4 ">
                   <header class="w3-container w3-pale-green">
-                    <h1 class="w3-large ">{qlist[i]}</h1>
+                    <Link to={"poll/"+idlist[i]}>
+                      <h1 class="w3-large ">{qlist[i]}</h1>
+                    </Link>
                   </header>
                   <div class="w3-container ">
                     <p>
@@ -198,7 +201,9 @@ function Repoll() {
             <div class="card">
               <div class="w3-card-4 ">
                 <header class="w3-container w3-light-blue">
-                  <h1 class="w3-large ">{qlist[i]}</h1>
+                  <Link to={"poll/"+idlist[i]}>
+                    <h1 class="w3-large ">{qlist[i]}</h1>
+                  </Link>
                 </header>
                 <div class="w3-container ">
                   <p>

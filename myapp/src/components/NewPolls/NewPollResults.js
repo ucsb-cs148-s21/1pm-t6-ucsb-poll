@@ -1,44 +1,36 @@
 import React, { Component } from 'react'
 import useSWR from "swr";
-
+import { Checkmark } from 'react-checkmark'
+import { useAuth0 } from "@auth0/auth0-react";
 import './NewPollResults.css' // style sheets for making polls look nice later
-
-
-
-// potential colors for results
-const themes = {
-    purple: ['#6D4B94', '#7C6497', '#6D4B943B'],
-    red: ['#E23D3D', '#EF4545', '#FF28283B'],
-    blue: ['#5674E0', '#5674E0', '#5674E03B'],
-    black: ['#303030', '#303030', '#3030303B'],
-    white: ['#ffffff', '#ffffff', '#ffffff3B'],
-    cyan: ['#00BCDD', '#00BCDD', '#00BCDD3B']
-  }
 
 
 class PollResults extends Component {
 
+
     state = {
         members: this.props.members,
         question: this.props.question,
-        days: this.props.days,
-        hours: this.props.hours,
+        seconds: this.props.seconds,
         answerable: this.props.answerable,
-        voted: !(this.props.answerable),
+        voted: this.props.voted,
         pollID: this.props.pollID,
-        totalVotes: 0
+        email:this.props.email,
+        totalVotes: 0,
+        showResults: !(this.props.answerable), // related to show results button clicked state
+        optionVotedOn: null
     }
 
     componentDidMount() {
         this.setState({ 
             members: this.props.members,
             question: this.props.question,
-            days: this.props.days,
-            hours: this.props.hours,
+            seconds: this.props.seconds,
             answerable: this.props.answerable,
-            voted: !(this.props.answerable),
+            voted: this.props.voted,
             pollID: this.props.pollID,
-            totalVotes: this.sumVotes()
+            email:this.props.email,
+            totalVotes: this.sumVotes(),
         });
 
     }
@@ -98,15 +90,19 @@ class PollResults extends Component {
                 body: JSON.stringify({
                     pollID: this.state.pollID, //add the poll ID here
                     option: o, //number represents which option you want to vote on 
+                    user:this.state.email,
+                    email:this.state.email,
+                    question: this.state.question
                 }),
             });
-            console.log(`result=${JSON.stringify(result)}`);
+        //     console.log(`result=${JSON.stringify(result)}`);
 
             return result
 
 
         } catch (err) {
             console.log(`err=${err}`)
+        
         } 
     }
 
@@ -128,73 +124,114 @@ class PollResults extends Component {
             });
     }
 
+    handleShowResults = () => {        
+        this.setState({showResults: true})
+    }
+
+    handleReturn = () => {        
+        this.setState({showResults: false})
+    }
+
+
 
 
     calculatePercent = (votes, total) => {
         if (votes === 0 || total === 0) {
             return '0%'
         }
-        return `${((votes / total) * 100).toFixed(2)}%`
+        return `${((votes / total) * 100).toFixed(0)}%`
     }
 
 
     render() {
-        const { members, question, days, hours, answerable, voted, totalVotes } = this.state
-        
-        return (
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">{question}</h2>
-            </div>
-            <div style={{padding: 10}}>
-                {this.state.members.map(member => (
-                    <div key={member.name}>
-                        {answerable ? (
-                            !voted ? (
-                                <div>
-                                    <span style={{marginRight: 20}}>{member.name}</span>
-                                    <button onClick={(e) => this.handleVote(e, member)}>+</button>
+        const { showResults, question, seconds, answerable, voted, totalVotes } = this.state
+        const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
+
+        return (  
+        <div>
+            <link
+                rel="stylesheet"
+                href="https://www.w3schools.com/w3css/4/w3.css"
+            ></link>
+            <div class="w3-row">
+                <div class="w3-column">
+                    <div class="w3-half w3-container" >
+                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                            <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
+                            {this.state.members.map((member, index) => (
+                                <div key={member.name}>
+                                    {(answerable) ? (
+                                        !voted ? (
+                                            <div>
+                                                <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
+                                                <span>{member.name}</span>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                            {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
+                                            {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
+                                            <span>{member.name}</span>
+                                        </div>
+                                        )
+                                    ) : (
+                                        <div>
+                                            {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
+                                            {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
+                                            <span>{member.name}</span>
+                                        </div>
+                                        )
+                                    }
                                 </div>
-                            ) : (
-                                <div>
-                                    <span style={{marginRight: 20}}>{member.name}</span>
-                                    <span>{member.chosen && <button onClick={(e) => this.handleUnvote(e, member)}>-</button>}</span>
-                                </div>
-                            )
-                            
-                        ) : (
-                                <div className="result">
-                                    {/* <div className="fill" style={{ width: this.calculatePercent(member.voteCount, totalVotes)}}> */}
-                                    <div>
-                                        <span className="result" >{this.calculatePercent(member.voteCount, totalVotes)}</span>
-                                        <span className="result" > {member.name}</span>
-                                    </div>
-                                    {/* </div> */}
-                                    
-                                </div>
-                            )
-                        }
+                            ))}
+                            </div>
+                            {voted && answerable &&!this.props.voted&&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
+
+                        </div>
                     </div>
-                ))}
-                {voted && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                <div className="votes">{`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}</div>
+                </div>
+                <div class="w3-column">
+                    <div class="w3-half w3-container" >
+                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                            <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
+                            {this.state.members.map((member, index) => (
+                                <div key={member.name}>
+                                    { showResults?(
+                                        <div className="result">
+                                            <div style={{marginBottom: 20}}>
+                                                <span className="result" > {member.name}</span>
+                                                <div id="blockContainer">
+                                                    <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
+                                                    <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
+                                                    <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
+                                                </div>
+                                            </div >     
+                                        </div>
+                                        ):(
+                                            <div>
+                                            
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                            ))}
+                            </div>
+                            <div className="votes">
+                                {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
+                                { !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
+                                { showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-           
-           
-            <div class="card-footer">
-              {/* <small class="text-muted">Poll opened {parseInt(seconds/3600)} hours and {parseInt((seconds % 3600)/60)} minutes ago</small> */}
-              <small class="text-muted">Poll opened {days} days and {hours} hours ago</small>
-
-
-            </div>
-          </div>
+        </div>
 
         );
     }
 
 }
 
-function FormatResults(votes, options, question, days, hours, answerable, pollID) {
+function FormatResults(votes, options, question, seconds, answerable, pollID,email,voted) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
@@ -207,21 +244,33 @@ function FormatResults(votes, options, question, days, hours, answerable, pollID
 
     if (!question) return ("No question")
     if (!members) return ("No member")
-    if (!answerable) return ("No answerable")
+    // if (!answerable) return (<PollResults
+    //     members = {members} 
+    //     question = {question} 
+    //     seconds = {seconds} 
+    //     answerable = {answerable} 
+    //     pollID = {pollID} 
+    //     />)
 
 
     return (<PollResults
         members = {members} 
         question = {question} 
-        days = {days} 
-        hours = {hours}
+        seconds = {seconds} 
         answerable = {answerable} 
         pollID = {pollID} 
+        email={email}
+        voted={voted}
         />)
 }
 
 export function GetPollResults(pollID) {
     pollID = pollID.pollID // changes pollID from object to string
+    const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
+    if (isAuthenticated)
+        var email = user.email;
+    else
+        var email = "temp";
 
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
@@ -252,12 +301,31 @@ export function GetPollResults(pollID) {
     voteArray.push(d[0].option2);
     voteArray.push(d[0].option3);
 
+    //const votes = d[0].votes
     const options = d[0].options
     const question = d[0].question
-    const days = ((Math.floor(Date.now() / 1000) - d[0].date.seconds)/(60*60*24)).toFixed(0);
-    const hours = (((Math.floor(Date.now() / 1000) - d[0].date.seconds)%(60*60*24))/(60*60)).toFixed(0);
-    const answerable = d[0].answerable
-    return (FormatResults(voteArray, options, question, days, hours, answerable, pollID))
+    const seconds = d[0].date.seconds
+    const personattend=d[0].personattend
+    // const answerable = d[0].answerable
+    let voted=false;
+    var i;
+    if(personattend){
+        for (i=0;i<personattend.length;i++){
+            if(personattend[i].substring(1)==email){
+                voted=true;
+            }
+        }
+    }
+    const dateClosed = new Date(d[0].dueDate)
+    const today = new Date()
+    var answerable = true
+    const daysSinceClose = dateClosed - today
+    if(daysSinceClose <= 0){   
+        answerable = false
+    } 
+
+
+    return (FormatResults(voteArray, options, question, seconds, answerable, pollID,email,voted))
 
 }
 
@@ -265,8 +333,30 @@ class SubmitButton extends Component {
     handleClick = () => this.props.onSubmit(this.props.id);
     render() {
       return (
-        <div>
-          <button onClick={this.handleClick}>Submit</button>
+        <div style={{marginTop: 10}}>
+          <button className="btn btn-primary" onClick={this.handleClick}>Submit</button>
+        </div>
+      );
+    }
+}
+
+class ShowResultsButton extends Component {
+    handleClick = () => this.props.onSubmit(this.props.id);
+    render() {
+      return (
+        <div style={{marginTop: 10}}>
+          <button className="btn btn-secondary btn-sm" onClick={this.handleClick}>show results</button>
+        </div>
+      );
+    }
+}
+
+class ReturnButton extends Component {
+    handleClick = () => this.props.onSubmit(this.props.id);
+    render() {
+      return (
+        <div style={{marginTop: 10}}>
+          <button className="btn btn-primary" onClick={this.handleClick}>Go Back</button>
         </div>
       );
     }

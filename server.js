@@ -89,6 +89,12 @@ app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
   console.log("request: ", req.body);
 
+  db.collection("users").doc(req.body.user).update({
+    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.question)),
+  })
+  db.collection("polls").doc(req.body.pollID).update({
+    "personattend" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.email)),
+  })
   //TODO: Update profile information to show that the user has now voted. 
 
   if (req.body.option === 0) {
@@ -173,9 +179,6 @@ app.get('/getPoll/:pollID', (req, res) => {
     console.log("Error getting document:", error);
   });
 });
-
-
-
 
 
 // get popular polls for homepage
