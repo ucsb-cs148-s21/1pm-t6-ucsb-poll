@@ -55,7 +55,6 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                             <Nav.Link href="/#/profile">Profile</Nav.Link>
                         }
 
-                        {/* <Link to="/some/where">Click me</Link> */}
 
                         {isAdmin &&
                             <NavDropdown title="Admin">
