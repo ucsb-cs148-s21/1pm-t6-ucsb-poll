@@ -71,14 +71,7 @@ export function Getpollinfo(pollID){
             <p> Create by <b>name</b>  {days}days ago {status}</p>
         </div>
         <br></br>
-        <div class="w3-row">
-            <div class="w3-half w3-container" >
-                <PollResults pollID={pollID} />
-            </div>
-            <div class="w3-half w3-container" >
-                part2
-            </div>
-        </div>
+        <PollResults pollID={pollID} />
     </div>
     )
 
