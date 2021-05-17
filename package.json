@@ -27,6 +27,7 @@
     "firebase": "^8.4.2",
     "passport": "^0.4.1",
     "passport-auth0": "^1.4.0",
+    "react-checkmark": "^1.4.0",
     "stream-chat": "^3.7.0"
   }
 }

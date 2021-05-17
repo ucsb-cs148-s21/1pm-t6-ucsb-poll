@@ -89,6 +89,12 @@ app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
   console.log("request: ", req.body);
 
+  db.collection("users").doc(req.body.user).update({
+    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.question)),
+  })
+  db.collection("polls").doc(req.body.pollID).update({
+    "personattend" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.email)),
+  })
   //TODO: Update profile information to show that the user has now voted. 
 
   if (req.body.option === 0) {
@@ -175,9 +181,6 @@ app.get('/getPoll/:pollID', (req, res) => {
 });
 
 
-
-
-
 // get popular polls for homepage
 app.get('/api/getPopularPollInformation', (req, res) => {
   //console.log("Client has requested server to get popular poll information.");
@@ -190,13 +193,19 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
-        if(`${doc.data().answerable}`=='false'){
-          apo.push('(close)')
-        }else{
-          apo.push('(open)')
-        }
+
+        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
+        let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+
+        let daysSinceClose = dateClosed - today
+        // if(daysSinceClose <= 0){
+        //   apo.push('Closed')
+        // }else{
+        //   apo.push('Closing')
+        // }
+
+        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
         //docID.push(doc.id);
       });
       // console.log("Lists: " );
@@ -224,13 +233,19 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
         qpo.push(JSON.stringify(`${doc.data().question}`));
-        if(`${doc.data().answerable}`=='false'){
-          apo.push('(close)')
-        }else{
-          apo.push('(open)')
-        }
+
+        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
+        let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-        dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`);
+
+        let daysSinceClose = dateClosed - today
+        // if(daysSinceClose <= 0){
+        //   apo.push('Closed')
+        // }else{
+        //   apo.push('Closing in')
+        // }
+
+        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
         //docID.push(doc.id);
 
       });

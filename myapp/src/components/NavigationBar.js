@@ -38,7 +38,7 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
 
         return (
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/">
                     <img
                         src="PollsLogo.png"
                         width= "75"
@@ -54,8 +54,7 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                         {isMember && 
                             <Nav.Link href="/#/profile">Profile</Nav.Link>
                         }
-
-
+                        {/* <Link to="/some/where">Click me</Link> */}
                         {isAdmin &&
                             <NavDropdown title="Admin">
                             {adminPages.map(item => (

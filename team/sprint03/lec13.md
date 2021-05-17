@@ -2,7 +2,7 @@
 
 Mentor: Paul Kuang 
 
-Meeting Time: 5-13
+Meeting Time: 5-14
 
 Type of meeting: <daily scrum> 
 
@@ -13,11 +13,12 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying 
 ## Daniel Shamtob
 - What did I do last time?
  
-  Made result bars for poll results
+  Fixed issue when refreshing pages, it logs out auth0
 
 - What will I do today?
   
-  Getting that verion finsihed
+  Finish the button issus.
+  
 
 - What (if anything) is blocking my progress?
 
@@ -26,11 +27,11 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying 
 ## Jasun Chen
 - What did I do last time?
 
-  Component testing
+  Add the ability to go to the new page and change the autho0 that can automatically added to the database
 
 - What will I do today?
 
-  Start on the authentication stuff
+  Working on the design diagram
 
 - What (if anything) is blocking my progress?
 
@@ -40,38 +41,40 @@ Team: Jasun Chen✓, Daniel Shamtob ✓, TT Luo ✓, Daniel Lohn ✓, Zhengying 
 ## Zhengying Li
 - What did I do last time?
 
-  Made New Page for polls
+  Nothing
 
 - What will I do today?
 
-  Finish make new pages
+Working on the design diagram
+  
 
 - What (if anything) is blocking my progress?
 
-  Cannot orgainze HTML files
+  Lack of time
 
 ## TT Luo
 - What did I do last time?
 
-  Worked on the unit testing
+  Worked on the unit testing, fixed my own bugs to connect database
 
 - What will I do today?
 
-  Start to make new elements to poll
+  Working on the design diagram
+  
 
 - What (if anything) is blocking my progress?
   
-  Cannot connect firebase for GRPC errors.
+  Nothing
 
 
 ## Daniel Lohn
 - What did I do last time?
 
-  Worked on profile page
+  Made profile page to display basic information
 
 - What will I do today?
 
-  Learn how the navigation bar works and add new profile page linking in the navigation bar
+  Working on the backend for profile page
 
 - What (if anything) is blocking my progress?
 
