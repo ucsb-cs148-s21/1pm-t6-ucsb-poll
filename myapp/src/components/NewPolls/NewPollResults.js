@@ -154,25 +154,48 @@ class PollResults extends Component {
                 href="https://www.w3schools.com/w3css/4/w3.css"
             ></link>
             <div class="w3-row">
-                <div class="w3-half w3-container" >
-                    <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
-                        <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
-                        {this.state.members.map((member, index) => (
-                            <div key={member.name}>
-                                {(answerable) ? (
-                                    !voted ? (
-                                        <div>
-                                            <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
+                <div class="w3-column">
+                    <div class="w3-half w3-container" >
+                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                            <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
+                            {this.state.members.map((member, index) => (
+                                <div key={member.name}>
+                                    {(answerable) ? (
+                                        !voted ? (
+                                            <div>
+                                                <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
+                                                <span>{member.name}</span>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                            {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
+                                            {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
                                             <span>{member.name}</span>
                                         </div>
+                                        )
                                     ) : (
                                         <div>
                                             {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
                                             {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
                                             <span>{member.name}</span>
                                         </div>
-                                    )
-                                ) : (
+                                        )
+                                    }
+                                </div>
+                            ))}
+                            </div>
+                            {voted && answerable &&!this.props.voted&&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-column">
+                    <div class="w3-half w3-container" >
+                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                            <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
+                            {this.state.members.map((member, index) => (
+                                <div key={member.name}>
+                                    { showResults?(
                                         <div className="result">
                                             <div style={{marginBottom: 20}}>
                                                 <span className="result" > {member.name}</span>
@@ -181,48 +204,22 @@ class PollResults extends Component {
                                                     <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
                                                     <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
                                                 </div>
-                                            </div >
+                                            </div >     
+                                        </div>
+                                        ):(
+                                            <div>
                                             
-                                        </div>
-                                    )
-                                }
-                            </div>
-                        ))}
-                        </div>
-                        {voted && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                        {!voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
-
-                    </div>
-                </div>
-                <div class="w3-half w3-container" >
-                    <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
-                        <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
-                        {this.state.members.map((member, index) => (
-                            <div key={member.name}>
-                                { showResults?(
-                                    <div className="result">
-                                        <div style={{marginBottom: 20}}>
-                                            <span className="result" > {member.name}</span>
-                                            <div id="blockContainer">
-                                                <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
-                                                <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
-                                                <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
                                             </div>
-                                        </div >     
-                                    </div>
-                                    ):(
-                                        <div>
-                                        
-                                        </div>
-                                    )
-                                }
+                                        )
+                                    }
+                                </div>
+                            ))}
                             </div>
-                        ))}
-                        </div>
-                        <div className="votes">
-                            {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
-                            { !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
-                            { showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                            <div className="votes">
+                                {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
+                                { !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
+                                { showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                            </div>
                         </div>
                     </div>
                 </div>
