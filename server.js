@@ -262,6 +262,18 @@ app.get('/api/getRecentPollInformation', (req, res) => {
     });
 });
 
+//get all poll for search function
+app.get('/api/getpollforsearch', (req, res) => {
+  const allpoll=[];
+  db.collection("polls").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        allpoll.push(JSON.stringify(`${doc.data().question}`));
+      });
+      console.log("arr: ", allpoll);
+      res.json(allpoll);
+    });
+});
 
 
 // app.get('/*', function(req, res) {
