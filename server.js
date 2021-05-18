@@ -83,15 +83,24 @@ app.get('/api/getUser/:userID', (req, res) => {
   });
 });
 
-
 //add new vote
 app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
   console.log("request: ", req.body);
 
-  db.collection("users").doc(req.body.user).update({
-    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.question)),
+  console.log("Server logging poll information to user")
+  db.collection("users").doc(req.body.email).update({
+    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.pollID)),
+    "votedList": firebase.firestore.FieldValue.arrayUnion((req.body.pollID)),
+ 
   })
+
+  db.collection("users").doc(req.body.email).collection("pollHistory").doc(req.body.pollID).set({
+    option : req.body.option,
+    date : new Date()
+
+  })
+ 
   db.collection("polls").doc(req.body.pollID).update({
     "personattend" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.email)),
   })
@@ -264,10 +273,4 @@ app.get('/api/getRecentPollInformation', (req, res) => {
 
 
 
-// app.get('/*', function(req, res) {
-//   res.sendFile((express.static(path.join(__dirname, 'myapp/build/index.html'))), function(err) {
-//     if (err) {
-//       res.status(500).send(err)
-//     }
-//   })
-// })
+ 

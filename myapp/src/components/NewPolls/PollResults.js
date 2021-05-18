@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
+import { useAuth0, withAuth0 } from "@auth0/auth0-react";
 
 
 import './NewPollResults.css' // style sheets for making polls look nice later
 
-
-
 class PollResults extends Component {
-
-
+    //const {isAuthenticated, user} = useAuth0();
     state = {
         members: this.props.members,
         question: this.props.question,
@@ -19,7 +17,8 @@ class PollResults extends Component {
         pollID: this.props.pollID,
         totalVotes: 0,
         showResults: !(this.props.answerable), // related to show results button clicked state
-        optionVotedOn: null
+        optionVotedOn: null,
+        email: this.props.email
     }
 
     componentDidMount() {
@@ -88,6 +87,7 @@ class PollResults extends Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    email: this.state.email,
                     pollID: this.state.pollID, //add the poll ID here
                     option: o, //number represents which option you want to vote on 
                 }),
@@ -195,7 +195,7 @@ class PollResults extends Component {
 
 }
 
-function FormatResults(votes, options, question, seconds, answerable, pollID) {
+function FormatResults(votes, options, question, seconds, answerable, pollID, email) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
@@ -223,6 +223,7 @@ function FormatResults(votes, options, question, seconds, answerable, pollID) {
         seconds = {seconds} 
         answerable = {answerable} 
         pollID = {pollID} 
+        email = {email}
         />)
 }
 
@@ -233,8 +234,39 @@ export function GetPollResults(pollID) {
     const { data, error } =  useSWR(
         `/getPoll/${pollID}`,
         fetcher
-        );
-    
+    );
+
+    const {isAuthenticated, user} = useAuth0();
+    //const email = user.email
+    (async() => {
+        while(!isAuthenticated) // define the condition as you like
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log("waiting....");
+    })();
+    if (isAuthenticated)
+        var email = user.email;
+    else
+        var email = "temp@temp.com";
+    console.log(email);
+
+    const { userData, userError } =  useSWR(
+        `/api/getUser/${email}`,
+        fetcher
+    );
+
+
+    var answerable = true
+
+    if( userData !== undefined){
+        //check to see if user has already voted in this poll
+        for (var i = 0; i < userData['voted'].length; i++) { 
+            if (userData['voted'][i] == pollID)
+                answerable = false
+        }
+
+    }
+
+
     // makes sure everything necessary loads
     if (error) return ("Failed to retrieve poll")
     if (!data) return ("Loading poll")
@@ -266,14 +298,12 @@ export function GetPollResults(pollID) {
     
     const dateClosed = new Date(d[0].dueDate)
     const today = new Date()
-    var answerable = true
     const daysSinceClose = dateClosed - today
     if(daysSinceClose <= 0){   
         answerable = false
     } 
-
     
-    return (FormatResults(voteArray, options, question, seconds, answerable, pollID))
+    return (FormatResults(voteArray, options, question, seconds, answerable, pollID, email))
 
 }
 
