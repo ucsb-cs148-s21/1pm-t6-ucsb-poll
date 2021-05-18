@@ -7,7 +7,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import useSWR from "swr";
 import { Link } from 'react-router-dom'
 const initialList = [];
-
+let id=[];
+let poll=[];
 
 class Searchfunction extends Component{
   state={
@@ -49,7 +50,7 @@ class Searchfunction extends Component{
           */
         />
       
-      {this.state.selectornot?(<Link to={"poll/"+this.state.selected}>search</Link>):(<div></div>)}
+      {this.state.selectornot?(<Link to={"poll/"+(this.state.idlist[this.state.allpoll.indexOf(this.state.selected)]+"") }>search</Link>):(<div></div>)}
       </div>
       </div>);
     }
@@ -73,5 +74,8 @@ export default function Searchfunc(){
   const { data } = useSWR("/api/getpollforsearch", fetcher);
 
   const [value, setValue] = React.useState(null);
-  return(<Searchfunction allpoll={allpoll} idlist={idlist}/>)
+  id=idlist;
+  poll=allpoll;
+  
+  return(<Searchfunction allpoll={poll} idlist={id}/>)
 }
