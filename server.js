@@ -181,6 +181,7 @@ app.get('/getPoll/:pollID', (req, res) => {
 });
 
 
+
 // get popular polls for homepage
 app.get('/api/getPopularPollInformation', (req, res) => {
   //console.log("Client has requested server to get popular poll information.");
@@ -265,13 +266,17 @@ app.get('/api/getRecentPollInformation', (req, res) => {
 //get all poll for search function
 app.get('/api/getpollforsearch', (req, res) => {
   const allpoll=[];
+  const idpo=[];
   db.collection("polls").get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
         allpoll.push(JSON.stringify(`${doc.data().question}`));
       });
-      console.log("arr: ", allpoll);
-      res.json(allpoll);
+      const nestedArray = [];
+      nestedArray.push(allpoll);
+      nestedArray.push(idpo);
+      res.json(nestedArray);
     });
 });
 

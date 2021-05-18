@@ -5,7 +5,6 @@ import AuthenticationButton from "./login/AuthenticationButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 import { Link } from 'react-router';
-import Searchfunc from "./Searchfunction.js";
 
 
 export function NavigationBar ({isAdmin, isMember, adminPages}) {
@@ -72,7 +71,6 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>
                         <Form inline>
-                        <Searchfunc />
                         <FormControl type="text" placeholder="Search for a poll" className="mr-sm-2" />
                         <Button variant="outline-success" onClick = {handleOnClick}>Search</Button>
                         </Form>
