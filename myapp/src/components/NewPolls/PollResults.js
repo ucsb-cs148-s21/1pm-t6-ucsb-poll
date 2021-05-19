@@ -160,7 +160,7 @@ class PollResults extends Component {
                 {this.state.members.map((member, index) => (
                     <div key={member.name}>
                         {(answerable && !showResults) ? (
-                            !this.props.voted ? (
+                            !this.props.voted&&this.props.email ? (
                                 <div>
                                     <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
                                     <span >{member.name}</span>
@@ -191,7 +191,7 @@ class PollResults extends Component {
                 ))}
                 </div>
                 {choosen && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                {!this.props.voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                {!this.props.voted && answerable&& showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
 
                 <div className="votes">
                     {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
@@ -244,7 +244,7 @@ export function GetPollResults(pollID) {
     if (isAuthenticated)
         var email = user.email;
     else
-        var email = "temp";
+        var email=null;
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
         `/getPoll/${pollID}`,
