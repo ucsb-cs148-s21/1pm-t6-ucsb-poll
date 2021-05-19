@@ -267,8 +267,21 @@ app.get('/api/getRecentPollInformation', (req, res) => {
 app.get('/api/getpollforsearch', (req, res) => {
   const allpoll=[];
   const idpo=[];
-  db.collection("polls").get() 
-    .then((querySnapshot) => {
+  console.log("here")
+  var docRef = db.collection("polls");
+
+// Valid options for source are 'server', 'cache', or
+// 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
+// for more information.
+  var getOptions = {
+    source: 'server'
+  };
+
+// Get a document, forcing the SDK to fetch from the offline cache.
+  docRef.get(getOptions).then((querySnapshot) => {
+
+  //db.collection("polls").get()
+  //  .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id));
         allpoll.push(JSON.stringify(`${doc.data().question}`));
@@ -276,6 +289,7 @@ app.get('/api/getpollforsearch', (req, res) => {
       const nestedArray = [];
       nestedArray.push(allpoll);
       nestedArray.push(idpo);
+      console.log("here")
       res.json(nestedArray);
     });
 });

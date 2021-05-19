@@ -133,7 +133,7 @@ function Poppoll() {
               <div class="card">
                 <div class="w3-card-4 ">
                   <header class="w3-container w3-pale-green">
-                    <Link to={"poll/"+idlist[i]}>
+                    <Link to={""+idlist[i]}>
                       <h1 class="w3-large ">{qlist[i]}</h1>
                     </Link>
                   </header>
@@ -177,7 +177,7 @@ function Repoll() {
         setidList(data[3]);
       });
   const { data } = useSWR("/api/getRecentPollInformation", fetcher);
-  
+  console.log(qlist);
   return (
     <div>
       <link
@@ -201,7 +201,7 @@ function Repoll() {
             <div class="card">
               <div class="w3-card-4 ">
                 <header class="w3-container w3-light-blue">
-                  <Link to={"poll/"+idlist[i]}>
+                  <Link to={""+idlist[i]}>
                     <h1 class="w3-large ">{qlist[i]}</h1>
                   </Link>
                 </header>

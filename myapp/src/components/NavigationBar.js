@@ -1,10 +1,11 @@
 //https://react-bootstrap.github.io/components/navbar/
 import React, {Component, useState, useEffect} from 'react';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Alert } from 'react-bootstrap';
 import AuthenticationButton from "./login/AuthenticationButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 import { Link } from 'react-router';
+import Searchfunc from "./Searchfunction.js"
 
 
 export function NavigationBar ({isAdmin, isMember, adminPages}) {
@@ -70,9 +71,11 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>
-                        <Form inline>
-                        <FormControl type="text" placeholder="Search for a poll" className="mr-sm-2" />
-                        <Button variant="outline-success" onClick = {handleOnClick}>Search</Button>
+                        <Form inline> 
+                        <Searchfunc /> 
+                        {/*<a href={"/#/"+window.pollid}>*/}
+                        <Button variant="outline-success">Search</Button>
+                        {/*</a>*/}
                         </Form>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">

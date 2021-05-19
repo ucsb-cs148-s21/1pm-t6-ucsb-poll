@@ -3,6 +3,8 @@ import NewVote from "./NewPolls/NewVote";
 import Apoll from "./homePagePolls.js";
 import Searchfunc from "./Searchfunction.js";
 
+
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +25,6 @@ class HomePage extends Component {
         <div class="jumbotron">
         <h1 class="display-4">Welcome to UCSB polls</h1>
         </div>
-        <Searchfunc />
         <Apoll />
         <div class="card">
           <div class="card-header">Create a New Poll</div>

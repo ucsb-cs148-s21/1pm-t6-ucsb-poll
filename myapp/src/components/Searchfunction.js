@@ -6,21 +6,22 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import useSWR from "swr";
 import { Link } from 'react-router-dom'
+import {  Form } from 'react-bootstrap';
+
 const initialList = [];
-let id=[];
-let poll=[];
+//window.pollid="";
 
 class Searchfunction extends Component{
   state={
-    allpoll:this.props.allpoll,
-    idlist:this.props.idlist,
+    poll:this.props.poll,
+    list:this.props.list,
     selected:"",
     selectornot:0,
   }
   componentDidMount() {
     this.setState({ 
-      allpoll:this.props.allpoll,
-      idlist:this.props.idlist,
+      poll:this.props.poll,
+      list:this.props.list,
       selected:"",
       selectornot:0,
     });
@@ -29,29 +30,36 @@ class Searchfunction extends Component{
     this.setState({selected:value})
     this.setState({selectornot:1})
   }
+  setlink=(value)=>{
+    window.pollid=value
+    //console.log(value)
+    //console.log(window.pollid)
+  }
     render() {
       return(
       <div>
+      
       <div style={{width: 300 }}>
-        
         <Autocomplete
+          noOptionsText={'loading'}
           onChange={(event, value) => this.savedata(value)}
-          
           id="auto-highlight"
-          options={this.state.allpoll}
+          options={this.props.poll}
           autoHighlight
-          renderInput={(params) => <TextField {...params} label="Search for a poll" margin="normal" />}
-          /* following part of code can make a search function in a blank box (which is the same size as that one in the navigation bar)
-          renderInput={(params) => (
+          renderInput={(params) => <TextField {...params}  label="Search for a poll" variant="outlined" size="small" />}
+          // following part of code can make a search function in a blank box (which is the same size as that one in the navigation bar)
+         /* renderInput={(params) => (
             <div ref={params.InputProps.ref} >
               <input style={{ width: 200 }} type="text" {...params.inputProps} />
             </div>
+        
           )}
-          */
-        />
-      
-      {this.state.selectornot?(<Link to={"poll/"+(this.state.idlist[this.state.allpoll.indexOf(this.state.selected)]+"") }>search</Link>):(<div></div>)}
+*/
+        />{this.state.selectornot?(<Link to={"/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"") }>search</Link>):(<div></div>)}
+          
+          {this.setlink(this.props.list[this.props.poll.indexOf(this.state.selected)]+"")}
       </div>
+      
       </div>);
     }
 }
@@ -62,20 +70,20 @@ class Searchfunction extends Component{
 
 
 export default function Searchfunc(){
-  const [allpoll, setallpoll] = React.useState(initialList);
-  const [idlist, setidList] = React.useState(initialList);
-  const fetcher = (url) =>
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setallpoll(data[0]);
-        setidList(data[1])
-      });
-  const { data } = useSWR("/api/getpollforsearch", fetcher);
-
-  const [value, setValue] = React.useState(null);
-  id=idlist;
-  poll=allpoll;
+    const [allpoll, setallpoll] = React.useState(initialList);
+    const [idlist, setidList] = React.useState(initialList);
+    const fetcher = (url) =>
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          setallpoll(data[0]);
+          setidList(data[1])
+        });
+    const { data } = useSWR("/api/getpollforsearch", fetcher);
+    
+    const [value, setValue] = React.useState(null);
   
-  return(<Searchfunction allpoll={poll} idlist={id}/>)
+  let poll=allpoll
+  let list=idlist
+  return(<Searchfunction poll={poll} list={list}/>)
 }
