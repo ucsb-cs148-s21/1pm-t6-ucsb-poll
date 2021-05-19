@@ -1,15 +1,12 @@
 import React, { Component, useState, useEffect } from 'react'
-import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
-import { useAuth0, withAuth0 } from "@auth0/auth0-react";
+import { withAuth0 } from "@auth0/auth0-react";
 import Spinner from 'react-bootstrap/Spinner'
 
 import './NewPollResults.css' // style sheets for making polls look nice later
-//import { sleep } from 'stream-chat/dist/types/utils';
-
+ 
 class PollResults extends Component {
-    //const {isAuthenticated, user} = useAuth0();
-    state = {
+     state = {
         members: [{name : "default", voteCount: 34, chosen : true}],
         question: "default question",
         answerable: true,
@@ -29,7 +26,7 @@ class PollResults extends Component {
 
 
     componentDidUpdate(prevProps) {
-        if (prevProps.pollID != this.props.pollID) {
+        if (prevProps.pollID !== this.props.pollID) {
             this.setState({loading: false});
             this.initializeValues();
 
@@ -51,7 +48,7 @@ class PollResults extends Component {
         var voteArray = [];
         var members = []
 
-        if (!pollID || pollID == "ndefined" || pollID == undefined) {
+        if (!pollID || pollID === "ndefined" || pollID === undefined) {
             return "Error";
         }
 
@@ -268,7 +265,7 @@ class PollResults extends Component {
 
 
     render() {
-        const { showResults, question, seconds, answerable, voted, totalVotes } = this.state
+        const { showResults, answerable, voted, totalVotes } = this.state
         const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
 
         if (this.state.loading)
