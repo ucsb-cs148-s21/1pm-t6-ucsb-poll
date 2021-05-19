@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import Main from "./Main";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -25,12 +26,23 @@ class App extends Component {
   //handleClick = e => console.log('button clicked for' + e.target);
 
   render() {
-    return (
-      <div className="App">
-        <NavigationBar />
-        <Main />
-      </div>
-    );
+
+    if (1 == 1){
+      return (
+        <div className="App">
+          <NavigationBar />
+          <Main />
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className="App">
+          <NavigationBar />
+          <Main />
+        </div>
+      );
+    }
   }
 }
 export default App; 

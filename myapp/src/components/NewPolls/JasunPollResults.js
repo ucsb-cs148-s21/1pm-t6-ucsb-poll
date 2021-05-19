@@ -10,33 +10,147 @@ import './NewPollResults.css' // style sheets for making polls look nice later
 class PollResults extends Component {
     //const {isAuthenticated, user} = useAuth0();
     state = {
-        members: this.props.members,
-        question: this.props.question,
-        seconds: this.props.seconds,
-        answerable: this.props.answerable,
-        voted: this.props.voted,
+        members: [{name : "default", voteCount: 34, chosen : true}],
+        question: "default question",
+        answerable: true,
+        voted: false,
         pollID: this.props.pollID,
-        email:this.props.email,
+        email: this.props.auth0.email, //this.props.email,
         totalVotes: 0,
-        showResults: !(this.props.answerable), // related to show results button clicked state
+        showResults: false, // related to show results button clicked state
         optionVotedOn: null
     }
 
     componentDidMount() {
-        this.setState({ 
-            members: this.props.members,
-            question: this.props.question,
-            seconds: this.props.seconds,
-            answerable: this.props.answerable,
-            voted: this.props.voted,
-            pollID: this.props.pollID,
-            email:this.props.email,
-            totalVotes: this.sumVotes(),
+        this.initializeValues();
+    }
+
+
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.pollID != this.props.pollID)
+            this.initializeValues();
+    }
+
+
+    initializeValues() {
+        const {user} = this.props.auth0;
+        var email = user.email
+        var answerable = true;
+        var voted = false;
+        var chosenOption = -1;
+        var pollID = this.props.pollID;
+        var options = [];
+        var question = "";
+        var voteArray = [];
+        var members = []
+
+        if (!pollID || pollID == "ndefined" || pollID == undefined) {
+            return "Error";
+        }
+
+        fetch(`/getPoll/${pollID}`, {
+            method: "GET",
+            headers: {
+                 Accept: "application/json",
+                "Content-Type": "application/json",
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("poll data: ", data);
+            var d = (data && JSON.stringify(data))
+            d = '[' + d
+            d += ']'
+            d = JSON.parse(d)
+            options = d[0].options
+            console.log("options:", options);
+            question = d[0].question
+            voteArray.push(d[0].option0);
+            voteArray.push(d[0].option1);
+            voteArray.push(d[0].option2);
+            voteArray.push(d[0].option3);   
+            const dateClosed = new Date(d[0].dueDate)
+            const today = new Date()
+            const daysSinceClose = dateClosed - today
+            if(daysSinceClose <= 0){   
+                //answerable = false;
+                this.setState({ answerable : false, showResults: true });
+            }
+            var totalVotes = 0;
+            for(var x = 0; x < options.length; x++){
+                totalVotes += voteArray[x];
+                var element = {
+                    name: options[x],
+                    voteCount: voteArray[x],
+                    chosen: (x == chosenOption ? true : false) //set chosen to true if it's our chosen option
+                };
+                members.push(element)
+            }
+            console.log("members:", members);  
+            this.setState({ 
+                members : members,
+                totalVotes: totalVotes, 
+            });
+            
+            fetch(`/api/getUser/${email}`, {
+                method: "GET",
+                headers: {
+                     Accept: "application/json",
+                    "Content-Type": "application/json",
+                }
+            })
+            .then(response => response.json())
+            .then(data1 => {
+                console.log("real data: ", data1);
+                for (var i = 0; i < data1['votedList'].length; i++) { 
+                    if (data1['votedList'][i] == pollID) {
+                        
+                        //chosenOption = 2;
+                        console.log("Already voted on :", pollID);
+                        //members[0].chosen = true;
+
+
+                        fetch(`/api/getUserVote/${email}/voteHistory/${pollID}`, {
+                            method: "GET",
+                            headers: {
+                                 Accept: "application/json",
+                                "Content-Type": "application/json",
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data2 => {
+                            console.log("data2: ", data2);
+                            if (members[data2['option']]) //make sure this isn't undefined... although it should never be undefined?
+                                members[data2['option']].chosen = true;
+                            this.setState({members: members}) 
+                        });
+            
+
+
+                        this.setState({
+                            //members: members,
+                            voted: true,
+                            answerable: false,
+                            showResults: true,
+                            totalVotes: this.sumVotes(),
+                        })
+                    }
+                }
+            });
+
 
         });
 
-    }
 
+        this.setState({ 
+            //members: members,
+            // question: question,
+            email: email,
+            pollID: this.props.pollID,
+            totalVotes: this.sumVotes(),
+        });
+    }
 
     // handleVote = e => console.log('button clicked for ' + e);
     // handleUnvote = e => console.log('button clicked for ' + e);
@@ -186,7 +300,7 @@ class PollResults extends Component {
                 ))}
                 </div>
                 {voted && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                {!voted && showResults && answerable &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                {!voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
 
                 <div className="votes">
                     {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
@@ -199,183 +313,7 @@ class PollResults extends Component {
     }
 
 }
-
-function FormatResults(votes, options, question, seconds, answerable, pollID, email, voted, chosenOption) {
-    var members = []
-    for(var x = 0; x < options.length; x++){
-        var element = {
-            name: options[x],
-            voteCount: votes[x],
-            chosen: (x == chosenOption ? true : false) //set chosen to true if it's our chosen option
-        };
-        members.push(element)
-    }
-
-    if (!question) return ("No question")
-    if (!members) return ("No member")
-    // if (!answerable) return (<PollResults
-    //     members = {members} 
-    //     question = {question} 
-    //     seconds = {seconds} 
-    //     answerable = {answerable} 
-    //     pollID = {pollID} 
-    //     />)
-
-
-    return (<PollResults
-        members = {members} 
-        question = {question} 
-        seconds = {seconds} 
-        answerable = {answerable} 
-        pollID = {pollID} 
-        email = {email}
-        voted = {voted}
-        />)
-}
-
-export function GetPollResults(pollID) {
-    //const [emailLoaded, setLoading] = useState(false);
-    const {isAuthenticated, isLoading, user} = useAuth0();
-    var email = "temp@temp.com"
-    var answerable = true;
-    var voted = false;
-    var chosenOption = -1;
-    pollID = pollID.pollID // changes pollID from object to string
-
-    const fetcher = url => fetch(url).then(res => res.json())
-    const { data, error } =  useSWR(
-        `/getPoll/${pollID}`,
-        fetcher
-    );
-    //const email = user.email
-    // (async() => {
-    //     while(!isAuthenticated) // define the condition as you like
-    //         await new Promise(resolve => setTimeout(resolve, 1000));
-    //     console.log("waiting....");
-    //     console.log("in async:", user.email);
-    // })();
-
-    // while(isLoading && !user) {
-    //     setTimeout(()=> { ; }, 100);
-    // }
-    // if (user)
-    //     setEmail(user.email);
-    //console.log("hook email: ", email1);
-    var i = 0;
-    while (!isAuthenticated && i < 20) {
-        //sleep(300);
-        setTimeout(()=> { ; }, 10);
-        i++;
-    }
-
-    (async() => {
-        while(!isAuthenticated) // define the condition as you like
-            await new Promise(resolve => setTimeout(resolve, 1000));
-    })();
-    
-    //setTimeout(()=> { email = user.email; }, 1200);
-
-    if (isAuthenticated) {
-        email = user.email;
-        //setEmail(user.email);
-        //setLoading(true);
-    }
-    else 
-        console.log("not logged in yet :*(")
-    // if (isAuthenticated) {
-    //     email = user.email; //setEmail(user.email);
-    // }
-    // // else
-    // //     var email = "temp@temp.com";
-    console.log(email);
-
-    // THIS IS GIVING UNDEFINED FOR SOME REASON..????
-    // const { userData } =  useSWR(
-    //     `/api/getUser/${email}`,
-    //     fetcher
-    // );
-    // console.log("userData:", userData);
-    // if( userData !== undefined){
-    //     console.log("userData:", userData);
-    //     //check to see if user has already voted in this poll
-    //     for (var i = 0; i < userData['voted'].length; i++) { 
-    //         if (userData['voted'][i] == pollID) {
-    //             answerable = false;
-    //             voted = true;
-    //         }
-    //     }
-    // }
-
-    let mounted = false;
-    useEffect(() => {
-        if(mounted) {
-          return;
-        }
-        fetch(`/api/getUser/${email}`, {
-            method: "GET",
-            headers: {
-                 Accept: "application/json",
-                "Content-Type": "application/json",
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("real data: ", data);
-            for (var i = 0; i < data['votedList'].length; i++) { 
-                if (data['votedList'][i] == pollID) {
-                    answerable = false;
-                    voted = true;
-                    chosenOption = 2;
-                    console.log("Already voted on :", pollID);
-                }
-            }
-        });
-        return () => mounted = true;
-      }, [])
-
-
-
-    // makes sure everything necessary loads
-    if (error) return ("Failed to retrieve poll")
-    if (!data) return ("Loading poll")
-    //if (!data.votes) return ("No votes")
-    if (!data.options) return ("No options")
-    if (!data.question) return ("No question")
-    
-    if(!(data && JSON.stringify(data))) return ("Loading again")
-    
-    var d = (data && JSON.stringify(data))
-
-
-
-    d = '[' + d
-    d += ']'
-    d = JSON.parse(d)
-
-    var voteArray = [];
-    voteArray.push(d[0].option0);
-    voteArray.push(d[0].option1);
-    voteArray.push(d[0].option2);
-    voteArray.push(d[0].option3);
-
-    //const votes = d[0].votes
-    const options = d[0].options
-    const question = d[0].question
-    const seconds = d[0].date.seconds
-    // const answerable = d[0].answerable
-    
-    const dateClosed = new Date(d[0].dueDate)
-    const today = new Date()
-    const daysSinceClose = dateClosed - today
-    if(daysSinceClose <= 0){   
-        answerable = false
-    } 
-
-    
-    return (FormatResults(voteArray, options, question, seconds, answerable, pollID, email, voted, chosenOption))
-
-}
-
+ 
 class SubmitButton extends Component {
     handleClick = () => this.props.onSubmit(this.props.id);
     render() {
@@ -411,4 +349,4 @@ class ReturnButton extends Component {
 
 
 
-export default GetPollResults;
+export default withAuth0(PollResults);

@@ -271,12 +271,17 @@ export function GetPollResults(pollID) {
         var email = user.email;
     else
         var email = "temp";
+    //user not authenticated? return right here??
+    
+    // (while !isAuthenticated) {
+
+    //}
 
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
         `/getPoll/${pollID}`,
         fetcher
-        );
+    );
     
     // makes sure everything necessary loads
     if (error) return ("Failed to retrieve poll")

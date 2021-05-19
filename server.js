@@ -83,6 +83,23 @@ app.get('/api/getUser/:userID', (req, res) => {
   });
 });
 
+app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
+  console.log("Client has requested server to get user poll votes for poll : ", req.params.pollID);
+  var userdoc = db.collection("users").doc(req.params.userID).collection("pollHistory").doc(req.params.pollID);
+
+  userdoc.get().then((doc) => {
+    if (doc.exists) {
+        console.log("User Poll data:", doc.data());
+        res.send(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+});
+
 //add new vote
 app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
