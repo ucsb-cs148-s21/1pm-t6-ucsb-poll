@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { Component, useState } from 'react'
 import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
 import { useAuth0, withAuth0 } from "@auth0/auth0-react";
@@ -186,7 +186,7 @@ class PollResults extends Component {
                 ))}
                 </div>
                 {voted && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                {!voted && showResults && answerable &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                {!voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
 
                 <div className="votes">
                     {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
@@ -234,12 +234,12 @@ function FormatResults(votes, options, question, seconds, answerable, pollID, em
 }
 
 export function GetPollResults(pollID) {
-    //const [emailLoaded, setLoading] = useState(false);
+    //const [email1, setEmail] = useState("temp@temp.com");
     const {isAuthenticated, isLoading, user} = useAuth0();
     var email = "temp@temp.com"
     var answerable = true;
     var voted = false;
-    var chosenOption = -1;
+
     pollID = pollID.pollID // changes pollID from object to string
 
     const fetcher = url => fetch(url).then(res => res.json())
@@ -278,7 +278,6 @@ export function GetPollResults(pollID) {
     if (isAuthenticated) {
         email = user.email;
         //setEmail(user.email);
-        //setLoading(true);
     }
     else 
         console.log("not logged in yet :*(")
@@ -289,50 +288,40 @@ export function GetPollResults(pollID) {
     // //     var email = "temp@temp.com";
     console.log(email);
 
-    // THIS IS GIVING UNDEFINED FOR SOME REASON..????
-    // const { userData } =  useSWR(
-    //     `/api/getUser/${email}`,
-    //     fetcher
-    // );
-    // console.log("userData:", userData);
-    // if( userData !== undefined){
-    //     console.log("userData:", userData);
-    //     //check to see if user has already voted in this poll
-    //     for (var i = 0; i < userData['voted'].length; i++) { 
-    //         if (userData['voted'][i] == pollID) {
+    const { userData, userError } =  useSWR(
+        `/api/getUser/${email}`,
+        fetcher
+    );
+    console.log("userData:", userData);
+
+    if( userData !== undefined){
+        console.log("userData:", userData);
+        //check to see if user has already voted in this poll
+        for (var i = 0; i < userData['voted'].length; i++) { 
+            if (userData['voted'][i] == pollID) {
+                answerable = false;
+                voted = true;
+            }
+        }
+    }
+
+    // fetch(`/api/getUser/${email}`, {
+    //     method: "GET",
+    //     headers: {
+    //          Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //     }
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log("real data: ", data);
+    //     for (var i = 0; i < data['voted'].length; i++) { 
+    //         if (data['voted'][i] == pollID) {
     //             answerable = false;
     //             voted = true;
     //         }
     //     }
-    // }
-
-    let mounted = false;
-    useEffect(() => {
-        if(mounted) {
-          return;
-        }
-        fetch(`/api/getUser/${email}`, {
-            method: "GET",
-            headers: {
-                 Accept: "application/json",
-                "Content-Type": "application/json",
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("real data: ", data);
-            for (var i = 0; i < data['votedList'].length; i++) { 
-                if (data['votedList'][i] == pollID) {
-                    answerable = false;
-                    voted = true;
-                    chosenOption = 2;
-                    console.log("Already voted on :", pollID);
-                }
-            }
-        });
-        return () => mounted = true;
-      }, [])
-
+    // });
 
 
     // makes sure everything necessary loads
@@ -371,6 +360,7 @@ export function GetPollResults(pollID) {
         answerable = false
     } 
 
+    var chosenOption = -1;
     
     return (FormatResults(voteArray, options, question, seconds, answerable, pollID, email, voted, chosenOption))
 

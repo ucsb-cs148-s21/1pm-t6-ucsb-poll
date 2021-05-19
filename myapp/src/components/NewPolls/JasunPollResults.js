@@ -35,7 +35,9 @@ class PollResults extends Component {
 
     initializeValues() {
         const {user} = this.props.auth0;
-        var email = user.email
+        var email = "temp@temp.com";
+        if (user)
+            email = user.email
         var answerable = true;
         var voted = false;
         var chosenOption = -1;
@@ -74,8 +76,11 @@ class PollResults extends Component {
             const today = new Date()
             const daysSinceClose = dateClosed - today
             if(daysSinceClose <= 0){   
-                //answerable = false;
-                this.setState({ answerable : false, showResults: true });
+                this.setState({                             
+                    voted: true,
+                    answerable: false,
+                    showResults: true, 
+                });
             }
             var totalVotes = 0;
             for(var x = 0; x < options.length; x++){
