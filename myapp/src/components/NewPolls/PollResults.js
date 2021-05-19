@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 import './NewPollResults.css' // style sheets for making polls look nice later
+
 
 
 
@@ -15,11 +16,13 @@ class PollResults extends Component {
         question: this.props.question,
         seconds: this.props.seconds,
         answerable: this.props.answerable,
-        voted: !(this.props.answerable),
+        voted: this.props.voted,
         pollID: this.props.pollID,
+        email:this.props.email,
         totalVotes: 0,
         showResults: !(this.props.answerable), // related to show results button clicked state
-        optionVotedOn: null
+        optionVotedOn: null,
+        choosen:false
     }
 
     componentDidMount() {
@@ -28,9 +31,11 @@ class PollResults extends Component {
             question: this.props.question,
             seconds: this.props.seconds,
             answerable: this.props.answerable,
-            voted: !(this.props.answerable),
+            voted: this.props.voted,
             pollID: this.props.pollID,
+            email:this.props.email,
             totalVotes: this.sumVotes(),
+            choosen:false
         });
 
     }
@@ -57,9 +62,10 @@ class PollResults extends Component {
         }
         this.setState({
             members: orig,
-            voted: true
+            voted: true,
+            choosen:true
         })
-
+        
         
     }
 
@@ -74,7 +80,8 @@ class PollResults extends Component {
         }
         this.setState({
             members: orig,
-            voted: false
+            voted: false,
+            choosen:false
         })
         
     }
@@ -90,7 +97,10 @@ class PollResults extends Component {
                 body: JSON.stringify({
                     pollID: this.state.pollID, //add the poll ID here
                     option: o, //number represents which option you want to vote on 
-                }),
+                    user:this.state.email,
+                    email:this.state.email,
+                    question: this.state.question            
+                }),
             });
         //     console.log(`result=${JSON.stringify(result)}`);
 
@@ -140,7 +150,7 @@ class PollResults extends Component {
 
 
     render() {
-        const { showResults, question, seconds, answerable, voted, totalVotes } = this.state
+        const { showResults, question, seconds, answerable,  totalVotes,choosen } = this.state
         const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
 
         return (
@@ -150,7 +160,7 @@ class PollResults extends Component {
                 {this.state.members.map((member, index) => (
                     <div key={member.name}>
                         {(answerable && !showResults) ? (
-                            !voted ? (
+                            !this.props.voted ? (
                                 <div>
                                     <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
                                     <span >{member.name}</span>
@@ -180,12 +190,12 @@ class PollResults extends Component {
                     </div>
                 ))}
                 </div>
-                {voted && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                {!voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                {choosen && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
+                {!this.props.voted && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
 
                 <div className="votes">
                     {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
-                    {!voted && !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
+                    {!this.props.voted && !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
                 </div>
             </div>
           </div>
@@ -195,7 +205,7 @@ class PollResults extends Component {
 
 }
 
-function FormatResults(votes, options, question, seconds, answerable, pollID) {
+function FormatResults(votes, options, question, seconds, answerable, pollID,email,voted) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
@@ -223,12 +233,18 @@ function FormatResults(votes, options, question, seconds, answerable, pollID) {
         seconds = {seconds} 
         answerable = {answerable} 
         pollID = {pollID} 
+        email={email}
+        voted={voted}
         />)
 }
 
 export function GetPollResults(pollID) {
     pollID = pollID.pollID // changes pollID from object to string
-
+    const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
+    if (isAuthenticated)
+        var email = user.email;
+    else
+        var email = "temp";
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
         `/getPoll/${pollID}`,
@@ -262,8 +278,17 @@ export function GetPollResults(pollID) {
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
+    const personattend=d[0].personattend
     // const answerable = d[0].answerable
-    
+    let voted=false;
+    var i;
+    if(personattend){
+        for (i=0;i<personattend.length;i++){
+            if(personattend[i].substring(1)==email){
+                voted=true;
+            }
+        }
+    }
     const dateClosed = new Date(d[0].dueDate)
     const today = new Date()
     var answerable = true
@@ -273,7 +298,7 @@ export function GetPollResults(pollID) {
     } 
 
     
-    return (FormatResults(voteArray, options, question, seconds, answerable, pollID))
+    return (FormatResults(voteArray, options, question, seconds, answerable, pollID,email,voted))
 
 }
 
