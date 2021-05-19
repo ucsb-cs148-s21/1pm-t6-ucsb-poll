@@ -27,7 +27,7 @@ class PollResults extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.pollID !== this.props.pollID) {
-            this.setState({loading: false});
+            this.setState({loading: true});
             this.initializeValues();
 
         }
