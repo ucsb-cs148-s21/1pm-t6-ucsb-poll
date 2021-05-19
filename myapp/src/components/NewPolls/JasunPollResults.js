@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react'
 import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
 import { useAuth0, withAuth0 } from "@auth0/auth0-react";
-
+import Spinner from 'react-bootstrap/Spinner'
 
 import './NewPollResults.css' // style sheets for making polls look nice later
 //import { sleep } from 'stream-chat/dist/types/utils';
@@ -18,7 +18,8 @@ class PollResults extends Component {
         email: this.props.auth0.email, //this.props.email,
         totalVotes: 0,
         showResults: false, // related to show results button clicked state
-        optionVotedOn: null
+        optionVotedOn: null,
+        loading: true,
     }
 
     componentDidMount() {
@@ -28,8 +29,11 @@ class PollResults extends Component {
 
 
     componentDidUpdate(prevProps) {
-        if (prevProps.pollID != this.props.pollID)
+        if (prevProps.pollID != this.props.pollID) {
+            this.setState({loading: false});
             this.initializeValues();
+
+        }
     }
 
 
@@ -115,7 +119,7 @@ class PollResults extends Component {
                         console.log("Already voted on :", pollID);
                         //members[0].chosen = true;
 
-
+                        this.setState({loading: false});
                         fetch(`/api/getUserVote/${email}/voteHistory/${pollID}`, {
                             method: "GET",
                             headers: {
@@ -139,9 +143,12 @@ class PollResults extends Component {
                             answerable: false,
                             showResults: true,
                             totalVotes: this.sumVotes(),
+                            loading: false,
                         })
                     }
                 }
+
+                this.setState({loading: false});
             });
 
 
@@ -267,6 +274,8 @@ class PollResults extends Component {
         const { showResults, question, seconds, answerable, voted, totalVotes } = this.state
         const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
 
+        if (this.state.loading)
+            return (<Spinner animation="border" variant="success"/>)
         return (
           <div >
             <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
