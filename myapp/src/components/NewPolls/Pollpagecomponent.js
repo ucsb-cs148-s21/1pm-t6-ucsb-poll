@@ -3,6 +3,7 @@ import useSWR from "swr";
 import PollResults from "./NewPollResults.js";
 
 export function Getpollinfo(pollID){
+    
     pollID = pollID.pollID
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(

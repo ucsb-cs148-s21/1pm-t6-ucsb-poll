@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import Searchfunc from "./Searchfunction.js"
 
 
+
 export function NavigationBar ({isAdmin, isMember, adminPages}) {
     const { user, getAccessTokenSilently: getToken } = useAuth0();
     const addNewUser = async (event) => {
@@ -73,9 +74,10 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                         </NavDropdown>
                         <Form inline> 
                         <Searchfunc /> 
-                        {/*<a href={"/#/"+window.pollid}>*/}
+                        
+                        {/*<a href={"/#/"+window.pollid}>}
                         <Button variant="outline-success">Search</Button>
-                        {/*</a>*/}
+                        {</a>*/}
                         </Form>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">

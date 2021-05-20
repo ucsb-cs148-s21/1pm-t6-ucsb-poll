@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import useSWR from "swr";
 import { Link } from 'react-router-dom'
-import {  Form } from 'react-bootstrap';
+import {  Nav,  Form,Button} from 'react-bootstrap';
 
 const initialList = [];
 //window.pollid="";
@@ -55,15 +55,28 @@ class Searchfunction extends Component{
         
           )}
 */
-        />{this.state.selectornot?(<Link to={"/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"") }>search</Link>):(<div></div>)}
+        />
+        {/*this.state.selectornot?(<Link to={"/poll/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"") }>search</Link>):(<div></div>)*/}
           
           {this.setlink(this.props.list[this.props.poll.indexOf(this.state.selected)]+"")}
-      </div>
-      
+        </div>
+        <Buttonfunc link={"/#/poll/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"")}/>
       </div>);
     }
 }
-
+class Buttonfunc extends Component{
+  state={
+  link:this.props.link
+  }
+  componentDidMount() {
+    this.setState({ 
+      link:this.props.link
+    });
+  }
+  render(){
+  return(<Button variant="outline-success" href={this.props.link}>Search</Button>)
+  }
+}
 
 
 
