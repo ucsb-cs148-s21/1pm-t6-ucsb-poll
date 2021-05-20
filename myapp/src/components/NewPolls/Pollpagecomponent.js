@@ -3,6 +3,7 @@ import useSWR from "swr";
 import PollResults from "./NewPollResults.js";
 
 export function Getpollinfo(pollID){
+    
     pollID = pollID.pollID
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
@@ -68,7 +69,7 @@ export function Getpollinfo(pollID){
         <div class="w3-panel" class="w3-left-align">
             <h1><b> {question}</b></h1>
             <br></br>
-            <p> Create by <b>name</b>  {days}days ago {status}</p>
+            <p> Created {/*by <b>name</b>*/}  {days} days ago {status}</p>
         </div>
         <br></br>
         <PollResults pollID={pollID} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route , withRouter } from 'react-router-dom';
 
 import HomePage from './components/HomePage';
 import ProfilePage from './components/ProfilePage';
@@ -12,8 +12,10 @@ const Main = () => {
       <Route exact path='/' component={HomePage}></Route>
       <Route exact path='/profile' component={ProfilePage}></Route>  
       <Route exact path="/poll/:pollid" component={PollPage} /> 
+      
     </Switch>
   );
 }
 
-export default Main;
+
+export default withRouter(Main);

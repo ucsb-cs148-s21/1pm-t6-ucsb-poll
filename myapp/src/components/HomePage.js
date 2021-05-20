@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import NewVote from "./NewPolls/NewVote";
 import Apoll from "./homePagePolls.js";
+import Searchfunc from "./Searchfunction.js";
+
+
 
 class HomePage extends Component {
   constructor(props) {
@@ -14,8 +17,11 @@ class HomePage extends Component {
     const { posts } = this.state;
     return (
       <div className="container">
+        <link
+        rel="stylesheet"
+        href="https://www.w3schools.com/w3css/4/w3.css"
+        ></link>
         {/* <NavigationBar displaytext="Navigation Bar" /> */}
-
         <div class="jumbotron">
         <h1 class="display-4">Welcome to UCSB polls</h1>
         </div>

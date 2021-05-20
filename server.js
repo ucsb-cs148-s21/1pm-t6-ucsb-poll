@@ -181,6 +181,7 @@ app.get('/getPoll/:pollID', (req, res) => {
 });
 
 
+
 // get popular polls for homepage
 app.get('/api/getPopularPollInformation', (req, res) => {
   //console.log("Client has requested server to get popular poll information.");
@@ -262,6 +263,36 @@ app.get('/api/getRecentPollInformation', (req, res) => {
     });
 });
 
+//get all poll for search function
+app.get('/api/getpollforsearch', (req, res) => {
+  const allpoll=[];
+  const idpo=[];
+  console.log("here")
+  var docRef = db.collection("polls");
+
+// Valid options for source are 'server', 'cache', or
+// 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
+// for more information.
+  var getOptions = {
+    source: 'server'
+  };
+
+// Get a document, forcing the SDK to fetch from the offline cache.
+  docRef.get(getOptions).then((querySnapshot) => {
+
+  //db.collection("polls").get()
+  //  .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        idpo.push(JSON.stringify(doc.id));
+        allpoll.push(JSON.stringify(`${doc.data().question}`));
+      });
+      const nestedArray = [];
+      nestedArray.push(allpoll);
+      nestedArray.push(idpo);
+      console.log("here")
+      res.json(nestedArray);
+    });
+});
 
 
 // app.get('/*', function(req, res) {

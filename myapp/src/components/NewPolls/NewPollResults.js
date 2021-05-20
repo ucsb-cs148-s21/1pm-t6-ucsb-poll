@@ -156,21 +156,23 @@ class PollResults extends Component {
             <div class="w3-row">
                 <div class="w3-column">
                     <div class="w3-half w3-container" >
-                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "left":"left"}}>
                             <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
                             {this.state.members.map((member, index) => (
                                 <div key={member.name}>
                                     {(answerable) ? (
-                                        !voted ? (
+                                        !voted&&this.props.email ? (
                                             <div>
                                                 <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
                                                 <span>{member.name}</span>
+                                                
                                             </div>
                                         ) : (
                                             <div>
                                             {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
                                             {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
                                             <span>{member.name}</span>
+                                            
                                         </div>
                                         )
                                     ) : (
@@ -218,7 +220,7 @@ class PollResults extends Component {
                             <div className="votes">
                                 {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
                                 { !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
-                                { showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                                { showResults &&answerable&&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
                             </div>
                         </div>
                     </div>
@@ -270,7 +272,7 @@ export function GetPollResults(pollID) {
     if (isAuthenticated)
         var email = user.email;
     else
-        var email = "temp";
+        var email = null;
 
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
