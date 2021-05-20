@@ -100,6 +100,29 @@ app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
   });
 });
 
+app.get('/api/getUserVotingHistory/:userID', (req, res) => {
+  console.log("Client has requested server to get user voting history : ", req.params.pollID);
+  const pollID=[];
+  const questions=[];
+  //const date=[];
+  //const option =[];
+  db.collection("users").doc(req.params.userID).collection("pollHistory").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        pollID.push((doc.id));
+        questions.push((`${doc.data().question}`));
+
+      });
+
+      const nestedArray = [];
+      nestedArray.push(pollID);
+      nestedArray.push(questions);
+      console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
+
 //add new vote
 app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
