@@ -67,7 +67,6 @@ class PollResults extends Component {
 
     sumVotes = () => {
         const tot = this.state.members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
-
         return tot
 
     }
@@ -118,16 +117,12 @@ class PollResults extends Component {
                 body: JSON.stringify({
                     pollID: this.state.pollID, //add the poll ID here
                     option: o, //number represents which option you want to vote on 
-                    user:this.state.email,
                     email:this.state.email,
                     question: this.state.question            
                 }),
             });
-        //     console.log(`result=${JSON.stringify(result)}`);
-
+            //console.log(`result=${JSON.stringify(result)}`);
             return result
-
-
         } catch (err) {
             console.log(`err=${err}`)
         } 
@@ -300,8 +295,8 @@ export function GetPollResults(pollID) {
     const personattend=d[0].personattend
 
 
-    //looping through this array isn't really scalable (if we have a bunch of votes).
-    // could change to call pollHistory for the uesr instead. 
+    // looping through this array isn't really scalable (if we have a bunch of votes).
+    // could change to call pollHistory for the user voting history instead. but for now, doesn't really matter.
     if(personattend){
         for (i=0;i<personattend.length;i++){
             if(personattend[i].substring(1)==email){
