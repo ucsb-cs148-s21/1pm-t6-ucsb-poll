@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NewVote from "../components/polls/NewVote";
-import HomePagePolls from "./homePagePolls.js";
+import HomePagePolls from "../components/homePagePolls.js";
 
 
 
