@@ -45,14 +45,7 @@ const BrowsePage = ({ match }) => {
         return ("Error wrong filter");
     }
 
-    // const fetcher = (url) => fetch(url).then((res) => res.json())
-    // const { data } = useSWR(`/api/getPollInformation/${filterType}/12`, fetcher);
-    // //dynamically update the list of recent polls
-    // if (data && qlist[0] !== data[0][0]) {
-    //   setqList(data[0]);
-    //   setdList(data[2]);
-    //   setidList(data[3]);
-    // }
+ 
     const handleClick = () => {
         setIsLoadingMorePolls(true);
         var arr = arrayOfNums;
