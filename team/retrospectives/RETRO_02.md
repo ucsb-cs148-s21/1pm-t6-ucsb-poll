@@ -64,9 +64,7 @@ Doing progress towards our three goals to make better UI design, be more explici
 
 * A brief recap of the metric you planned on using 
 
-The UI design should be approved by whole team, be sure the deliverables for every team mates can be finished on time in every stage of development
-
-and all codes should be understood by other teammates
+The UI design should be approved by whole team, be sure the deliverables for every team mates can be finished on time in every stage of development and all codes should be understood by other teammates
 
 * The outcome according to the metric now that the next Sprint is done (maybe already for a while).
 
