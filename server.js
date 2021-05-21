@@ -11,6 +11,8 @@ require("firebase/firestore");
 //require("firebase/auth");
 //const admin = require("firebase-admin");
 
+
+// COPY PASTE FIREBASE CONFIG HERE: 
 const firebaseConfig = {
   apiKey: "AIzaSyCmZ272B89syKA0FNLa7ujYHvfI60YB2M0",
   authDomain: "ucsb-polls.firebaseapp.com",
@@ -30,12 +32,9 @@ app.get("/", function (req, res) {
   res.render("index.html");
 });
 
-// why does it say this is deprecated??? Only started working after I added this line
 app.use(bodyParser.json());
-
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
-
 
 
 //
@@ -53,9 +52,7 @@ app.post("/addNewUser", (req, res) => {
   db.collection("users").doc(req.body.email).set({
     name: req.body.name,
     email: req.body.email,
-    //id: req.body.id,
-    num: 53,
-    role: "admin",
+    role: "member",
     }, {merge: true})
     .then(function () {
       console.log("Doc Succesfully Written");
@@ -84,18 +81,68 @@ app.get('/api/getUser/:userID', (req, res) => {
 });
 
 
+app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
+  console.log("Client has requested server to get user poll votes for poll : ", req.params.pollID);
+  var userdoc = db.collection("users").doc(req.params.userID).collection("pollHistory").doc(req.params.pollID);
+
+  userdoc.get().then((doc) => {
+    if (doc.exists) {
+        console.log("User Poll data:", doc.data());
+        res.send(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+});
+
+app.get('/api/getUserVotingHistory/:userID', (req, res) => {
+  console.log("Client has requested server to get user voting history : ", req.params.pollID);
+  const pollID=[];
+  const questions=[];
+  //const date=[];
+  //const option =[];
+  db.collection("users").doc(req.params.userID).collection("pollHistory").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        pollID.push((doc.id));
+        questions.push((`${doc.data().question}`));
+
+      });
+
+      const nestedArray = [];
+      nestedArray.push(pollID);
+      nestedArray.push(questions);
+      console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
 //add new vote
 app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
   console.log("request: ", req.body);
 
-  db.collection("users").doc(req.body.user).update({
-    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.question)),
+  console.log("Server logging poll information to user")
+  db.collection("users").doc(req.body.email).update({
+    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.pollID)),
+    "votedList": firebase.firestore.FieldValue.arrayUnion((req.body.pollID)),
+
   })
+
+  db.collection("users").doc(req.body.email).collection("pollHistory").doc(req.body.pollID).set({
+    option : req.body.option,
+    date : new Date(),
+    question: req.body.question,
+
+  })
+
+
   db.collection("polls").doc(req.body.pollID).update({
     "personattend" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.email)),
   })
-  //TODO: Update profile information to show that the user has now voted. 
 
   if (req.body.option === 0) {
     db.collection("polls").doc(req.body.pollID).update({
@@ -169,10 +216,8 @@ app.get('/getPoll/:pollID', (req, res) => {
 
   pollDoc.get().then((doc) => {
     if (doc.exists) {
-        // console.log("Document data:", doc.data());
         res.send(doc.data())
     } else {
-        // doc.data() will be undefined in this case
         console.log("No such poll with id " + req.params.pollID);
     }
   }).catch((error) => {
@@ -194,30 +239,17 @@ app.get('/api/getPopularPollInformation', (req, res) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id));
         qpo.push(JSON.stringify(`${doc.data().question}`));
-
-        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
         let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-
         let daysSinceClose = dateClosed - today
-        // if(daysSinceClose <= 0){
-        //   apo.push('Closed')
-        // }else{
-        //   apo.push('Closing')
-        // }
-
         dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
-        //docID.push(doc.id);
       });
-      // console.log("Lists: " );
-      // console.log(qpo);
-      // console.log(apo, dpo);
       const nestedArray = [];
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
       nestedArray.push(idpo);
-      console.log("arr: ", nestedArray);
+      //console.log("popular polls arr: ", nestedArray);
       res.json(nestedArray);
     });
 });
@@ -234,31 +266,18 @@ app.get('/api/getRecentPollInformation', (req, res) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
         qpo.push(JSON.stringify(`${doc.data().question}`));
-
-        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
         let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-
         let daysSinceClose = dateClosed - today
-        // if(daysSinceClose <= 0){
-        //   apo.push('Closed')
-        // }else{
-        //   apo.push('Closing in')
-        // }
-
         dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
-        //docID.push(doc.id);
 
       });
-      // console.log("Lists: " );
-      // console.log(qpo);
-      // console.log(apo, dpo);
       const nestedArray = [];
       nestedArray.push(qpo);
       nestedArray.push(apo);
       nestedArray.push(dpo);
       nestedArray.push(idpo);
-      console.log("arr: ", nestedArray);
+      //console.log("recent polls: ", nestedArray);
       res.json(nestedArray);
     });
 });
@@ -301,7 +320,6 @@ app.get('/api/getPollInformation/:filter/:num', (req, res) => {
 app.get('/api/getpollforsearch', (req, res) => {
   const allpoll=[];
   const idpo=[];
-  console.log("here")
   var docRef = db.collection("polls");
 
 // Valid options for source are 'server', 'cache', or
@@ -323,16 +341,8 @@ app.get('/api/getpollforsearch', (req, res) => {
       const nestedArray = [];
       nestedArray.push(allpoll);
       nestedArray.push(idpo);
-      console.log("here")
       res.json(nestedArray);
     });
 });
 
 
-// app.get('/*', function(req, res) {
-//   res.sendFile((express.static(path.join(__dirname, 'myapp/build/index.html'))), function(err) {
-//     if (err) {
-//       res.status(500).send(err)
-//     }
-//   })
-// })

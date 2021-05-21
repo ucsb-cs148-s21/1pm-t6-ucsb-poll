@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NewVote from "../components/polls/NewVote";
-import Apoll from "../components/homePagePolls.js";
+import HomePagePolls from "./homePagePolls.js";
 
 
 
@@ -23,7 +23,7 @@ class HomePage extends Component {
         <div class="jumbotron">
         <h1 class="display-4">Welcome to UCSB polls</h1>
         </div>
-        <Apoll />
+        <HomePagePolls />
         <div class="card">
           <div class="card-header">Create a New Poll</div>
           <NewVote />
