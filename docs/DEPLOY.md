@@ -8,6 +8,13 @@
     Obtain OAuth 2.0 client credentials from the [Google API Console.](https://console.developers.google.com/)\
     Create an Auth0 account if you don't already have one.\
     Set up an Auth0 tenant for this webapp.
+    
+Navigate to the "Applications" page and click the "Create Application" button. Create a "Single Page Application." Then go settings and fill in the application URIs according to these values. Replace exampleHerokuName with the actual name of your heroku app. 
+| Field                 | Value                                        |
+| --------------------- | -------------------------------------------- |
+| Allowed Callback URLs | http://localhost:3000, http://localhost:8080, https://exampleHerokuName.herokuapp.com |
+| Allowed Logout URLs   | http://localhost:3000, http://localhost:8080, https://exampleHerokuName.herokuapp.com |
+| Allowed Web Origins   | http://localhost:3000, http://localhost:8080, https://exampleHerokuName.herokuapp.com |
         
 <!-- TODO: Summarize main Instructions from cs156? -->
 - **Set up app with Auth0 credentials**\
