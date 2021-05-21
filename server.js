@@ -270,30 +270,23 @@ app.get('/api/getPollInformation/:filter/:num', (req, res) => {
   const apo=[];
   const dpo=[];
   const idpo=[];
-  db.collection("polls").orderBy("date","desc").limit(6).get() 
+  var order = "";
+  if (req.params.filter === "Popular") {
+    order = "attend";
+  }
+  else {
+    order = "date";
+  }
+  db.collection("polls").orderBy(order,"desc").limit(req.params.num).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
         qpo.push(JSON.stringify(`${doc.data().question}`));
-
-        // dpo.push(`${((today-doc.data().date.toDate())/(1000*60*60*24)).toFixed(0)}`); // date opened
         let dateClosed = new Date(doc.data().dueDate);
         let today=new Date();
-
         let daysSinceClose = dateClosed - today
-        // if(daysSinceClose <= 0){
-        //   apo.push('Closed')
-        // }else{
-        //   apo.push('Closing in')
-        // }
-
         dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
-        //docID.push(doc.id);
-
       });
-      // console.log("Lists: " );
-      // console.log(qpo);
-      // console.log(apo, dpo);
       const nestedArray = [];
       nestedArray.push(qpo);
       nestedArray.push(apo);
