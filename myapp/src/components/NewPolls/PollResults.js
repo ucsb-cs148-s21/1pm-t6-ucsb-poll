@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
 import { useAuth0 } from "@auth0/auth0-react";
+import Spinner from 'react-bootstrap/Spinner'
 import './NewPollResults.css' // style sheets for making polls look nice later
+
+
 
 
 class PollResults extends Component {
@@ -18,7 +21,9 @@ class PollResults extends Component {
         email:this.props.email,
         totalVotes: 0,
         showResults: !(this.props.answerable), // related to show results button clicked state
-        optionVotedOn: null
+        optionVotedOn: null,
+        choosen:false,
+        loading: true
     }
 
     componentDidMount() {
@@ -31,17 +36,37 @@ class PollResults extends Component {
             pollID: this.props.pollID,
             email:this.props.email,
             totalVotes: this.sumVotes(),
+            choosen:false,
+            loading: false,
         });
 
     }
 
+    componentDidUpdate(prevProps) {
+        //check to see if anything has changed since last update. if so, we must reinitialize our values. 
+        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable) {
+            this.setState({loading: true});
+            this.setState({ 
+                members: this.props.members,
+                question: this.props.question,
+                seconds: this.props.seconds,
+                answerable: this.props.answerable,
+                voted: this.props.voted,
+                pollID: this.props.pollID,
+                email:this.props.email,
+                totalVotes: this.sumVotes(),
+                choosen:false,
+                loading: false
+            });        
+        }
+
+    }
 
     // handleVote = e => console.log('button clicked for ' + e);
     // handleUnvote = e => console.log('button clicked for ' + e);
 
     sumVotes = () => {
         const tot = this.state.members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
-
         return tot
 
     }
@@ -57,9 +82,10 @@ class PollResults extends Component {
         }
         this.setState({
             members: orig,
-            voted: true
+            voted: true,
+            choosen:true
         })
-
+        
         
     }
 
@@ -74,7 +100,8 @@ class PollResults extends Component {
         }
         this.setState({
             members: orig,
-            voted: false
+            voted: false,
+            choosen:false
         })
         
     }
@@ -90,19 +117,14 @@ class PollResults extends Component {
                 body: JSON.stringify({
                     pollID: this.state.pollID, //add the poll ID here
                     option: o, //number represents which option you want to vote on 
-                    user:this.state.email,
                     email:this.state.email,
-                    question: this.state.question
-                }),
+                    question: this.state.question            
+                }),
             });
-        //     console.log(`result=${JSON.stringify(result)}`);
-
+            //console.log(`result=${JSON.stringify(result)}`);
             return result
-
-
         } catch (err) {
             console.log(`err=${err}`)
-        
         } 
     }
 
@@ -144,116 +166,75 @@ class PollResults extends Component {
 
 
     render() {
-        const { showResults, question, seconds, answerable, voted, totalVotes } = this.state
+        const { showResults, answerable,  totalVotes, choosen, voted, email } = this.state
         const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
-
-        return (  
-        <div>
-            <link
-                rel="stylesheet"
-                href="https://www.w3schools.com/w3css/4/w3.css"
-            ></link>
-            <div class="w3-row">
-                <div class="w3-column">
-                    <div class="w3-half w3-container" >
-                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "left":"left"}}>
-                            <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
-                            {this.state.members.map((member, index) => (
-                                <div key={member.name}>
-                                    {(answerable) ? (
-                                        !voted&&this.props.email ? (
-                                            <div>
-                                                <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
-                                                <span>{member.name}</span>
-                                                
-                                            </div>
-                                        ) : (
-                                            <div>
-                                            {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
-                                            {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
-                                            <span>{member.name}</span>
-                                            
-                                        </div>
-                                        )
-                                    ) : (
-                                        <div>
-                                            {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
-                                            {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
-                                            <span>{member.name}</span>
-                                        </div>
-                                        )
-                                    }
+        if (this.state.loading)
+            return (<Spinner animation="border" variant="success"/>)
+        return (
+          <div >
+            <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
+                <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
+                {this.state.members.map((member, index) => (
+                    <div key={member.name}>
+                        {(answerable && !showResults) ? (
+                            !voted && email ? (
+                                <div>
+                                    <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
+                                    <span >{member.name}</span>
                                 </div>
-                            ))}
-                            </div>
-                            {voted && answerable &&!this.props.voted&&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-
-                        </div>
+                            ) : (
+                                <div>
+                                    {!member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)} disabled>+</button>}
+                                    {member.chosen && <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleUnvote(e, member)}>-</button>}
+                                    <span>{member.name}</span>
+                                </div>
+                            )
+                            
+                        ) : (
+                                <div className="result">
+                                    <div style={{marginBottom: 20}}>
+                                        <span className="result" > {member.name}</span>
+                                        <div id="blockContainer">
+                                            <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
+                                            <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
+                                            <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
+                                        </div>
+                                    </div >
+                                    
+                                </div>
+                            )
+                        }
                     </div>
+                ))}
                 </div>
-                <div class="w3-column">
-                    <div class="w3-half w3-container" >
-                        <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
-                            <div style={{display: (answerable && !showResults) ? "inline-block":"block", textAlign: "left"}}>
-                            {this.state.members.map((member, index) => (
-                                <div key={member.name}>
-                                    { showResults?(
-                                        <div className="result">
-                                            <div style={{marginBottom: 20}}>
-                                                <span className="result" > {member.name}</span>
-                                                <div id="blockContainer">
-                                                    <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
-                                                    <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
-                                                    <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
-                                                </div>
-                                            </div >     
-                                        </div>
-                                        ):(
-                                            <div>
-                                            
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            ))}
-                            </div>
-                            <div className="votes">
-                                {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
-                                { !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
-                                { showResults &&answerable&&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
-                            </div>
-                        </div>
-                    </div>
+                {choosen && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
+                {!voted && answerable && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+
+                <div className="votes">
+                    {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
+                    {!voted && !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
                 </div>
             </div>
-        </div>
+          </div>
 
         );
     }
 
 }
 
-function FormatResults(votes, options, question, seconds, answerable, pollID,email,voted) {
+function FormatResults(votes, options, question, seconds, answerable, pollID, email, voted, chosen) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
             name: options[x],
             voteCount: votes[x],
-            chosen: false
+            chosen: (chosen === x ? true : false)
         };
         members.push(element)
     }
 
     if (!question) return ("No question")
     if (!members) return ("No member")
-    // if (!answerable) return (<PollResults
-    //     members = {members} 
-    //     question = {question} 
-    //     seconds = {seconds} 
-    //     answerable = {answerable} 
-    //     pollID = {pollID} 
-    //     />)
-
 
     return (<PollResults
         members = {members} 
@@ -269,29 +250,34 @@ function FormatResults(votes, options, question, seconds, answerable, pollID,ema
 export function GetPollResults(pollID) {
     pollID = pollID.pollID // changes pollID from object to string
     const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
-    if (isAuthenticated)
-        var email = user.email;
-    else
-        var email = null;
+    let voted= false;
+    let chosen = -1;
+    var answerable = true
+    var i;
+    var email;
+
+    if (isAuthenticated) {
+        email = user.email;
+    }
+    else {
+        email = "temp@temp.com";
+        answerable = false;
+    }
 
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
         `/getPoll/${pollID}`,
         fetcher
-        );
+    );
     
     // makes sure everything necessary loads
     if (error) return ("Failed to retrieve poll")
     if (!data) return ("Loading poll")
-    //if (!data.votes) return ("No votes")
     if (!data.options) return ("No options")
     if (!data.question) return ("No question")
-    
     if(!(data && JSON.stringify(data))) return ("Loading again")
     
     var d = (data && JSON.stringify(data))
-
-
 
     d = '[' + d
     d += ']'
@@ -303,31 +289,33 @@ export function GetPollResults(pollID) {
     voteArray.push(d[0].option2);
     voteArray.push(d[0].option3);
 
-    //const votes = d[0].votes
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
     const personattend=d[0].personattend
-    // const answerable = d[0].answerable
-    let voted=false;
-    var i;
+
+
+    // looping through this array isn't really scalable (if we have a bunch of votes).
+    // could change to call pollHistory for the user voting history instead. but for now, doesn't really matter.
     if(personattend){
         for (i=0;i<personattend.length;i++){
             if(personattend[i].substring(1)==email){
                 voted=true;
+                chosen = parseInt(personattend[i].substring(0,1));
+                answerable = false; //can't answer once you've voted
             }
         }
     }
+
     const dateClosed = new Date(d[0].dueDate)
     const today = new Date()
-    var answerable = true
     const daysSinceClose = dateClosed - today
     if(daysSinceClose <= 0){   
         answerable = false
     } 
 
-
-    return (FormatResults(voteArray, options, question, seconds, answerable, pollID,email,voted))
+    
+    return (FormatResults(voteArray, options, question, seconds, answerable, pollID,email,voted, chosen))
 
 }
 

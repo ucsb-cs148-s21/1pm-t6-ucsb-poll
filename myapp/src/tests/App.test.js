@@ -64,6 +64,9 @@ test('renders form to input new polls when page loads', async () => {
     expect(screen.queryByText(/Category/i)).toBeInTheDocument();
     expect(screen.queryByText(/Due Date/i)).toBeInTheDocument(); 
     expect(screen.queryByText(/Vote option1/i)).toBeInTheDocument(); 
+
+
+    // Testing for submission? 
 });
 
 
