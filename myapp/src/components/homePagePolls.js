@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import useSWR from "swr";
-import PollResults from "./NewPolls/PollResults.js";
+import PollResults from "./polls/PollResults.js";
 import { Link } from 'react-router-dom'
 <script src="https://www.w3schools.com/lib/w3.js"></script>;
 

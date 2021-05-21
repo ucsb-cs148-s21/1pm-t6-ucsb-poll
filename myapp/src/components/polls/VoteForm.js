@@ -10,6 +10,11 @@ const VoteForm = (props) => {
   const [enterVoteOp2, setEnterVoteOp2] = useState('');
   const [enterVoteOp3, setEnterVoteOp3] = useState('');
   const [enterVoteOp4, setEnterVoteOp4] = useState('');
+  const [cancelButtonDisplay, setCancelButtonDisplay] = useState(true);
+
+  if (props.cancelButtonDisplay !== cancelButtonDisplay) {
+    setCancelButtonDisplay(props.cancelButtonDisplay);
+  }
 
   const QuestionsChangeHandler = (event) => {
     setEnteredQuestions(event.target.value);
@@ -127,7 +132,7 @@ const VoteForm = (props) => {
 
       
       <div className='new-action'>
-        <button type="button" onClick={props.onCancel}>Cancel</button>
+        {cancelButtonDisplay && <button type="button" onClick={props.onCancel}>Cancel</button>}
         <button type='submit'>Submit</button>
       </div>
     </form>

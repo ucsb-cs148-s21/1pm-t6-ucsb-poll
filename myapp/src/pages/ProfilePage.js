@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Profile from "./components/profilePageComponent.js";
+import Profile from "../components/profilePageComponent.js";
 
 class ProfilePage extends Component {
 
