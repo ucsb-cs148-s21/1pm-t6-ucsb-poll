@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import useSWR from "swr";
 import PollResults from "./polls/PollResults.js";
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 <script src="https://www.w3schools.com/lib/w3.js"></script>;
 
 const initialList = [];
@@ -122,9 +123,11 @@ function Poppoll() {
           <h1 class="w3-threequarter w3-extralarge w3-opacity ">
             Popular polls
           </h1>
-          <button class="w3-large w3-quarter w3-round-large w3-opacity" >
+          {/* <button class="w3-large w3-quarter w3-round-large w3-opacity" >
             view all
-          </button>
+          </button> */}
+          <Button href = "/#/browse/Popular" variant="link">View All</Button>
+
         </header>
 
         <div class="card-columns">
@@ -191,9 +194,11 @@ function Repoll() {
           <h1 class="w3-threequarter w3-extralarge w3-opacity ">
             Recent polls
           </h1>
-          <button class="w3-large w3-quarter w3-round-large w3-opacity">
+          {/* <button class="w3-large w3-quarter w3-round-large w3-opacity">
             view all
-          </button>
+          </button> */}
+          <Button href = "/#/browse/Recent" variant="link">View All</Button>
+
         </header>
 
         <div class="card-columns">
