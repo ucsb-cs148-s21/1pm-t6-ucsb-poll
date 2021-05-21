@@ -13,7 +13,7 @@ const BrowsePage = ({ match }) => {
     const [dlist, setdList] = useState([]);
     const [idlist, setidList] = useState([]);
 
-    const [arrayOfNums, setArrayOfNums] = useState([0,1,2,3,4,5,6,7,8,9,10,11]);
+    const [arrayOfNums, setArrayOfNums] = useState([0,3,6,9]);
     const [numOfPolls, setNumOfPolls] = useState(12);
     const [isLoadingMorePolls, setIsLoadingMorePolls] = useState(false);
 
@@ -22,7 +22,7 @@ const BrowsePage = ({ match }) => {
         setFilter(filter);
 
         //reset num of polls displayed
-        setArrayOfNums([0,1,2,3,4,5,6,7,8,9,10,11]);
+        setArrayOfNums([0,3,6,9]);
         setNumOfPolls(12);
     }
   
@@ -51,8 +51,8 @@ const BrowsePage = ({ match }) => {
         var arr = arrayOfNums;
         var num = numOfPolls;
         var i;
-        for (i = 0; i < 12; i++) {
-            arr.push(num+i);
+        for (i = 0; i < 4; i++) {
+            arr.push(num+i*3);
         }
         setArrayOfNums(arr);
         setNumOfPolls(num+12);
@@ -79,30 +79,78 @@ const BrowsePage = ({ match }) => {
                         {filterType} polls
                     </h1>
                     </header>
-                    <div class="card-columns">
+
                         {arrayOfNums.map(i => (
-                            <div class="card">
-                                <div class="w3-card-4 ">
-                                    <header class="w3-container w3-light-blue">
-                                    <Link to={"/poll/"+idlist[i]}>
-                                        <h1 class="w3-large ">{qlist[i]}</h1>
-                                    </Link>
-                                    </header>
-                                    <div class="w3-container ">
-                                    <p>
-                                        <PollResults pollID={(idlist[i] + "").substring(1, 21)} />
-                                    </p>
+                            <div class="card-deck">
+
+                                <div class="card">
+                                    <div class="w3-card-4 ">
+                                        <header class="w3-container w3-light-blue">
+                                        <Link to={"/poll/"+idlist[i]}>
+                                            <h1 class="w3-large ">{qlist[i]}</h1>
+                                        </Link>
+                                        </header>
+                                        <div class="w3-container ">
+                                        <p>
+                                            <PollResults pollID={(idlist[i] + "").substring(1, 21)} />
+                                        </p>
+                                        </div>
+                                        <footer class="w3-container ">
+                                        {(dlist[i] > 0) ? 
+                                            <h5 class="w3-tiny">Closing in {dlist[i]} days</h5> : 
+                                            <h5 class="w3-tiny">Closed {-(dlist[i])} days ago</h5>
+                                        }
+                                        </footer>
                                     </div>
-                                    <footer class="w3-container ">
-                                    {(dlist[i] > 0) ? 
-                                        <h5 class="w3-tiny">Closing in {dlist[i]} days</h5> : 
-                                        <h5 class="w3-tiny">Closed {-(dlist[i])} days ago</h5>
-                                    }
-                                    </footer>
                                 </div>
+
+                                <div class="card">
+                                    <div class="w3-card-4 ">
+                                        <header class="w3-container w3-light-blue">
+                                        <Link to={"/poll/"+idlist[i+1]}>
+                                            <h1 class="w3-large ">{qlist[i+1]}</h1>
+                                        </Link>
+                                        </header>
+                                        <div class="w3-container ">
+                                        <p>
+                                            <PollResults pollID={(idlist[i+1] + "").substring(1, 21)} />
+                                        </p>
+                                        </div>
+                                        <footer class="w3-container ">
+                                        {(dlist[i] > 0) ? 
+                                            <h5 class="w3-tiny">Closing in {dlist[i+1]} days</h5> : 
+                                            <h5 class="w3-tiny">Closed {-(dlist[i+1])} days ago</h5>
+                                        }
+                                        </footer>
+                                    </div>
+                                </div>
+
+
+                                <div class="card">
+                                    <div class="w3-card-4 ">
+                                        <header class="w3-container w3-light-blue">
+                                        <Link to={"/poll/"+idlist[i+2]}>
+                                            <h1 class="w3-large ">{qlist[i+2]}</h1>
+                                        </Link>
+                                        </header>
+                                        <div class="w3-container ">
+                                        <p>
+                                            <PollResults pollID={(idlist[i+2] + "").substring(1, 21)} />
+                                        </p>
+                                        </div>
+                                        <footer class="w3-container ">
+                                        {(dlist[i] > 0) ? 
+                                            <h5 class="w3-tiny">Closing in {dlist[i+2]} days</h5> : 
+                                            <h5 class="w3-tiny">Closed {-(dlist[i+2])} days ago</h5>
+                                        }
+                                        </footer>
+                                    </div>
+                                </div>
+
                             </div>
+
                         ))}
-                    </div>
+                    
                     <div>
                     <Button
                         variant="primary"
