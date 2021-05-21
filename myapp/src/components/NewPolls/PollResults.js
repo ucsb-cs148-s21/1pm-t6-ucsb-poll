@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Spinner from 'react-bootstrap/Spinner'
 import './NewPollResults.css' // style sheets for making polls look nice later
 
 
@@ -22,7 +22,8 @@ class PollResults extends Component {
         totalVotes: 0,
         showResults: !(this.props.answerable), // related to show results button clicked state
         optionVotedOn: null,
-        choosen:false
+        choosen:false,
+        loading: true
     }
 
     componentDidMount() {
@@ -35,11 +36,30 @@ class PollResults extends Component {
             pollID: this.props.pollID,
             email:this.props.email,
             totalVotes: this.sumVotes(),
-            choosen:false
+            choosen:false,
+            loading: false,
         });
 
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email) {
+            this.setState({loading: true});
+            this.setState({ 
+                members: this.props.members,
+                question: this.props.question,
+                seconds: this.props.seconds,
+                answerable: this.props.answerable,
+                voted: this.props.voted,
+                pollID: this.props.pollID,
+                email:this.props.email,
+                totalVotes: this.sumVotes(),
+                choosen:false,
+                loading: false
+            });        
+        }
+
+    }
 
     // handleVote = e => console.log('button clicked for ' + e);
     // handleUnvote = e => console.log('button clicked for ' + e);
@@ -150,9 +170,10 @@ class PollResults extends Component {
 
 
     render() {
-        const { showResults, question, seconds, answerable,  totalVotes,choosen } = this.state
+        const { showResults, answerable,  totalVotes, choosen, voted, email } = this.state
         const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
-
+        if (this.state.loading)
+            return (<Spinner animation="border" variant="success"/>)
         return (
           <div >
             <div style={{padding: 10, textAlign: (answerable && !showResults) ? "center":"left"}}>
@@ -160,7 +181,7 @@ class PollResults extends Component {
                 {this.state.members.map((member, index) => (
                     <div key={member.name}>
                         {(answerable && !showResults) ? (
-                            !this.props.voted&&this.props.email ? (
+                            !voted && email ? (
                                 <div>
                                     <button className="btn btn-success btn-sm" style={{marginRight: 10, marginTop:5}} onClick={(e) => this.handleVote(e, member)}>+</button>
                                     <span >{member.name}</span>
@@ -191,11 +212,11 @@ class PollResults extends Component {
                 ))}
                 </div>
                 {choosen && answerable &&  <SubmitButton style={{paddingTop: 10}} onSubmit={this.handleSubmit} />}
-                {!this.props.voted && answerable&& showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
+                {!voted && answerable && showResults &&  <ReturnButton style={{paddingTop: 10}} onSubmit={this.handleReturn} />}
 
                 <div className="votes">
                     {`${totalVotes} vote${totalVotes !== 1 ? 's' : ''}`}  
-                    {!this.props.voted && !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
+                    {!voted && !showResults &&  <ShowResultsButton style={{paddingTop: 10}} onSubmit={this.handleShowResults} />}
                 </div>
             </div>
           </div>
@@ -205,27 +226,19 @@ class PollResults extends Component {
 
 }
 
-function FormatResults(votes, options, question, seconds, answerable, pollID,email,voted) {
+function FormatResults(votes, options, question, seconds, answerable, pollID, email, voted, chosen) {
     var members = []
     for(var x = 0; x < options.length; x++){
         var element = {
             name: options[x],
             voteCount: votes[x],
-            chosen: false
+            chosen: (chosen === x ? true : false)
         };
         members.push(element)
     }
 
     if (!question) return ("No question")
     if (!members) return ("No member")
-    // if (!answerable) return (<PollResults
-    //     members = {members} 
-    //     question = {question} 
-    //     seconds = {seconds} 
-    //     answerable = {answerable} 
-    //     pollID = {pollID} 
-    //     />)
-
 
     return (<PollResults
         members = {members} 
@@ -241,28 +254,31 @@ function FormatResults(votes, options, question, seconds, answerable, pollID,ema
 export function GetPollResults(pollID) {
     pollID = pollID.pollID // changes pollID from object to string
     const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
+    let voted= false;
+    let chosen = -1;
+    var answerable = true
+    var i;
+    var email;
+
     if (isAuthenticated)
-        var email = user.email;
+        email = user.email;
     else
-        var email=null;
+        email=null;
+
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
         `/getPoll/${pollID}`,
         fetcher
-        );
+    );
     
     // makes sure everything necessary loads
     if (error) return ("Failed to retrieve poll")
     if (!data) return ("Loading poll")
-    //if (!data.votes) return ("No votes")
     if (!data.options) return ("No options")
     if (!data.question) return ("No question")
-    
     if(!(data && JSON.stringify(data))) return ("Loading again")
     
     var d = (data && JSON.stringify(data))
-
-
 
     d = '[' + d
     d += ']'
@@ -274,31 +290,33 @@ export function GetPollResults(pollID) {
     voteArray.push(d[0].option2);
     voteArray.push(d[0].option3);
 
-    //const votes = d[0].votes
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
     const personattend=d[0].personattend
-    // const answerable = d[0].answerable
-    let voted=false;
-    var i;
+
+
+    //looping through this array isn't really scalable (if we have a bunch of votes).
+    // could change to call pollHistory for the uesr instead. 
     if(personattend){
         for (i=0;i<personattend.length;i++){
             if(personattend[i].substring(1)==email){
                 voted=true;
+                chosen = parseInt(personattend[i].substring(0,1));
+                answerable = false; //can't answer once you've voted
             }
         }
     }
+    
     const dateClosed = new Date(d[0].dueDate)
     const today = new Date()
-    var answerable = true
     const daysSinceClose = dateClosed - today
     if(daysSinceClose <= 0){   
         answerable = false
     } 
 
     
-    return (FormatResults(voteArray, options, question, seconds, answerable, pollID,email,voted))
+    return (FormatResults(voteArray, options, question, seconds, answerable, pollID,email,voted, chosen))
 
 }
 

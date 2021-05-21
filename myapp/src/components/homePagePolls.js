@@ -166,18 +166,17 @@ function Repoll() {
   const [dlist, setdList] = React.useState(initialList);
   const [idlist, setidList] = React.useState(initialList);
 
-  const fetcher = (url) =>
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        //console.log("data: ", data);
-        setqList(data[0]);
-        // setaList(data[1]);
-        setdList(data[2]);
-        setidList(data[3]);
-      });
+  const fetcher = (url) => fetch(url).then((res) => res.json())
   const { data } = useSWR("/api/getRecentPollInformation", fetcher);
-  console.log(qlist);
+  //dynamically update the list of recent polls
+  if (data && qlist[0] !== data[0][0]) {
+    setqList(data[0]);
+    setdList(data[2]);
+    setidList(data[3]);
+  }
+
+
+
   return (
     <div>
       <link
@@ -227,7 +226,7 @@ function Repoll() {
   );
 }
 
-function Apoll() {
+function HomePagePolls() {
   return (
     <div>
       <RecomPoll />
@@ -237,4 +236,4 @@ function Apoll() {
   );
 }
 
-export default Apoll;
+export default HomePagePolls;

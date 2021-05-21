@@ -84,14 +84,65 @@ app.get('/api/getUser/:userID', (req, res) => {
 });
 
 
+app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
+  console.log("Client has requested server to get user poll votes for poll : ", req.params.pollID);
+  var userdoc = db.collection("users").doc(req.params.userID).collection("pollHistory").doc(req.params.pollID);
+
+  userdoc.get().then((doc) => {
+    if (doc.exists) {
+        console.log("User Poll data:", doc.data());
+        res.send(doc.data())
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+});
+
+app.get('/api/getUserVotingHistory/:userID', (req, res) => {
+  console.log("Client has requested server to get user voting history : ", req.params.pollID);
+  const pollID=[];
+  const questions=[];
+  //const date=[];
+  //const option =[];
+  db.collection("users").doc(req.params.userID).collection("pollHistory").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        pollID.push((doc.id));
+        questions.push((`${doc.data().question}`));
+
+      });
+
+      const nestedArray = [];
+      nestedArray.push(pollID);
+      nestedArray.push(questions);
+      console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
 //add new vote
 app.post("/api/addVote", (req, res) => {
   console.log("Server requested to vote on poll");
   console.log("request: ", req.body);
 
-  db.collection("users").doc(req.body.user).update({
-    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.question)),
+  console.log("Server logging poll information to user")
+  db.collection("users").doc(req.body.email).update({
+    "voted" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.pollID)),
+    "votedList": firebase.firestore.FieldValue.arrayUnion((req.body.pollID)),
+
   })
+
+  db.collection("users").doc(req.body.email).collection("pollHistory").doc(req.body.pollID).set({
+    option : req.body.option,
+    date : new Date(),
+    question: req.body.question,
+
+  })
+
+
   db.collection("polls").doc(req.body.pollID).update({
     "personattend" : firebase.firestore.FieldValue.arrayUnion((req.body.option.toString()+req.body.email)),
   })
