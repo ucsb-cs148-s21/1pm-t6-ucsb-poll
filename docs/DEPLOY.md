@@ -34,7 +34,7 @@ Navigate to the "Applications" page and click the "Create Application" button. C
         Push repository to GitHub and link to a new Heroku webapp.\
         Input environment variables for Auth0. Under settings --> Config Vars, input the three auth0 credentials key/token pairs REACT_APP_AUTH0_DOMAIN, REACT_APP_AUTH0_CLIENT_ID, REACT_APP_AUTH0_AUDIENCE.
         
-        In package.json in the root directory, add "heroku-postbuild": "cd myapp && npm install && npm run build" under scripts. Otherwise, heroku will not properly build the app.
+     In package.json in the root directory, add "heroku-postbuild": "cd myapp && npm install && npm run build" under scripts. Otherwise, heroku will not properly build the app.
     <!--- set up express ? -->
 <!--- - cd in myapp & npm run build? (Trouble shooting if heroku is not working properly) -->
 
