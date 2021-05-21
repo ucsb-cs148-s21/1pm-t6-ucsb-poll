@@ -43,7 +43,8 @@ class PollResults extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email) {
+        //check to see if anything has changed since last update. if so, we must reinitialize our values. 
+        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable) {
             this.setState({loading: true});
             this.setState({ 
                 members: this.props.members,
@@ -260,10 +261,13 @@ export function GetPollResults(pollID) {
     var i;
     var email;
 
-    if (isAuthenticated)
+    if (isAuthenticated) {
         email = user.email;
-    else
-        email=null;
+    }
+    else {
+        email = "temp@temp.com";
+        answerable = false;
+    }
 
     const fetcher = url => fetch(url).then(res => res.json())
     const { data, error } =  useSWR(
@@ -307,7 +311,7 @@ export function GetPollResults(pollID) {
             }
         }
     }
-    
+
     const dateClosed = new Date(d[0].dueDate)
     const today = new Date()
     const daysSinceClose = dateClosed - today
