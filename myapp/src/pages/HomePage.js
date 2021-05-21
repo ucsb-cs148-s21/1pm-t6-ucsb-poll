@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import NewVote from "./NewPolls/NewVote";
-import Apoll from "./homePagePolls.js";
-import Searchfunc from "./Searchfunction.js";
+import NewVote from "../components/NewPolls/NewVote";
+import Apoll from "../components/homePagePolls.js";
 
 
 
