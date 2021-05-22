@@ -28,10 +28,12 @@ class PollPage extends Component {
     render(){
         return(
             <div>
-                <div>
+                <div style = {{margin: 400}}>
                     <Getpollinfo pollID={this.state.pollID}/>
                 </div>
-                <CommentBox />
+                <div style = {{textAlign: "left"}}>
+                    <CommentBox />
+                </div>
             </div>
         )
     }

@@ -200,7 +200,7 @@ class PollResults extends Component {
                                 <div className="result">
                                     <div style={{marginBottom: 20}}>
                                         <span className="result" > {member.name}</span>
-                                        <div id="blockContainer">
+                                        <div id="blockContainer" style = {{position: "relative"}}>
                                             <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
                                             <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
                                             <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
