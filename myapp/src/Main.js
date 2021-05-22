@@ -7,7 +7,6 @@ import PollPage from './pages/PollPage';
 import BrowsePage from './pages/BrowsePage';
 import CreatePollPage from './pages/CreatePollPage';
 
-import PollPageTest from './components/polls/PollPageComponents/PollPageTest';
 
 const Main = () => {
   return (
@@ -17,7 +16,6 @@ const Main = () => {
       <Route exact path="/poll/:pollid" component={PollPage} /> 
       <Route exact path="/browse/:filter?" component={BrowsePage} /> 
       <Route exact path="/create" component={CreatePollPage} /> 
-      <Route exact path="/pollPagetest" component={PollPageTest} /> 
 
     </Switch>
   );
