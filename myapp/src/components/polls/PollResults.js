@@ -57,7 +57,10 @@ class PollResults extends Component {
                 totalVotes: this.sumVotes(),
                 choosen:false,
                 loading: false
-            });        
+            });
+            
+            //have to reupdate total votes. 
+            this.setState({totalVotes: this.sumVotes(),})
         }
 
     }
