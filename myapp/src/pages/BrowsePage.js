@@ -151,7 +151,7 @@ const BrowsePage = ({ match }) => {
 
                         ))}
                     
-                    <div>
+                    <div style = {{textAlign: "center"}}>
                     <Button
                         variant="primary"
                         disabled={isLoadingMorePolls}

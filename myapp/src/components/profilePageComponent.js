@@ -15,7 +15,6 @@ function Profile() {
         await new Promise(resolve => setTimeout(resolve, 1000));
 	})();
 
-
     const fetcher = url => fetch(url).then(res => res.json())
     const { data } = useSWR(
         `/api/getUser/${email}`,
