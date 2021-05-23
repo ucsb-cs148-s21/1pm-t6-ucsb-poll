@@ -75,7 +75,7 @@ const BrowsePage = ({ match }) => {
                 <div class="w3-container ">
                     <header class="w3-container">
                     <h1 class=" w3-extralarge"></h1>
-                    <h1 class="w3-threequarter w3-extralarge w3-opacity ">
+                    <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
                         {filterType} polls
                     </h1>
                     </header>
@@ -151,7 +151,7 @@ const BrowsePage = ({ match }) => {
 
                         ))}
                     
-                    <div>
+                    <div style = {{textAlign: "center"}}>
                     <Button
                         variant="primary"
                         disabled={isLoadingMorePolls}

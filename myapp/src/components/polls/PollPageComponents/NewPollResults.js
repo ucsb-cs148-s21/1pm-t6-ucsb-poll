@@ -35,6 +35,29 @@ class PollResults extends Component {
 
     }
 
+    componentDidUpdate(prevProps) {
+        //check to see if anything has changed since last update. if so, we must reinitialize our values. 
+        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable) {
+            this.setState({loading: true});
+            this.setState({ 
+                members: this.props.members,
+                question: this.props.question,
+                seconds: this.props.seconds,
+                answerable: this.props.answerable,
+                voted: this.props.voted,
+                pollID: this.props.pollID,
+                email:this.props.email,
+                totalVotes: this.sumVotes(),
+                choosen:false,
+                loading: false
+            });
+            
+            //have to reupdate total votes. 
+            this.setState({totalVotes: this.sumVotes(),})
+        }
+
+    }
+
 
     // handleVote = e => console.log('button clicked for ' + e);
     // handleUnvote = e => console.log('button clicked for ' + e);

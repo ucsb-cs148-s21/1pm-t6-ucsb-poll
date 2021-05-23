@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { Checkmark } from 'react-checkmark'
 import { useAuth0 } from "@auth0/auth0-react";
 import Spinner from 'react-bootstrap/Spinner'
-import './NewPollResults.css' // style sheets for making polls look nice later
+import './PollPageComponents/NewPollResults.css' // style sheets for making polls look nice later
 
 
 
@@ -19,7 +19,7 @@ class PollResults extends Component {
         voted: this.props.voted,
         pollID: this.props.pollID,
         email:this.props.email,
-        totalVotes: 0,
+        totalVotes: this.props.totalVotes,
         showResults: !(this.props.answerable), // related to show results button clicked state
         optionVotedOn: null,
         choosen:false,
@@ -35,7 +35,7 @@ class PollResults extends Component {
             voted: this.props.voted,
             pollID: this.props.pollID,
             email:this.props.email,
-            totalVotes: this.sumVotes(),
+            totalVotes: this.props.totalVotes,
             choosen:false,
             loading: false,
         });
@@ -44,7 +44,7 @@ class PollResults extends Component {
 
     componentDidUpdate(prevProps) {
         //check to see if anything has changed since last update. if so, we must reinitialize our values. 
-        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable) {
+        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable || prevProps.members[0].name !== this.props.members[0].name || prevProps.totalVotes !== this.props.totalVotes) {
             this.setState({loading: true});
             this.setState({ 
                 members: this.props.members,
@@ -54,13 +54,10 @@ class PollResults extends Component {
                 voted: this.props.voted,
                 pollID: this.props.pollID,
                 email:this.props.email,
-                totalVotes: this.sumVotes(),
+                totalVotes: this.props.totalVotes,
                 choosen:false,
                 loading: false
             });
-            
-            //have to reupdate total votes. 
-            this.setState({totalVotes: this.sumVotes(),})
         }
 
     }
@@ -69,7 +66,13 @@ class PollResults extends Component {
     // handleUnvote = e => console.log('button clicked for ' + e);
 
     sumVotes = () => {
-        const tot = this.state.members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
+        var tot = this.state.members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
+        return tot
+
+    }
+
+    sumVotes2 = (members) => {
+        var tot = members.reduce((total, member) => total + member.voteCount, 0) // adds up all the votes
         return tot
 
     }
@@ -197,7 +200,7 @@ class PollResults extends Component {
                                 <div className="result">
                                     <div style={{marginBottom: 20}}>
                                         <span className="result" > {member.name}</span>
-                                        <div id="blockContainer">
+                                        <div id="blockContainer" style = {{position: "relative"}}>
                                             <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
                                             <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
                                             <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
@@ -227,13 +230,15 @@ class PollResults extends Component {
 
 function FormatResults(votes, options, question, seconds, answerable, pollID, email, voted, chosen) {
     var members = []
+    var totalVotes = 0;
     for(var x = 0; x < options.length; x++){
         var element = {
             name: options[x],
             voteCount: votes[x],
             chosen: (chosen === x ? true : false)
         };
-        members.push(element)
+        members.push(element);
+        totalVotes += votes[x];
     }
 
     if (!question) return ("No question")
@@ -247,6 +252,7 @@ function FormatResults(votes, options, question, seconds, answerable, pollID, em
         pollID = {pollID} 
         email={email}
         voted={voted}
+        totalVotes = {totalVotes}
         />)
 }
 
