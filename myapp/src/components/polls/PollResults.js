@@ -203,7 +203,7 @@ class PollResults extends Component {
                                         <div id="blockContainer" style = {{position: "relative"}}>
                                             <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
                                             <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
-                                            <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
+                                            <div style={{marginTop: 4, marginRight: 0, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
                                         </div>
                                     </div >
                                     
@@ -293,16 +293,19 @@ export function GetPollResults(pollID) {
     d = JSON.parse(d)
 
     var voteArray = [];
-    voteArray.push(d[0].option0);
-    voteArray.push(d[0].option1);
-    voteArray.push(d[0].option2);
-    voteArray.push(d[0].option3);
+    // voteArray.push(d[0].option0);
+    // voteArray.push(d[0].option1);
+    // voteArray.push(d[0].option2);
+    // voteArray.push(d[0].option3);
 
     const options = d[0].options
     const question = d[0].question
     const seconds = d[0].date.seconds
     const personattend=d[0].personattend
 
+    for (var i=0;i<options.length;i++){
+        voteArray.push(d[0]["option" + i.toString()])
+    }
 
     // looping through this array isn't really scalable (if we have a bunch of votes).
     // could change to call pollHistory for the user voting history instead. but for now, doesn't really matter.

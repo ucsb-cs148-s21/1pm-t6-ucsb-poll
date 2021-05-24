@@ -321,10 +321,10 @@ export function GetPollResults(pollID) {
     d = JSON.parse(d)
 
     var voteArray = [];
-    voteArray.push(d[0].option0);
-    voteArray.push(d[0].option1);
-    voteArray.push(d[0].option2);
-    voteArray.push(d[0].option3);
+    // voteArray.push(d[0].option0);
+    // voteArray.push(d[0].option1);
+    // voteArray.push(d[0].option2);
+    // voteArray.push(d[0].option3);
 
     //const votes = d[0].votes
     const options = d[0].options
@@ -334,6 +334,11 @@ export function GetPollResults(pollID) {
     // const answerable = d[0].answerable
     let voted=false;
     var i;
+
+    for (var i=0;i<options.length;i++){
+        voteArray.push(d[0]["option" + i.toString()])
+    }
+
     if(personattend){
         for (i=0;i<personattend.length;i++){
             if(personattend[i].substring(1)==email){
