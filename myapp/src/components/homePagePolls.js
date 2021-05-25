@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import useSWR from "swr";
-import PollResults from "./NewPolls/PollResults.js";
+import PollResults from "./polls/PollResults.js";
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 <script src="https://www.w3schools.com/lib/w3.js"></script>;
 
 const initialList = [];
@@ -32,7 +33,7 @@ function RecomPoll() {
       <div class="w3-container ">
         <header class="w3-container">
           <h1 class=" w3-extralarge"></h1>
-          <h1 class="w3-threequarter w3-extralarge w3-opacity ">
+          <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
             Recommended Polls
           </h1>
         </header>
@@ -119,12 +120,14 @@ function Poppoll() {
       <div class="w3-container ">
         <header class="w3-container">
           <h1 class=" w3-extralarge"></h1>
-          <h1 class="w3-threequarter w3-extralarge w3-opacity ">
+          <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
             Popular polls
           </h1>
-          <button class="w3-large w3-quarter w3-round-large w3-opacity" >
+          {/* <button class="w3-large w3-quarter w3-round-large w3-opacity" >
             view all
-          </button>
+          </button> */}
+          <Button href = "/#/browse/Popular" variant="link">View All</Button>
+
         </header>
 
         <div class="card-columns">
@@ -166,18 +169,17 @@ function Repoll() {
   const [dlist, setdList] = React.useState(initialList);
   const [idlist, setidList] = React.useState(initialList);
 
-  const fetcher = (url) =>
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        //console.log("data: ", data);
-        setqList(data[0]);
-        // setaList(data[1]);
-        setdList(data[2]);
-        setidList(data[3]);
-      });
+  const fetcher = (url) => fetch(url).then((res) => res.json())
   const { data } = useSWR("/api/getRecentPollInformation", fetcher);
-  console.log(qlist);
+  //dynamically update the list of recent polls
+  if (data && qlist[0] !== data[0][0]) {
+    setqList(data[0]);
+    setdList(data[2]);
+    setidList(data[3]);
+  }
+
+
+
   return (
     <div>
       <link
@@ -188,12 +190,14 @@ function Repoll() {
       <div class="w3-container ">
         <header class="w3-container">
           <h1 class=" w3-extralarge"></h1>
-          <h1 class="w3-threequarter w3-extralarge w3-opacity ">
+          <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
             Recent polls
           </h1>
-          <button class="w3-large w3-quarter w3-round-large w3-opacity">
+          {/* <button class="w3-large w3-quarter w3-round-large w3-opacity">
             view all
-          </button>
+          </button> */}
+          <Button href = "/#/browse/Recent" variant="link">View All</Button>
+
         </header>
 
         <div class="card-columns">
@@ -227,7 +231,7 @@ function Repoll() {
   );
 }
 
-function Apoll() {
+function HomePagePolls() {
   return (
     <div>
       <RecomPoll />
@@ -237,4 +241,4 @@ function Apoll() {
   );
 }
 
-export default Apoll;
+export default HomePagePolls;
