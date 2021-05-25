@@ -282,7 +282,7 @@ app.get('/api/getRecentPollInformation', (req, res) => {
     });
 });
 
-app.get('/api/getPollInformation/:filter/:num', (req, res) => {
+app.get('/api/getPollInformation/:filter/:num/:category', (req, res) => {
   //console.log("Client has requested server to get recent poll information.");
   //
   const qpo=[];
@@ -296,24 +296,31 @@ app.get('/api/getPollInformation/:filter/:num', (req, res) => {
   else {
     order = "date";
   }
-  db.collection("polls").orderBy(order,"desc").limit(req.params.num).get() 
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
-        qpo.push(JSON.stringify(`${doc.data().question}`));
-        let dateClosed = new Date(doc.data().dueDate);
-        let today=new Date();
-        let daysSinceClose = dateClosed - today
-        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+
+  if (req.params.category === "default") {
+    db.collection("polls").orderBy(order,"desc").limit(req.params.num).get() 
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
+          qpo.push(JSON.stringify(`${doc.data().question}`));
+          let dateClosed = new Date(doc.data().dueDate);
+          let today=new Date();
+          let daysSinceClose = dateClosed - today
+          dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+        });
+        const nestedArray = [];
+        nestedArray.push(qpo);
+        nestedArray.push(apo);
+        nestedArray.push(dpo);
+        nestedArray.push(idpo);
+        console.log("arr: ", nestedArray);
+        res.json(nestedArray);
       });
-      const nestedArray = [];
-      nestedArray.push(qpo);
-      nestedArray.push(apo);
-      nestedArray.push(dpo);
-      nestedArray.push(idpo);
-      console.log("arr: ", nestedArray);
-      res.json(nestedArray);
-    });
+    }
+  
+    else {
+      //filter by category too
+    }
 });
 
 //get all poll for search function
