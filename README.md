@@ -21,6 +21,8 @@ Users:
 
 The backend is in the root directory under server.js.
 
+Our meeting logs are in the 'team' folder and our documents in the 'docs' folder.
+
 The frontend is in the myapp folder:
 - Contains all components and pages under the 'src' folder.
 - The entire website is hosted on index.js which calls App.js.
