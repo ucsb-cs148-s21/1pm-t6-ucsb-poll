@@ -37,16 +37,18 @@ class Searchfunction extends Component{
   }
     render() {
       return(
-      <div>
+      <div style = {{display: "inline-block", marginTop: 0}}>
       
-      <div style={{width: 300 }}>
+      <div style={{ height: 40, position: "relative", display: "inline-flex", marginTop: 0}}>
+        
         <Autocomplete
+          style = {{width: 300, marginBottom: 10, marginRight: 10, marginTop : 0}}
           noOptionsText={'loading'}
           onChange={(event, value) => this.savedata(value)}
           id="auto-highlight"
           options={this.props.poll}
           autoHighlight
-          renderInput={(params) => <TextField {...params}  label="Search for a poll" variant="outlined" size="small" />}
+          renderInput={(params) => <TextField {...params}  label="Search for a poll" variant="outlined" size="small"/>}
           // following part of code can make a search function in a blank box (which is the same size as that one in the navigation bar)
          /* renderInput={(params) => (
             <div ref={params.InputProps.ref} >
@@ -59,8 +61,11 @@ class Searchfunction extends Component{
         {/*this.state.selectornot?(<Link to={"/poll/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"") }>search</Link>):(<div></div>)*/}
           
           {this.setlink(this.props.list[this.props.poll.indexOf(this.state.selected)]+"")}
+        
+        <Buttonfunc  link={"/#/poll/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"")} />
+   
         </div>
-        <Buttonfunc link={"/#/poll/"+(this.props.list[this.props.poll.indexOf(this.state.selected)]+"")}/>
+
       </div>);
     }
 }
