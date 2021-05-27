@@ -17,6 +17,21 @@ Users:
 - Daniel Shamtob @dshamtob
 
 
+# Repository Structure
+
+The backend is in the root directory under server.js.
+
+The frontend is in the myapp folder:
+- Contains all components and pages under the 'src' folder.
+- The entire website is hosted on index.js which calls App.js.
+- App.js calls NavigationBar.js and Main.js, which is used as a router for the pages on the website.
+
+The src folder contains three main folders:
+- A 'components' folder which includes page components making up the webpages.
+- An 'auth' folder for user authentication.
+- A 'pages' folder for the pages on the website.
+- The src folder also contains a test folder, but it is not extensively used.
+
 # Installation
 
 Prerequisites: Javascript, Node.js, express 
