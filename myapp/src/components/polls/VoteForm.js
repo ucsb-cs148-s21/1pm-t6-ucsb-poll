@@ -4,12 +4,17 @@ import './VoteForm.css';
  
 const VoteForm = (props) => {
   const [enteredQuestions, setEnteredQuestions] = useState('');
-  const [enteredCategories, setEnteredCategories] = useState('');
+  const [enteredCategories, setEnteredCategories] = useState('art');
   const [enterDueDate, setEnterDueDate] = useState('');
   const [enterVoteOp1, setEnterVoteOp1] = useState('');
   const [enterVoteOp2, setEnterVoteOp2] = useState('');
   const [enterVoteOp3, setEnterVoteOp3] = useState('');
   const [enterVoteOp4, setEnterVoteOp4] = useState('');
+  const [cancelButtonDisplay, setCancelButtonDisplay] = useState(true);
+
+  if (props.cancelButtonDisplay !== cancelButtonDisplay) {
+    setCancelButtonDisplay(props.cancelButtonDisplay);
+  }
 
   const QuestionsChangeHandler = (event) => {
     setEnteredQuestions(event.target.value);
@@ -54,7 +59,7 @@ const VoteForm = (props) => {
 
     props.onSaveVoteData(VoteData);
     setEnteredQuestions('');
-    setEnteredCategories('');
+    setEnteredCategories('art');
     setEnterDueDate('');
     setEnterVoteOp1('');
     setEnterVoteOp2('');
@@ -76,11 +81,22 @@ const VoteForm = (props) => {
         </div>
         <div className='new-title__controls'>
           <label>Category</label>
-          <input
+          {/* <input
             type='text'   
             value={enteredCategories}
             onChange={CategoriesChangeHandler}
-          />
+          /> */}
+          <select value={enteredCategories} onChange={CategoriesChangeHandler}>
+           <option selected value="art">Art and Literature</option>
+           <option value="career">Career</option>
+           <option value="food">Food and Drink</option>
+           <option value="fun">Fun and Games</option>
+           <option value="movies">Movies and TV</option>
+           <option value="music">Music</option>
+           <option value="school">School</option>
+           <option value="travel">Travel</option>
+           <option value="other">Other</option>
+          </select>
         </div>
         <div className='new-title__controls'>
           <label>Due Date</label>
@@ -127,7 +143,7 @@ const VoteForm = (props) => {
 
       
       <div className='new-action'>
-        <button type="button" onClick={props.onCancel}>Cancel</button>
+        {cancelButtonDisplay && <button type="button" onClick={props.onCancel}>Cancel</button>}
         <button type='submit'>Submit</button>
       </div>
     </form>

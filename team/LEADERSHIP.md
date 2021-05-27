@@ -18,7 +18,6 @@ Jasun Chen:
 
 Zhengying Li:
 - User Manual Coordinator.
-- Retro 3 Leader ?
 
 TT Luo:
 - Final Presentation Leader
@@ -26,7 +25,7 @@ TT Luo:
 
 Daniel Lohn: 
 - Deployment Document Coordinator
-- Retro 3 Leader? 
+- Retro 3 Leader
 
 
 

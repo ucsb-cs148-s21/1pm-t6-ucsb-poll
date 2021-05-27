@@ -1,6 +1,7 @@
 import React, {Component, useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
+import ProfileRecent from "../components/profileRecentComponent.js";
 
 function Profile() {
 	const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
@@ -15,8 +16,8 @@ function Profile() {
         await new Promise(resolve => setTimeout(resolve, 1000));
 	})();
 
-
     const fetcher = url => fetch(url).then(res => res.json())
+
     const { data } = useSWR(
         `/api/getUser/${email}`,
         fetcher
@@ -33,6 +34,12 @@ function Profile() {
           <div class="card-header">Email: {info['email']}</div></div>
           <div class="card">
           <div class="card-header">Role: {info['role']}</div>
+          <div class="card">
+          <div class="card-header">Recent Polls</div>
+          <div className="container">
+          <ProfileRecent />
+        </div>
+      </div>
         </div>
       </div>
     );

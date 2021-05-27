@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import NavigationBar from "./components/NavigationBar.js";
 import Main from "./Main";
-import Searchfunc from "./components/Searchfunction.js";
-
-
 import './index.css'
 import './App.css'
 

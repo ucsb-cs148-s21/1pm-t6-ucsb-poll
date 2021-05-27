@@ -56,8 +56,6 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                             <Nav.Link href="/#/profile">Profile</Nav.Link>
                         }
                         
-                        {/* <Link to="/some/where">Click me</Link> */}
-
                         {isAdmin &&
                             <NavDropdown title="Admin">
                             {adminPages.map(item => (
@@ -66,19 +64,17 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                             </NavDropdown>
                         }
                         <NavDropdown title="Polls" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Browse</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Create a poll</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            <NavDropdown.Item href="/#/browse/">Browse</NavDropdown.Item>
+                            {isMember && <NavDropdown.Item href="/#/create">Create a poll</NavDropdown.Item>}
                         </NavDropdown>
                         <Form inline> 
+                        </Form>
+
                         <Searchfunc /> 
                         
                         {/*<a href={"/#/"+window.pollid}>}
                         <Button variant="outline-success">Search</Button>
                         {</a>*/}
-                        </Form>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
                         <div className="navbar-nav ml-auto">

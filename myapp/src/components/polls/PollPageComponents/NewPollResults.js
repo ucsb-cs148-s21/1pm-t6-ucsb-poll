@@ -35,6 +35,29 @@ class PollResults extends Component {
 
     }
 
+    componentDidUpdate(prevProps) {
+        //check to see if anything has changed since last update. if so, we must reinitialize our values. 
+        if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable) {
+            this.setState({loading: true});
+            this.setState({ 
+                members: this.props.members,
+                question: this.props.question,
+                seconds: this.props.seconds,
+                answerable: this.props.answerable,
+                voted: this.props.voted,
+                pollID: this.props.pollID,
+                email:this.props.email,
+                totalVotes: this.sumVotes(),
+                choosen:false,
+                loading: false
+            });
+            
+            //have to reupdate total votes. 
+            this.setState({totalVotes: this.sumVotes(),})
+        }
+
+    }
+
 
     // handleVote = e => console.log('button clicked for ' + e);
     // handleUnvote = e => console.log('button clicked for ' + e);
@@ -203,8 +226,8 @@ class PollResults extends Component {
                                                 <span className="result" > {member.name}</span>
                                                 <div id="blockContainer">
                                                     <div className={"ResultBar " + bars[index]} style={{width: member.voteCount > 0 ? this.calculatePercent(member.voteCount, totalVotes) : "0.1%", float: "left"}}></div>
-                                                    <div style={{marginTop: 4, marginRight: 40, marginLeft: 10, float: "initial"}}>{member.chosen && <Checkmark size="medium" />}</div>
-                                                    <div style={{marginTop: 4, marginRight: 10, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
+                                                    <div style={{marginTop: 4, marginRight: 60, marginLeft: 5, float: "left"}}>{member.chosen && <Checkmark size="medium" />}</div>
+                                            <div style={{marginTop: 4, marginRight: 10, marginLeft: 0, position: "absolute", right: 0}}>{this.calculatePercent(member.voteCount, totalVotes)}</div>
                                                 </div>
                                             </div >     
                                         </div>
@@ -298,10 +321,10 @@ export function GetPollResults(pollID) {
     d = JSON.parse(d)
 
     var voteArray = [];
-    voteArray.push(d[0].option0);
-    voteArray.push(d[0].option1);
-    voteArray.push(d[0].option2);
-    voteArray.push(d[0].option3);
+    // voteArray.push(d[0].option0);
+    // voteArray.push(d[0].option1);
+    // voteArray.push(d[0].option2);
+    // voteArray.push(d[0].option3);
 
     //const votes = d[0].votes
     const options = d[0].options
@@ -311,6 +334,11 @@ export function GetPollResults(pollID) {
     // const answerable = d[0].answerable
     let voted=false;
     var i;
+
+    for (var i=0;i<options.length;i++){
+        voteArray.push(d[0]["option" + i.toString()])
+    }
+
     if(personattend){
         for (i=0;i<personattend.length;i++){
             if(personattend[i].substring(1)==email){

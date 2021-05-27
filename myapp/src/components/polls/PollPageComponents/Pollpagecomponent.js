@@ -1,6 +1,6 @@
 import React, {Component, useState, useEffect } from 'react';
 import useSWR from "swr";
-import PollResults from "./NewPollResults.js";
+import PollResults from "../PollResults";
 
 export function Getpollinfo(pollID){
     

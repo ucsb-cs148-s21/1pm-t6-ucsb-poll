@@ -64,15 +64,15 @@ Doing progress towards our three goals to make better UI design, be more explici
 
 * A brief recap of the metric you planned on using 
 
-The UI design should be approved by whole team, be sure the deliverables for every team mates can be finished on time in every stage of develpment
-
-and all codes should be understood by other teammates
+The UI design should be approved by whole team, be sure the deliverables for every team mates can be finished on time in every stage of development and all codes should be understood by other teammates
 
 * The outcome according to the metric now that the next Sprint is done (maybe already for a while).
 
+UI design outcome has been met - poll results view has been approved and looks better. Everyone has clear roles and assigned issues. Code is more readable. 
 
 * Your conclusions based on this outcome. You can decide to cement this change going forward, to modify it (start a new experiment), or to discard it and go back to previous procedures.    
 
+Maintain changes because the outcomes are positive. 
 
 
 
