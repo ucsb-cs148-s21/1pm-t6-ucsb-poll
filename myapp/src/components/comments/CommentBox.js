@@ -2,16 +2,21 @@ import React, {useState, useEffect} from 'react'
 import { Button, Comment, Form, Header, Container, Icon, Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import CommentComp from "./Comment"
+import ComposeComment from "./ComposeComment"
+import useSWR from "swr";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 const CommentBox = (props) => {
     const { user, getAccessTokenSilently: getToken } = useAuth0();
-    const [pollID, setPollID] = useState("tempID");
+    const [pollID, setPollID] = useState(props.pollID);
+    //const [commentID, setCommentID] = useState(props.commentID);
+    const [commentData, setCommentData] = useState(props.commentData);
+
     const [showReplyForm, setReplyForm] = useState(false);
     const [buttonLoading, setButtonLoading] = useState(false);
-    const [filter, setFilter] = useState("");
-
-
+    const [submit, setSubmit] = useState(false);
+    const [filter, setFilter] = useState("Recent");
     const [inputValue, setInputValue] = useState("");
 
     //get comments... get their replies. 
@@ -31,28 +36,55 @@ const CommentBox = (props) => {
 
     if (props.pollID && props.pollID !== pollID) {
         setPollID(props.pollID);
+    }
 
-        //reset num of polls displayed
+    if (props.commentData && props.commentData !== commentData) {
+        setCommentData(props.commentData);
     }
   
-    useEffect(() => {
-        // setIsLoadingMorePolls(true);
-        fetch(`/api/getPollInformation/`)
-        .then((res) => res.json())
-        .then((data) => {
-        })
-        .catch((error) => console.log(error));
-    }, []);
+    // useEffect(() => {
+    //     // setIsLoadingMorePolls(true);
+    //     fetch(`/api/getPoll/${pollID}`)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+          
 
 
 
-    const handleSubmit = (item) => {
+    //     })
+    //     .catch((error) => console.log(error));
+    // }, [pollID]);
+
+
+    const addComment = async(e) => {
+      const url = "/api/addComment";
+      try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    pollID: pollID, //add the poll ID here
+                    author: user.name,
+                    link : "/" + user.email,
+                    text: e,
+                          
+                }),
+            });
+        } catch (err) {
+            console.log(`err=${err}`)
+      } 
+    }
+
+    const handleSubmit = (e) => {
       setReplyForm(false);
-      //setButtonLoading(true);
+      //send submission to db
+      addComment(inputValue);
       resetInputField();
     }
   
-      // Input Field handler
+    // Input Field handler
     const handleUserInput = (e) => {
       setInputValue(e.target.value);
     };
@@ -89,14 +121,50 @@ const CommentBox = (props) => {
 
                   />
 
-                <Button loading = {filter == "Popular"} content='Add Reply' labelPosition='left' icon='edit' style = {{marginBottom: 20, height:35}} />
                 </Header>
                 
-                <CommentComp></CommentComp>
+                {/* <ComposeComment commentID = "asdf" link = "/profile" author = "test" date = "Today" text = "hi" upvotes = {6} /> */}
+                {(commentData) ? (commentData.map((i) => (
+                  <ComposeComment pollID={pollID} commentData = {i} upvotes = {i[5]}/>
+                ))) :
+                  <p> No Comments Yet </p>
+                }
+                {/* <CommentComp></CommentComp> */}
             </Comment.Group>
 
         </Container>
     );
 };
 
-export default CommentBox
+
+
+
+export function GetComments(props) {
+  const [pollID, setPollID] = useState("temp");
+  const [commentData, setCommentData] = useState();
+  if (props.pollID && pollID !== props.pollID)
+    setPollID(props.pollID);
+    //pollID = props.pollID;
+
+
+  const fetcher = url => fetch(url).then(res => res.json())
+  const { data, error } =  useSWR(
+      `/api/getComments/${pollID}`,
+      fetcher
+  );
+  if (data && commentData !== data) {
+    // console.log(data);
+    // var d = JSON.parse(data)
+    // if (data.commentID)
+    //   commentID = (data.commentID);
+    //commentData = data;
+    setCommentData(data);
+
+  }
+
+  
+  return ( <CommentBox pollID = {pollID} commentData = {commentData} /> )
+
+}
+
+export default GetComments

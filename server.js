@@ -46,8 +46,8 @@ app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 //adds new user
 app.post("/addNewUser", (req, res) => {
-  console.log("Server requested to add new user to DB");
-  console.log("request: ", req.body);
+  // console.log("Server requested to add new user to DB");
+  // console.log("request: ", req.body);
 
   db.collection("users").doc(req.body.email).set({
     name: req.body.name,
@@ -64,16 +64,15 @@ app.post("/addNewUser", (req, res) => {
 
 // get user information 
 app.get('/api/getUser/:userID', (req, res) => {
-  console.log("Client has requested server to get user information.");
+  // console.log("Client has requested server to get user information.");
   var userdoc = db.collection("users").doc(req.params.userID);
 
   userdoc.get().then((doc) => {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such user!");
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
@@ -91,7 +90,7 @@ app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such thing!");
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
@@ -346,3 +345,141 @@ app.get('/api/getpollforsearch', (req, res) => {
 });
 
 
+
+
+//
+// COMMENT FUNCTIONS
+//
+
+
+
+app.post("/api/addComment", (req, res) => {
+  console.log("Server requested to add new comment to DB");
+  console.log("request: ", req.body);
+  let today = new Date();
+  db.collection("polls").doc(req.body.pollID).collection("comments").add({
+    link : req.body.link,
+    author : req.body.author,
+    text : req.body.text,
+    date : today,
+    upvotes: 0, 
+    })
+    .then(function () {
+      console.log("Doc Succesfully Written");
+    })
+    .catch(function (error) {
+      console.error("Error caught: ", error);
+    });
+});
+
+app.get('/api/getComments/:pollID/', (req, res) => {
+  //console.log("Client has requested server to get recent poll information.");
+  //
+  const commentID=[];
+  const link=[];
+  const author=[];
+  const date=[];
+  const text=[];
+  const upvotes=[];
+
+
+  // var order = "";
+  // if (req.params.filter === "Popular") {
+  //   order = "upvotes";
+  // }
+  // else {
+  //   order = "date";
+  // }
+
+
+  const arrayOfComments = [];
+  db.collection("polls").doc(req.params.pollID).collection("comments").orderBy("date","desc").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const data = [];
+        data.push(doc.id);
+        //commentID.push(doc.id); 
+        doc = doc.data();
+        data.push(doc.link);
+        data.push(doc.author);
+        data.push(doc.date);
+        data.push(doc.text);
+        data.push(doc.upvotes);         
+
+        arrayOfComments.push(data);
+        // link.push(doc.link);
+        // author.push(doc.author);
+        // date.push(doc.date);
+        // text.push(doc.text);
+        // upvotes.push(doc.upvotes); 
+      });
+      // const nestedArray = [];
+      // nestedArray.push(commentID);
+      // nestedArray.push(link);
+      // nestedArray.push(author);
+      // nestedArray.push(text);
+      // nestedArray.push(upvotes);
+      console.log("comments: ", arrayOfComments);
+      res.json(arrayOfComments);
+    });
+});
+
+
+app.post("/api/addNewReply", (req, res) => {
+  console.log("Server requested to add new reply to DB");
+  console.log("request: ", req.body);
+  let today = new Date();
+  db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).collection("replies").add({
+    //@ info
+    link : req.body.link,
+    author : req.body.author,
+    date : today,
+    text : req.body.text,
+    upvotes: 0, 
+    })
+    .then(function () {
+      console.log("Doc Succesfully Written");
+    })
+    .catch(function (error) {
+      console.error("Error caught: ", error);
+    });
+});
+
+
+app.get('/api/getReplies/:pollID/:commentID', (req, res) => {
+  console.log("Client has requested server to get replies.");
+  const link=[];
+  const author=[];
+  const date=[];
+  const text=[];
+  const upvotes=[];
+
+  // var order = "";
+  // if (req.params.filter === "Popular") {
+  //   order = "upvotes";
+  // }
+  // else {
+  //   order = "date";
+  // }
+
+
+  db.collection("polls").doc(req.params.pollID).collection("comments").doc(req.params.commentID).collection("replies").orderBy("date","desc").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        commentID.push(doc.id); 
+        doc = doc.data();
+        link.push(doc.link);
+        author.push(doc.author);
+        date.push(doc.date);
+        text.push(doc.text);
+        upvotes.push(doc.upvotes); 
+      });
+      const nestedArray = [];
+      nestedArray.push(link);
+      nestedArray.push(author);
+      nestedArray.push(text);
+      nestedArray.push(upvotes);
+      //console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
