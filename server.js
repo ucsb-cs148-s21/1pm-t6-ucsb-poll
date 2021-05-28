@@ -391,7 +391,6 @@ app.get('/api/getComments/:pollID/', (req, res) => {
   //   order = "date";
   // }
 
-
   const arrayOfComments = [];
   db.collection("polls").doc(req.params.pollID).collection("comments").orderBy("date","desc").get() 
     .then((querySnapshot) => {
@@ -402,7 +401,7 @@ app.get('/api/getComments/:pollID/', (req, res) => {
         doc = doc.data();
         data.push(doc.link);
         data.push(doc.author);
-        data.push(doc.date);
+        data.push(doc.date.toDate());
         data.push(doc.text);
         data.push(doc.upvotes);         
 
@@ -425,7 +424,7 @@ app.get('/api/getComments/:pollID/', (req, res) => {
 });
 
 
-app.post("/api/addNewReply", (req, res) => {
+app.post("/api/addReply", (req, res) => {
   console.log("Server requested to add new reply to DB");
   console.log("request: ", req.body);
   let today = new Date();
@@ -436,6 +435,10 @@ app.post("/api/addNewReply", (req, res) => {
     date : today,
     text : req.body.text,
     upvotes: 0, 
+
+    isReplytoReply: req.body.isReplytoReply,
+    replyeeName : req.body.replyeeName,
+    replyeeLink : req.body.replyeeLink,
     })
     .then(function () {
       console.log("Doc Succesfully Written");
@@ -462,24 +465,52 @@ app.get('/api/getReplies/:pollID/:commentID', (req, res) => {
   //   order = "date";
   // }
 
+  const nestedArray = [];
 
-  db.collection("polls").doc(req.params.pollID).collection("comments").doc(req.params.commentID).collection("replies").orderBy("date","desc").get() 
+  db.collection("polls").doc(req.params.pollID).collection("comments").doc(req.params.commentID).collection("replies").orderBy("date").get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        commentID.push(doc.id); 
+        const data = [];
+        data.push(doc.id);
+        //commentID.push(doc.id); 
         doc = doc.data();
-        link.push(doc.link);
-        author.push(doc.author);
-        date.push(doc.date);
-        text.push(doc.text);
-        upvotes.push(doc.upvotes); 
+        data.push(doc.link);
+        data.push(doc.author);
+        data.push((doc.date.toDate()));
+        data.push(doc.text);
+        data.push(doc.upvotes);   
+
+        data.push(doc.isReplytoReply);
+        data.push(doc.replyeeLink);
+        data.push(doc.replyeeName);
+        nestedArray.push(data);     
       });
-      const nestedArray = [];
-      nestedArray.push(link);
-      nestedArray.push(author);
-      nestedArray.push(text);
-      nestedArray.push(upvotes);
-      //console.log("arr: ", nestedArray);
+      // const nestedArray = [];
+      // nestedArray.push(link);
+      // nestedArray.push(author);
+      // nestedArray.push(text);
+      // nestedArray.push(upvotes);
+      console.log("replies: ", nestedArray);
       res.json(nestedArray);
     });
+});
+
+
+app.post("/api/upvoteComment", (req, res) => {
+  console.log("Server requested to upvote");
+
+  if (req.body.isReply) {
+    db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).collection("replies").doc(req.body.replyID).update({
+      "upvotes" :  firebase.firestore.FieldValue.increment(req.body.vote)
+    })
+  }
+
+  else {
+    db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).update({
+      "upvotes" :  firebase.firestore.FieldValue.increment(req.body.vote)
+    })
+  }
+
+  
+  
 });
