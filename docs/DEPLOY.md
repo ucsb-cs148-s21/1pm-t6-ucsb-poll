@@ -25,8 +25,8 @@ Navigate to the "Applications" page and click the "Create Application" button. C
         REACT_APP_AUTH0_AUDIENCE=XXXXXX 
 - **Set up Firebase**\
     (Create project, initialize cloud firestore, copy config details, put in server.js file)\     
-    Create a new project on Firebase. https://firebase.google.com/docs/firestore/quickstart \
-    Initialize cloud firestore for this project.\
+    Create a new project on Firebase. \
+    Initialize cloud firestore for this project. (Click on Cloud Firestore on the left hand nav bar, and then click on "Create Database" \
     Firebase will provide a set of config details, copy these.\
     Insert these credentials at the beginning of the server.js file.
     
