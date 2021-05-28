@@ -7,7 +7,7 @@ class ProfilePage extends Component {
     return (
       <div className="container">
           <div class="card">
-          <div class="card-header">Profile Page</div>
+          <div class="card-header"><h2>Profile Page</h2></div>
           <Profile />
         </div>
       </div>
