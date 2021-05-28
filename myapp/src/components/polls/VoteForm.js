@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import NewVoteOption from './VoteOptionForm';
+//import VoteOptions from './VoteOptions';
 
 import './VoteForm.css';
  
@@ -6,15 +8,27 @@ const VoteForm = (props) => {
   const [enteredQuestions, setEnteredQuestions] = useState('');
   const [enteredCategories, setEnteredCategories] = useState('art');
   const [enterDueDate, setEnterDueDate] = useState('');
-  const [enterVoteOp1, setEnterVoteOp1] = useState('');
+  /* const [enterVoteOp1, setEnterVoteOp1] = useState('');
   const [enterVoteOp2, setEnterVoteOp2] = useState('');
   const [enterVoteOp3, setEnterVoteOp3] = useState('');
-  const [enterVoteOp4, setEnterVoteOp4] = useState('');
+  const [enterVoteOp4, setEnterVoteOp4] = useState('');*/
+  const [enterVoteOption, setEnteredVoteOptions] = useState('');
   const [cancelButtonDisplay, setCancelButtonDisplay] = useState(true);
+ 
 
   if (props.cancelButtonDisplay !== cancelButtonDisplay) {
     setCancelButtonDisplay(props.cancelButtonDisplay);
   }
+  /*
+  const addVoteOptionHandler = (event) => {
+
+    //setEnterVoteOptions((prevVoteOptions) => {
+      //return [VoteOption, ...prevVoteOptions];
+   // });
+   setEnterVoteOptions(event.target.value);
+
+  };
+  */
 
   const QuestionsChangeHandler = (event) => {
     setEnteredQuestions(event.target.value);
@@ -27,6 +41,7 @@ const VoteForm = (props) => {
   const dateChangeHandler = (event) => {
     setEnterDueDate(event.target.value);
   };
+  /*
   const VoteOp1ChangeHandler = (event) => {
     setEnterVoteOp1(event.target.value);
   };
@@ -39,14 +54,25 @@ const VoteForm = (props) => {
   const VoteOp4ChangeHandler = (event) => {
     setEnterVoteOp4(event.target.value);
   };
+  */
+  const [voteOptions, setVoteOptions] = useState('');
+
+
+  const addVoteOptionHandler = (voption) => {
+    setEnteredVoteOptions((prevVoteOptions) => {
+      return [voption, ...prevVoteOptions];
+    });
+    
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    var vote = [];
-    vote.push(enterVoteOp1);
-    vote.push(enterVoteOp2);
-    vote.push(enterVoteOp3);
-    vote.push(enterVoteOp4);
+   // var vote = [];
+    //vote.push(enterVoteOp1);
+    //vote.push(enterVoteOp2);
+    //vote.push(enterVoteOp3);
+    //vote.push(enterVoteOp4);
+    //vote.push(enterVoteOptions);
 
 
     const VoteData = {
@@ -54,17 +80,18 @@ const VoteForm = (props) => {
       category: enteredCategories,
       answerable: true,
       date: new Date(enterDueDate),
-      options: vote,
+      options: enterVoteOption,
     };
 
     props.onSaveVoteData(VoteData);
     setEnteredQuestions('');
     setEnteredCategories('art');
     setEnterDueDate('');
-    setEnterVoteOp1('');
-    setEnterVoteOp2('');
-    setEnterVoteOp3('');
-    setEnterVoteOp4('');
+    //setEnterVoteOp1('');
+    //setEnterVoteOp2('');
+    //setEnterVoteOp3('');
+    //setEnterVoteOp4('');
+    setEnteredVoteOptions('');
 
   };
 
@@ -108,38 +135,11 @@ const VoteForm = (props) => {
             onChange={dateChangeHandler}
           />
         </div>
-        <div className='new-VoteOp__control'>
-          <label>Vote option1</label>
-          <input
-            type='text'
-            value={enterVoteOp1}
-            onChange={VoteOp1ChangeHandler}
-          />
-        </div>
-        <div className='new-VoteOp__control'>
-          <label>Vote option2</label>
-          <input
-            type='text'
-            value={enterVoteOp2}
-            onChange={VoteOp2ChangeHandler}
-          />
-        </div>
-        <div className='new-VoteOp__control'>
-          <label>Vote option3</label>
-          <input
-            type='text'
-            value={enterVoteOp3}
-            onChange={VoteOp3ChangeHandler}
-          />
-        </div>
-        <div className='new-VoteOp__control'>
-          <label>Vote option4</label>
-          <input
-            type='text'
-            value={enterVoteOp4}
-            onChange={VoteOp4ChangeHandler}
-          />
-        </div>
+        <div>
+      <NewVoteOption onAddVoteOption={addVoteOptionHandler} />
+     
+
+    </div>
 
       
       <div className='new-action'>
