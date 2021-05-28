@@ -1,9 +1,7 @@
-
 import { Button, Comment, Form, Header, Container, Icon } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
-import { Profiler } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 import timeSince from "../util/timeSince"
@@ -51,7 +49,7 @@ function ComposeReplies(props) {
                 replyeeName : replyData[2],
                 replyeeLink : replyData[1],
             }),
-            });
+            }).then(res => {props.stateChanger(!props.state)});
         } catch (err) {
             console.log(`err=${err}`);
         }

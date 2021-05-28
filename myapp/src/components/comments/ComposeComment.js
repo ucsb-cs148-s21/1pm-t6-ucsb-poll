@@ -199,6 +199,8 @@ function ComposeComment(props) {
             commentID={commentData[0]}
             replyData={i}
             upvotes = {i[5]}
+            state = {submittedComment}
+            stateChanger = {setSubmittedComment}
             />
         ))
         ) : (

@@ -1,19 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { Button, Comment, Form, Header, Container, Icon, Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-import CommentComp from "./Comment"
 import ComposeComment from "./ComposeComment"
 import useSWR from "swr";
-
 import { useAuth0 } from "@auth0/auth0-react";
 
 const CommentBox = (props) => {
     const { user, getAccessTokenSilently: getToken } = useAuth0();
     const [pollID, setPollID] = useState(props.pollID);
-    //const [commentID, setCommentID] = useState(props.commentID);
     const [commentData, setCommentData] = useState(props.commentData);
 
-    const [showReplyForm, setReplyForm] = useState(false);
     const [buttonLoading, setButtonLoading] = useState(false);
     const [filter, setFilter] = useState("Recent");
     const [inputValue, setInputValue] = useState("");
@@ -78,7 +74,6 @@ const CommentBox = (props) => {
     }
 
     const handleSubmit = async (e) => {
-      setReplyForm(false);
       //send submission to db
       await addComment(inputValue);
       resetInputField();
