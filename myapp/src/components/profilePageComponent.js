@@ -35,7 +35,7 @@ function Profile() {
           <div class="card">
           <div class="card-header">Role: {info['role']}</div>
           <div class="card">
-          <div class="card-header">Recent Polls</div>
+          <div class="card-header"><h4>Recent Polls</h4></div>
           <div className="container">
           <ProfileRecent />
         </div>
