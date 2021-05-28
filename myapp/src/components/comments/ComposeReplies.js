@@ -119,13 +119,13 @@ function ComposeReplies(props) {
         <Comment>
         <Comment.Content>
         <Comment.Author as= {Link} 
-            to = {replyData[1]}
+            to = {"/profile" + replyData[1]}
         >{replyData[2]}</Comment.Author>
         <Comment.Metadata>
         <div class = "date">{timeSince(new Date(replyData[3]))}</div>
         </Comment.Metadata>
         <Comment.Text>
-        <Comment.Text> {replyData[6] && <Link to={replyData[7]} style={{color: 'blue'}}>@{replyData[8]}</Link>} {replyData[4]}</Comment.Text>
+        <Comment.Text> {replyData[6] && <Link to={"/profile" + replyData[7]} style={{color: 'blue'}}>@{replyData[8]}</Link>} {replyData[4]}</Comment.Text>
         </Comment.Text>
         <Comment.Actions>
              <Comment.Action onClick={toggleReplyForm}>

@@ -143,7 +143,7 @@ function ComposeComment(props) {
   return (
     <Comment>
       <Comment.Content>
-        <Comment.Author as={Link} to={commentData[1]}>
+        <Comment.Author as={Link} to={"/profile" + commentData[1]}>
           {commentData[2]}
         </Comment.Author>
         <Comment.Metadata>
