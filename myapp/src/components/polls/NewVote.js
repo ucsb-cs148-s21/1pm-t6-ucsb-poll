@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import VoteForm from './VoteForm';
 import './NewVote.css';
 import { ThemeProvider } from 'react-bootstrap';
 
 const NewVote = (props) => {
+  const { isAuthenticated } = useAuth0();
   const [isEditing, setIsEditing] = useState(false);
 
   const saveVoteDataHandler = (enteredVoteData) => {
@@ -37,10 +39,10 @@ const NewVote = (props) => {
 
   return (
     <div className='new-action'>
-      {!isEditing && (
+      {(!isEditing && isAuthenticated) && (
         <button onClick={startEditingHandler}>Add Poll Information</button>
       )}
-      {isEditing && (
+      {(isEditing && isAuthenticated) && (
         <VoteForm
           onSaveVoteData={saveVoteDataHandler}
           onCancel={stopEditingHandler}
