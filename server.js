@@ -372,7 +372,7 @@ app.post("/api/addComment", (req, res) => {
     });
 });
 
-app.get('/api/getComments/:pollID/', (req, res) => {
+app.get('/api/getComments/:pollID/:filter', (req, res) => {
   //console.log("Client has requested server to get recent poll information.");
   //
   const commentID=[];
@@ -383,16 +383,16 @@ app.get('/api/getComments/:pollID/', (req, res) => {
   const upvotes=[];
 
 
-  // var order = "";
-  // if (req.params.filter === "Popular") {
-  //   order = "upvotes";
-  // }
-  // else {
-  //   order = "date";
-  // }
+  var order = "";
+  if (req.params.filter === "Popular") {
+    order = "upvotes";
+  }
+  else {
+    order = "date";
+  }
 
   const arrayOfComments = [];
-  db.collection("polls").doc(req.params.pollID).collection("comments").orderBy("date","desc").get() 
+  db.collection("polls").doc(req.params.pollID).collection("comments").orderBy(order,"desc").get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const data = [];

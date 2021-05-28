@@ -29,10 +29,13 @@ function ComposeComment(props) {
 
   if (props.pollID && props.pollID !== pollID) {
     setPollID(props.pollID);
+    setUpvote(props.upvotes);
+
   }
 
   if (props.commentData && props.commentData !== commentData) {
     setCommentData(props.commentData);
+    setUpvote(props.upvotes);
   }
 
   const fetcher = (url) => fetch(url).then((res) => res.json());

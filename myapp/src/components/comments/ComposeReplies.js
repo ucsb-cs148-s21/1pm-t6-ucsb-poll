@@ -23,10 +23,12 @@ function ComposeReplies(props) {
   
     if (props.pollID && props.pollID !== pollID) {
         setPollID(props.pollID);
-      }
+        setUpvote(props.upvotes);
+    }
     
     if (props.replyData && props.replyData !== replyData) {
         setReplyData(props.replyData);
+        setUpvote(props.upvotes);
     }
 
 

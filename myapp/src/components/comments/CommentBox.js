@@ -15,22 +15,20 @@ const CommentBox = (props) => {
 
     const [showReplyForm, setReplyForm] = useState(false);
     const [buttonLoading, setButtonLoading] = useState(false);
-    const [submit, setSubmit] = useState(false);
     const [filter, setFilter] = useState("Recent");
     const [inputValue, setInputValue] = useState("");
 
-    //get comments... get their replies. 
-    // 
+
     const options = [
-      {
-        key: 'Popular',
-        text: 'Popular',
-        value: 'Popular',
-      },
       {
         key: 'Recent',
         text: 'Recent',
         value: 'Recent',
+      },
+      {
+        key: 'Popular',
+        text: 'Popular',
+        value: 'Popular',
       },
     ]
 
@@ -38,22 +36,28 @@ const CommentBox = (props) => {
         setPollID(props.pollID);
     }
 
-    if (props.commentData && props.commentData !== commentData) {
-        setCommentData(props.commentData);
-    }
+    // if (props.commentData && props.commentData !== commentData) {
+    //     setCommentData(props.commentData);
+    // }
   
-    // useEffect(() => {
-    //     // setIsLoadingMorePolls(true);
-    //     fetch(`/api/getPoll/${pollID}`)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-          
 
 
+    // const fetcher = url => fetch(url).then(res => res.json())
+    // const { commentData, error } =  useSWR(
+    //     `/api/getComments/${pollID}/${filter}`,
+    //     fetcher
+    // );
 
-    //     })
-    //     .catch((error) => console.log(error));
-    // }, [pollID]);
+    console.log(commentData);
+    useEffect(() => {
+        // setIsLoadingMorePolls(true);
+        fetch(`/api/getComments/${pollID}/${filter}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setCommentData(data);
+        })
+        .catch((error) => console.log(error));
+    }, [pollID, filter]);
 
 
     const addComment = async(e) => {
@@ -139,32 +143,32 @@ const CommentBox = (props) => {
 
 
 
-export function GetComments(props) {
-  const [pollID, setPollID] = useState("temp");
-  const [commentData, setCommentData] = useState();
-  if (props.pollID && pollID !== props.pollID)
-    setPollID(props.pollID);
-    //pollID = props.pollID;
+// function GetComments(props) {
+//   const [pollID, setPollID] = useState("temp");
+//   const [commentData, setCommentData] = useState();
+//   if (props.pollID && pollID !== props.pollID)
+//     setPollID(props.pollID);
+//     //pollID = props.pollID;
 
 
-  const fetcher = url => fetch(url).then(res => res.json())
-  const { data, error } =  useSWR(
-      `/api/getComments/${pollID}`,
-      fetcher
-  );
-  if (data && commentData !== data) {
-    // console.log(data);
-    // var d = JSON.parse(data)
-    // if (data.commentID)
-    //   commentID = (data.commentID);
-    //commentData = data;
-    setCommentData(data);
+//   const fetcher = url => fetch(url).then(res => res.json())
+//   const { data, error } =  useSWR(
+//       `/api/getComments/${pollID}`,
+//       fetcher
+//   );
+//   if (data && commentData !== data) {
+//     // console.log(data);
+//     // var d = JSON.parse(data)
+//     // if (data.commentID)
+//     //   commentID = (data.commentID);
+//     //commentData = data;
+//     setCommentData(data);
 
-  }
+//   }
 
   
-  return ( <CommentBox pollID = {pollID} commentData = {commentData} /> )
+//   return ( <CommentBox pollID = {pollID} commentData = {commentData} /> )
 
-}
+// }
 
-export default GetComments
+export default CommentBox;
