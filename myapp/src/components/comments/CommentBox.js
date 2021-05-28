@@ -17,7 +17,7 @@ const CommentBox = (props) => {
     const [buttonLoading, setButtonLoading] = useState(false);
     const [filter, setFilter] = useState("Recent");
     const [inputValue, setInputValue] = useState("");
-
+    const [submittedComment, setSubmittedComment] = useState(false);
 
     const options = [
       {
@@ -36,11 +36,6 @@ const CommentBox = (props) => {
         setPollID(props.pollID);
     }
 
-    // if (props.commentData && props.commentData !== commentData) {
-    //     setCommentData(props.commentData);
-    // }
-  
-
 
     // const fetcher = url => fetch(url).then(res => res.json())
     // const { commentData, error } =  useSWR(
@@ -48,7 +43,6 @@ const CommentBox = (props) => {
     //     fetcher
     // );
 
-    console.log(commentData);
     useEffect(() => {
         // setIsLoadingMorePolls(true);
         fetch(`/api/getComments/${pollID}/${filter}`)
@@ -57,7 +51,8 @@ const CommentBox = (props) => {
           setCommentData(data);
         })
         .catch((error) => console.log(error));
-    }, [pollID, filter]);
+    }, [pollID, filter, submittedComment]);
+
 
 
     const addComment = async(e) => {
@@ -75,16 +70,17 @@ const CommentBox = (props) => {
                     text: e,
                           
                 }),
-            });
+              
+            }).then(res => {setSubmittedComment(!submittedComment)})
         } catch (err) {
             console.log(`err=${err}`)
       } 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       setReplyForm(false);
       //send submission to db
-      addComment(inputValue);
+      await addComment(inputValue);
       resetInputField();
     }
   

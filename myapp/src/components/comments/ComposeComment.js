@@ -1,8 +1,7 @@
 import {Button,Comment,Form,Header,Container,Icon,} from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Profiler } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 import ComposeReplies from "./ComposeReplies";
@@ -20,12 +19,9 @@ function ComposeComment(props) {
   const [upvotes, setUpvote] = useState(props.upvotes);
   const [inputValue, setInputValue] = useState("");
 
-  // const [commentID, setCommentID] = useState(props.commentData[0]);
-  // const [link, setlink] = useState(props.commentData[1]);
-  // const [author, setAuthor] = useState(props.commentData[2]);
-  // const [date, setDate] = useState(props.commentData[3]);
-  // const [text, setText] = useState(props.commentData[4]);
-  // const [upvotes, setUpvote] = useState(props.commentData[5]);
+  const [data, setData] = useState(props.data);
+  const [submittedComment, setSubmittedComment] = useState(false);
+
 
   if (props.pollID && props.pollID !== pollID) {
     setPollID(props.pollID);
@@ -38,12 +34,23 @@ function ComposeComment(props) {
     setUpvote(props.upvotes);
   }
 
-  const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data } = useSWR(
-    `/api/getReplies/${pollID}/${commentData[0]}`,
-    fetcher
-  );
-  //console.log("replies: ", data);
+//   const fetcher = (url) => fetch(url).then((res) => res.json());
+//   const { data } = useSWR(
+//     `/api/getReplies/${pollID}/${commentData[0]}`,
+//     fetcher
+//   );
+
+  useEffect(() => {
+    // setIsLoadingMorePolls(true);
+    fetch(`/api/getReplies/${pollID}/${commentData[0]}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data);
+    })
+    .catch((error) => console.log(error));
+}, [pollID, commentData, submittedComment]); 
+  console.log(data);
+
 
   const addReply = async (e) => {
     const url = "/api/addReply";
@@ -63,7 +70,7 @@ function ComposeComment(props) {
           replyeeName : "none",
           replyeeLink : "none",
         }),
-      });
+      }).then(res => {setSubmittedComment(!submittedComment)})
     } catch (err) {
       console.log(`err=${err}`);
     }
@@ -96,10 +103,10 @@ function ComposeComment(props) {
     setReplyBox(!showReplyBox);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setReplyBox(false);
     //send reply to db
-    addReply(inputValue);
+    await addReply(inputValue);
     resetInputField();
   };
 

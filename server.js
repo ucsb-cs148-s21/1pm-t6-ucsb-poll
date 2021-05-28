@@ -366,6 +366,7 @@ app.post("/api/addComment", (req, res) => {
     })
     .then(function () {
       console.log("Doc Succesfully Written");
+      res.send();
     })
     .catch(function (error) {
       console.error("Error caught: ", error);
@@ -375,13 +376,6 @@ app.post("/api/addComment", (req, res) => {
 app.get('/api/getComments/:pollID/:filter', (req, res) => {
   //console.log("Client has requested server to get recent poll information.");
   //
-  const commentID=[];
-  const link=[];
-  const author=[];
-  const date=[];
-  const text=[];
-  const upvotes=[];
-
 
   var order = "";
   if (req.params.filter === "Popular") {
@@ -397,7 +391,6 @@ app.get('/api/getComments/:pollID/:filter', (req, res) => {
       querySnapshot.forEach((doc) => {
         const data = [];
         data.push(doc.id);
-        //commentID.push(doc.id); 
         doc = doc.data();
         data.push(doc.link);
         data.push(doc.author);
@@ -406,18 +399,9 @@ app.get('/api/getComments/:pollID/:filter', (req, res) => {
         data.push(doc.upvotes);         
 
         arrayOfComments.push(data);
-        // link.push(doc.link);
-        // author.push(doc.author);
-        // date.push(doc.date);
-        // text.push(doc.text);
-        // upvotes.push(doc.upvotes); 
+
       });
-      // const nestedArray = [];
-      // nestedArray.push(commentID);
-      // nestedArray.push(link);
-      // nestedArray.push(author);
-      // nestedArray.push(text);
-      // nestedArray.push(upvotes);
+
       console.log("comments: ", arrayOfComments);
       res.json(arrayOfComments);
     });
@@ -429,19 +413,20 @@ app.post("/api/addReply", (req, res) => {
   console.log("request: ", req.body);
   let today = new Date();
   db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).collection("replies").add({
-    //@ info
     link : req.body.link,
     author : req.body.author,
     date : today,
     text : req.body.text,
     upvotes: 0, 
 
+    //the@info
     isReplytoReply: req.body.isReplytoReply,
     replyeeName : req.body.replyeeName,
     replyeeLink : req.body.replyeeLink,
     })
     .then(function () {
       console.log("Doc Succesfully Written");
+      res.send();
     })
     .catch(function (error) {
       console.error("Error caught: ", error);
@@ -451,11 +436,6 @@ app.post("/api/addReply", (req, res) => {
 
 app.get('/api/getReplies/:pollID/:commentID', (req, res) => {
   console.log("Client has requested server to get replies.");
-  const link=[];
-  const author=[];
-  const date=[];
-  const text=[];
-  const upvotes=[];
 
   // var order = "";
   // if (req.params.filter === "Popular") {
@@ -472,7 +452,6 @@ app.get('/api/getReplies/:pollID/:commentID', (req, res) => {
       querySnapshot.forEach((doc) => {
         const data = [];
         data.push(doc.id);
-        //commentID.push(doc.id); 
         doc = doc.data();
         data.push(doc.link);
         data.push(doc.author);
@@ -485,11 +464,6 @@ app.get('/api/getReplies/:pollID/:commentID', (req, res) => {
         data.push(doc.replyeeName);
         nestedArray.push(data);     
       });
-      // const nestedArray = [];
-      // nestedArray.push(link);
-      // nestedArray.push(author);
-      // nestedArray.push(text);
-      // nestedArray.push(upvotes);
       console.log("replies: ", nestedArray);
       res.json(nestedArray);
     });
