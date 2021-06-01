@@ -17,6 +17,8 @@ const BrowsePage = ({ match }) => {
     const [numOfPolls, setNumOfPolls] = useState(12);
     const [isLoadingMorePolls, setIsLoadingMorePolls] = useState(false);
 
+    const [categoryFilter, setCategory] = useState("default");
+
 
     if (filter && filterType !== filter) {
         setFilter(filter);
@@ -28,7 +30,7 @@ const BrowsePage = ({ match }) => {
   
     useEffect(() => {
         setIsLoadingMorePolls(true);
-        fetch(`/api/getPollInformation/${filterType}/${numOfPolls}`)
+        fetch(`/api/getPollInformation/${filterType}/${numOfPolls}/${categoryFilter}`)
         .then((res) => res.json())
         .then((data) => {
             setqList(data[0]);
@@ -39,7 +41,7 @@ const BrowsePage = ({ match }) => {
 
         })
         .catch((error) => console.log(error));
-    }, [filterType, numOfPolls]);
+    }, [filterType, numOfPolls, categoryFilter]);
 
     if (filterType !== "Recent" && filterType !== "Popular") {
         return ("Error wrong filter");
@@ -57,16 +59,31 @@ const BrowsePage = ({ match }) => {
         setArrayOfNums(arr);
         setNumOfPolls(num+12);
     } 
+
+
+    const handleCategory = (e) => {
+        //setIsLoadingMorePolls(true);
+        setCategory(e.target.id);
+        // console.log(e);
+        // console.log(e.target.value);
+        // console.log(e.target.id);
+
+    } 
     
   
     return (
       <>
           <div>
-            <h1>Browse Polls</h1>
+            <h1>Browse Polls {categoryFilter} </h1>
             <div className="container">
                 <DropdownButton id= "dropdown-variants-info" title= {filterType} menuAlign = "right" >
                     <Dropdown.Item href="/#/browse/Popular" active = {(filterType === "Popular" ? true : false)} disabled = {(filterType === "Popular" ? true : false)} >Popular</Dropdown.Item>
                     <Dropdown.Item href="/#/browse/Recent" active = {(filterType === "Recent" ? true : false)} disabled = {(filterType === "Recent" ? true : false)} >Recent</Dropdown.Item>
+                </DropdownButton>
+
+                <DropdownButton id= "dropdown-variants-info" title= {categoryFilter} menuAlign = "right" >
+                    <Dropdown.Item onClick ={handleCategory} id = "art" active = {(categoryFilter === "art" ? true : false)} disabled = {(categoryFilter === "art" ? true : false)} >Art</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "career" active = {(categoryFilter === "career" ? true : false)} disabled = {(categoryFilter === "career" ? true : false)} >Career</Dropdown.Item>
                 </DropdownButton>
             </div>
 
@@ -117,7 +134,7 @@ const BrowsePage = ({ match }) => {
                                         </p>
                                         </div>
                                         <footer class="w3-container ">
-                                        {(dlist[i+1] > 0) ? 
+                                        {(dlist[i] > 0) ? 
                                             <h5 class="w3-tiny">Closing in {dlist[i+1]} days</h5> : 
                                             <h5 class="w3-tiny">Closed {-(dlist[i+1])} days ago</h5>
                                         }
@@ -139,7 +156,7 @@ const BrowsePage = ({ match }) => {
                                         </p>
                                         </div>
                                         <footer class="w3-container ">
-                                        {(dlist[i+2] > 0) ? 
+                                        {(dlist[i] > 0) ? 
                                             <h5 class="w3-tiny">Closing in {dlist[i+2]} days</h5> : 
                                             <h5 class="w3-tiny">Closed {-(dlist[i+2])} days ago</h5>
                                         }
