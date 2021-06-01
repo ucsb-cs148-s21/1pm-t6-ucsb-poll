@@ -298,12 +298,14 @@ app.get('/api/getPollInformation/:filter/:num', (req, res) => {
   db.collection("polls").orderBy(order,"desc").limit(req.params.num).get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
-        qpo.push(JSON.stringify(`${doc.data().question}`));
-        let dateClosed = new Date(doc.data().dueDate);
-        let today=new Date();
-        let daysSinceClose = dateClosed - today
-        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+        if (doc) {
+          idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
+          qpo.push(JSON.stringify(`${doc.data().question}`));
+          let dateClosed = new Date(doc.data().dueDate);
+          let today=new Date();
+          let daysSinceClose = dateClosed - today
+          dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+        }
       });
       const nestedArray = [];
       nestedArray.push(qpo);
