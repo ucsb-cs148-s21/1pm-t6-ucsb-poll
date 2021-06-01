@@ -19,6 +19,9 @@ const BrowsePage = ({ match }) => {
     const [noMorePollsToLoad, setNoMorePolls] = useState(false);
 
 
+    const [categoryFilter, setCategory] = useState("default");
+    const [categoryName, setCategoryName] = useState("-Select a Category-")
+
 
     if (filter && filterType !== filter) {
         setFilter(filter);
@@ -30,7 +33,7 @@ const BrowsePage = ({ match }) => {
   
     useEffect(() => {
         setIsLoadingMorePolls(true);
-        fetch(`/api/getPollInformation/${filterType}/${numOfPolls}`)
+        fetch(`/api/getPollInformation/${filterType}/${numOfPolls}/${categoryFilter}`)
         .then((res) => res.json())
         .then((data) => {
             if (data[0].length === qlist.length) {
@@ -48,7 +51,7 @@ const BrowsePage = ({ match }) => {
 
         })
         .catch((error) => console.log(error));
-    }, [filterType, numOfPolls]);
+    }, [filterType, numOfPolls, categoryFilter]);
 
     if (filterType !== "Recent" && filterType !== "Popular") {
         return ("Error wrong filter");
@@ -66,17 +69,44 @@ const BrowsePage = ({ match }) => {
         setArrayOfNums(arr);
         setNumOfPolls(num+12);
     } 
+
+
+    const handleCategory = (e) => {
+        //setIsLoadingMorePolls(true);
+        setCategory(e.target.id);
+        setCategoryName(e.target.textContent);
+        // console.log(e);
+        // console.log(e.target.value);
+        // console.log(e.target.id);
+
+    } 
     
   
     return (
       <>
           <div>
             <h1>Browse Polls</h1>
+            <div style={{display: "inline-flex"}}>
             <div className="container">
                 <DropdownButton id= "dropdown-variants-info" title= {filterType} menuAlign = "right" >
                     <Dropdown.Item href="/#/browse/Popular" active = {(filterType === "Popular" ? true : false)} disabled = {(filterType === "Popular" ? true : false)} >Popular</Dropdown.Item>
                     <Dropdown.Item href="/#/browse/Recent" active = {(filterType === "Recent" ? true : false)} disabled = {(filterType === "Recent" ? true : false)} >Recent</Dropdown.Item>
                 </DropdownButton>
+            </div>
+            <div className="container">
+                <DropdownButton id= "dropdown-variants-info" title= {categoryName} menuAlign = "right" >
+                    <Dropdown.Item onClick ={handleCategory} id = "default" active = {(categoryFilter === "default" ? true : false)} disabled = {(categoryFilter === "default" ? true : false)} >-Select a Category-</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "art" active = {(categoryFilter === "art" ? true : false)} disabled = {(categoryFilter === "art" ? true : false)} >Art and Literature</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "career" active = {(categoryFilter === "career" ? true : false)} disabled = {(categoryFilter === "career" ? true : false)} >Career</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "food" active = {(categoryFilter === "food" ? true : false)} disabled = {(categoryFilter === "food" ? true : false)} >Food and Drink</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "fun" active = {(categoryFilter === "fun" ? true : false)} disabled = {(categoryFilter === "fun" ? true : false)} >Fun and Games</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "movies" active = {(categoryFilter === "movies" ? true : false)} disabled = {(categoryFilter === "movies" ? true : false)} >Movies and TV</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "music" active = {(categoryFilter === "music" ? true : false)} disabled = {(categoryFilter === "music" ? true : false)} >Music</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "school" active = {(categoryFilter === "school" ? true : false)} disabled = {(categoryFilter === "school" ? true : false)} >School</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "travel" active = {(categoryFilter === "travel" ? true : false)} disabled = {(categoryFilter === "travel" ? true : false)} >Travel</Dropdown.Item>
+                    <Dropdown.Item onClick ={handleCategory} id = "other" active = {(categoryFilter === "other" ? true : false)} disabled = {(categoryFilter === "other" ? true : false)} >Other</Dropdown.Item>
+                </DropdownButton>
+            </div>
             </div>
 
             <div>

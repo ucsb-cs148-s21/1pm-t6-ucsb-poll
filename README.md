@@ -17,6 +17,23 @@ Users:
 - Daniel Shamtob @dshamtob
 
 
+# Repository Structure
+
+The backend is in the root directory under server.js.
+
+Our meeting logs are in the 'team' folder and our documents in the 'docs' folder.
+
+The frontend is in the myapp folder:
+- Contains all components and pages under the 'src' folder.
+- The entire website is hosted on index.js which calls App.js.
+- App.js calls NavigationBar.js and Main.js, which is used as a router for the pages on the website.
+
+The src folder contains three main folders:
+- A 'components' folder which includes page components making up the webpages.
+- An 'auth' folder for user authentication.
+- A 'pages' folder for the pages on the website.
+- The src folder also contains a test folder, but it is not extensively used.
+
 # Installation
 
 Prerequisites: Javascript, Node.js, express 
@@ -34,7 +51,8 @@ Prerequisites: Javascript, Node.js, express
 
 
 # Functionality
-TODO: Write usage instructions. Structuring it as a walkthrough can help structure this section, and showcase your features.
+TODO: LINK USER MANUAL HERE
+Write usage instructions. Structuring it as a walkthrough can help structure this section, and showcase your features.
 
 - click the login button in the top right corner of the webpage to login through Auth0.
 - create a poll using the interface at the bottom of the page
@@ -42,7 +60,7 @@ TODO: Write usage instructions. Structuring it as a walkthrough can help structu
 
 # Known Problems
 - Code is very messy for the front page. We will combine some of the code into one file to make the components more clear. 
-- You do not have to be signed into to vote. And you can also vote multiple times right now. 
+
 
 # Contributing
 
