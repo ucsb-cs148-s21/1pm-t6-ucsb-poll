@@ -23,6 +23,7 @@ function checkbut(num) {
   }
 }
 function RecomPoll() {
+  let idlist=["'"+"FFcmP1ZAsVc2eYWNNk9Y"+"'","'"+"M6qsfGs1daQlI3Luqiib"+"'","'"+"ldWrJjKj7wPudp3ovuWO"+"'"]
   return (
     <div>
       <link
@@ -42,47 +43,45 @@ function RecomPoll() {
           <div class="card">
             <div class="w3-card-4 ">
               <header class="w3-container w3-sand">
-                <h1 class="w3-large ">"Favorite topping on a pizza?"</h1>
+                    <Link to={"/poll/"+idlist[0]}>
+                      <h1 class="w3-large ">"Favorite topping on a pizza?"</h1>
+                    </Link>
               </header>
+
               <div class="w3-container ">
                 <p>
                   <PollResults pollID="FFcmP1ZAsVc2eYWNNk9Y" />
                 </p>
               </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">14 days ago(open)</h5>
-              </footer>
             </div>
           </div>
 
           <div class="card">
             <div class="w3-card-4 ">
               <header class="w3-container w3-sand">
-                <h1 class="w3-large">"Favorite soda drink?"</h1>
+                    <Link to={"/poll/"+idlist[1]}>
+                      <h1 class="w3-large ">"Favorite soda drink?"</h1>
+                    </Link>
               </header>
               <div class="w3-container ">
                 <p>
                   <PollResults pollID="M6qsfGs1daQlI3Luqiib" />
                 </p>
               </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">16 days ago(open)</h5>
-              </footer>
             </div>
           </div>
           <div class="card">
             <div class="w3-card-4 ">
               <header class="w3-container w3-sand">
-                <h1 class="w3-large">What's your favorite book?</h1>
+                    <Link to={"/poll/"+idlist[2]}>
+                      <h1 class="w3-large ">"What's your favorite book?"</h1>
+                    </Link>
               </header>
               <div class="w3-container ">
                 <p>
                   <PollResults pollID="ldWrJjKj7wPudp3ovuWO" />
                 </p>
               </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">1 days ago(open)</h5>
-              </footer>
             </div>
           </div>
         </div>
