@@ -67,8 +67,8 @@ export function NavigationBar ({isAdmin, isMember, adminPages}) {
                             <NavDropdown.Item href="/#/browse/">Browse</NavDropdown.Item>
                             {isMember && <NavDropdown.Item href="/#/create">Create a poll</NavDropdown.Item>}
                         </NavDropdown>
-                        <Form inline> 
-                        </Form>
+                        {/* <Form inline> 
+                        </Form> */}
 
                         <Searchfunc /> 
                         

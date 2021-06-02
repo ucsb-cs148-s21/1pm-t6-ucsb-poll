@@ -46,8 +46,8 @@ app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 //adds new user
 app.post("/addNewUser", (req, res) => {
-  console.log("Server requested to add new user to DB");
-  console.log("request: ", req.body);
+  // console.log("Server requested to add new user to DB");
+  // console.log("request: ", req.body);
 
   db.collection("users").doc(req.body.email).set({
     name: req.body.name,
@@ -64,16 +64,15 @@ app.post("/addNewUser", (req, res) => {
 
 // get user information 
 app.get('/api/getUser/:userID', (req, res) => {
-  console.log("Client has requested server to get user information.");
+  // console.log("Client has requested server to get user information.");
   var userdoc = db.collection("users").doc(req.params.userID);
 
   userdoc.get().then((doc) => {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such user!");
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
@@ -91,7 +90,7 @@ app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
         res.send(doc.data())
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("No such thing!");
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
@@ -282,7 +281,7 @@ app.get('/api/getRecentPollInformation', (req, res) => {
     });
 });
 
-app.get('/api/getPollInformation/:filter/:num', (req, res) => {
+app.get('/api/getPollInformation/:filter/:num/:category', (req, res) => {
   //console.log("Client has requested server to get recent poll information.");
   //
   const qpo=[];
@@ -296,24 +295,48 @@ app.get('/api/getPollInformation/:filter/:num', (req, res) => {
   else {
     order = "date";
   }
-  db.collection("polls").orderBy(order,"desc").limit(req.params.num).get() 
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
-        qpo.push(JSON.stringify(`${doc.data().question}`));
-        let dateClosed = new Date(doc.data().dueDate);
-        let today=new Date();
-        let daysSinceClose = dateClosed - today
-        dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+
+  if (req.params.category === "default") {
+    db.collection("polls").orderBy(order,"desc").limit(req.params.num).get() 
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
+          qpo.push(JSON.stringify(`${doc.data().question}`));
+          let dateClosed = new Date(doc.data().dueDate);
+          let today=new Date();
+          let daysSinceClose = dateClosed - today
+          dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+        });
+        const nestedArray = [];
+        nestedArray.push(qpo);
+        nestedArray.push(apo);
+        nestedArray.push(dpo);
+        nestedArray.push(idpo);
+        console.log("arr: ", nestedArray);
+        res.json(nestedArray);
       });
-      const nestedArray = [];
-      nestedArray.push(qpo);
-      nestedArray.push(apo);
-      nestedArray.push(dpo);
-      nestedArray.push(idpo);
-      console.log("arr: ", nestedArray);
-      res.json(nestedArray);
-    });
+    }
+  
+    else {
+      db.collection("polls").where("category", "==", req.params.category).orderBy(order,"desc").limit(req.params.num).get() 
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          idpo.push(JSON.stringify(doc.id)); //this is giving '".....fjaljf...."' as the result. Double quotation marks. 
+          qpo.push(JSON.stringify(`${doc.data().question}`));
+          let dateClosed = new Date(doc.data().dueDate);
+          let today=new Date();
+          let daysSinceClose = dateClosed - today
+          dpo.push(`${((daysSinceClose)/(1000*60*60*24)).toFixed(0)}`);
+        });
+        const nestedArray = [];
+        nestedArray.push(qpo);
+        nestedArray.push(apo);
+        nestedArray.push(dpo);
+        nestedArray.push(idpo);
+        console.log("arr: ", nestedArray);
+        res.json(nestedArray);
+      });
+    }
 });
 
 //get all poll for search function
@@ -346,3 +369,146 @@ app.get('/api/getpollforsearch', (req, res) => {
 });
 
 
+
+
+//
+// COMMENT FUNCTIONS
+//
+
+
+
+app.post("/api/addComment", (req, res) => {
+  console.log("Server requested to add new comment to DB");
+  console.log("request: ", req.body);
+  let today = new Date();
+  db.collection("polls").doc(req.body.pollID).collection("comments").add({
+    link : req.body.link,
+    author : req.body.author,
+    text : req.body.text,
+    date : today,
+    upvotes: 0, 
+    })
+    .then(function () {
+      console.log("Doc Succesfully Written");
+      res.send();
+    })
+    .catch(function (error) {
+      console.error("Error caught: ", error);
+    });
+});
+
+app.get('/api/getComments/:pollID/:filter', (req, res) => {
+  //console.log("Client has requested server to get recent poll information.");
+  //
+
+  var order = "";
+  if (req.params.filter === "Popular") {
+    order = "upvotes";
+  }
+  else {
+    order = "date";
+  }
+
+  const arrayOfComments = [];
+  db.collection("polls").doc(req.params.pollID).collection("comments").orderBy(order,"desc").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const data = [];
+        data.push(doc.id);
+        doc = doc.data();
+        data.push(doc.link);
+        data.push(doc.author);
+        data.push(doc.date.toDate());
+        data.push(doc.text);
+        data.push(doc.upvotes);         
+
+        arrayOfComments.push(data);
+
+      });
+
+      console.log("comments: ", arrayOfComments);
+      res.json(arrayOfComments);
+    });
+});
+
+
+app.post("/api/addReply", (req, res) => {
+  console.log("Server requested to add new reply to DB");
+  console.log("request: ", req.body);
+  let today = new Date();
+  db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).collection("replies").add({
+    link : req.body.link,
+    author : req.body.author,
+    date : today,
+    text : req.body.text,
+    upvotes: 0, 
+
+    //the@info
+    isReplytoReply: req.body.isReplytoReply,
+    replyeeName : req.body.replyeeName,
+    replyeeLink : req.body.replyeeLink,
+    })
+    .then(function () {
+      console.log("Doc Succesfully Written");
+      res.send();
+    })
+    .catch(function (error) {
+      console.error("Error caught: ", error);
+    });
+});
+
+
+app.get('/api/getReplies/:pollID/:commentID', (req, res) => {
+  console.log("Client has requested server to get replies.");
+
+  // var order = "";
+  // if (req.params.filter === "Popular") {
+  //   order = "upvotes";
+  // }
+  // else {
+  //   order = "date";
+  // }
+
+  const nestedArray = [];
+
+  db.collection("polls").doc(req.params.pollID).collection("comments").doc(req.params.commentID).collection("replies").orderBy("date").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const data = [];
+        data.push(doc.id);
+        doc = doc.data();
+        data.push(doc.link);
+        data.push(doc.author);
+        data.push((doc.date.toDate()));
+        data.push(doc.text);
+        data.push(doc.upvotes);   
+
+        data.push(doc.isReplytoReply);
+        data.push(doc.replyeeLink);
+        data.push(doc.replyeeName);
+        nestedArray.push(data);     
+      });
+      console.log("replies: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
+
+app.post("/api/upvoteComment", (req, res) => {
+  console.log("Server requested to upvote");
+
+  if (req.body.isReply) {
+    db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).collection("replies").doc(req.body.replyID).update({
+      "upvotes" :  firebase.firestore.FieldValue.increment(req.body.vote)
+    })
+  }
+
+  else {
+    db.collection("polls").doc(req.body.pollID).collection("comments").doc(req.body.commentID).update({
+      "upvotes" :  firebase.firestore.FieldValue.increment(req.body.vote)
+    })
+  }
+
+  
+  
+});
