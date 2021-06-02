@@ -13,7 +13,7 @@ export function Getpollinfo(pollID){
     
     // makes sure everything necessary loads
     if (error) return ("Failed to retrieve poll")
-    if (!data) return ("Loading poll")
+    if (!data) return ("We don't have such poll :(, please search for a new one")
     //if (!data.votes) return ("No votes")
     if (!data.options) return ("No options")
     if (!data.question) return ("No question")
