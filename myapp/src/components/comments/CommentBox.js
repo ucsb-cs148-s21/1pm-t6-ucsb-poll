@@ -95,7 +95,8 @@ const CommentBox = (props) => {
 
 
     return (
-        <Container style={{ margin: 20 }}>
+      <div>
+        {props.pollID!="ndefine"&& <Container style={{ margin: 20 }}>
             <Comment.Group>
                 <Header as='h3' dividing>
                 Comments
@@ -127,8 +128,11 @@ const CommentBox = (props) => {
                 {/* <CommentComp></CommentComp> */}
             </Comment.Group>
 
-        </Container>
+        </Container>}
+      </div>
     );
+              
+  
 };
 
 

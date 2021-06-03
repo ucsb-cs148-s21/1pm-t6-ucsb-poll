@@ -6,10 +6,13 @@ import ProfilePage from './pages/ProfilePage';
 import PollPage from './pages/PollPage';
 import BrowsePage from './pages/BrowsePage';
 import CreatePollPage from './pages/CreatePollPage';
+import ScrollToTop from './components/util/ScrollToTop';
 
 
 const Main = () => {
   return (
+    <div>
+    <ScrollToTop/>
     <Switch> {/* The Switch decides which component to show based on the current URL.*/}
       <Route exact path='/' component={HomePage}></Route>
       <Route exact path='/profile' component={ProfilePage} />
@@ -18,6 +21,7 @@ const Main = () => {
       <Route exact path="/create" component={CreatePollPage} /> 
 
     </Switch>
+    </div>
   );
 }
 

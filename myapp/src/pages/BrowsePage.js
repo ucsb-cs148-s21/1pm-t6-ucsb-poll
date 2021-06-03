@@ -16,6 +16,8 @@ const BrowsePage = ({ match }) => {
     const [arrayOfNums, setArrayOfNums] = useState([0,3,6,9]);
     const [numOfPolls, setNumOfPolls] = useState(12);
     const [isLoadingMorePolls, setIsLoadingMorePolls] = useState(false);
+    const [noMorePollsToLoad, setNoMorePolls] = useState(false);
+
 
     const [categoryFilter, setCategory] = useState("default");
     const [categoryName, setCategoryName] = useState("-Select a Category-")
@@ -23,7 +25,7 @@ const BrowsePage = ({ match }) => {
 
     if (filter && filterType !== filter) {
         setFilter(filter);
-
+        setNoMorePolls(false);
         //reset num of polls displayed
         setArrayOfNums([0,3,6,9]);
         setNumOfPolls(12);
@@ -34,6 +36,13 @@ const BrowsePage = ({ match }) => {
         fetch(`/api/getPollInformation/${filterType}/${numOfPolls}/${categoryFilter}`)
         .then((res) => res.json())
         .then((data) => {
+            if (data[0].length === qlist.length) {
+                console.log("data:", data[0])
+                console.log("q", qlist)
+                setNoMorePolls(true);
+                //no more polls to be found
+            }
+
             setqList(data[0]);
             setdList(data[2]);
             setidList(data[3]);
@@ -105,19 +114,20 @@ const BrowsePage = ({ match }) => {
                 <div class="w3-container ">
                     <header class="w3-container">
                     <h1 class=" w3-extralarge"></h1>
-                    <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
+                    <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left", marginLeft: 100}}>
                         {filterType} polls
                     </h1>
                     </header>
 
-                        {arrayOfNums.map(i => (
-                            <div class="card-deck">
+                        {idlist.map((element, i) => (
+                            <div class="card-deck" style = {{marginLeft:100, marginRight: 100, marginBottom: 30}}>
 
+                            {idlist[i]&&
                                 <div class="card">
                                     <div class="w3-card-4 ">
                                         <header class="w3-container w3-light-blue">
                                         <Link to={"/poll/"+idlist[i]}>
-                                            <h1 class="w3-large ">{qlist[i]}</h1>
+                                            <h1 class="w3-large" style = {{fontWeight: 600, margin: 10 }}>{qlist[i]}</h1>
                                         </Link>
                                         </header>
                                         <div class="w3-container ">
@@ -133,12 +143,14 @@ const BrowsePage = ({ match }) => {
                                         </footer>
                                     </div>
                                 </div>
+                            }
 
                                 <div class="card">
+                                    {idlist[i+ 1]&&                        
                                     <div class="w3-card-4 ">
-                                        <header class="w3-container w3-light-blue">
+                                        <header class="w3-container w3-light-blue" >
                                         <Link to={"/poll/"+idlist[i+1]}>
-                                            <h1 class="w3-large ">{qlist[i+1]}</h1>
+                                            <h1 class="w3-large "style = {{fontWeight: 600, margin: 10 }} >{qlist[i+1]}</h1>
                                         </Link>
                                         </header>
                                         <div class="w3-container ">
@@ -147,20 +159,24 @@ const BrowsePage = ({ match }) => {
                                         </p>
                                         </div>
                                         <footer class="w3-container ">
-                                        {(dlist[i] > 0) ? 
+                                        {(dlist[i+1] > 0) ? 
                                             <h5 class="w3-tiny">Closing in {dlist[i+1]} days</h5> : 
                                             <h5 class="w3-tiny">Closed {-(dlist[i+1])} days ago</h5>
                                         }
                                         </footer>
-                                    </div>
+                                    </div>}
                                 </div>
+                                
 
 
                                 <div class="card">
+                                     {idlist[i+ 2]&&      
+
                                     <div class="w3-card-4 ">
-                                        <header class="w3-container w3-light-blue">
+                                        
+                                        <header class="w3-container w3-light-blue" >
                                         <Link to={"/poll/"+idlist[i+2]}>
-                                            <h1 class="w3-large ">{qlist[i+2]}</h1>
+                                            <h1 class ="w3-large " style = {{fontWeight: 600, margin: 10 }}>{qlist[i+2]}</h1>
                                         </Link>
                                         </header>
                                         <div class="w3-container ">
@@ -169,25 +185,26 @@ const BrowsePage = ({ match }) => {
                                         </p>
                                         </div>
                                         <footer class="w3-container ">
-                                        {(dlist[i] > 0) ? 
+                                        {(dlist[i+2] > 0) ? 
                                             <h5 class="w3-tiny">Closing in {dlist[i+2]} days</h5> : 
                                             <h5 class="w3-tiny">Closed {-(dlist[i+2])} days ago</h5>
                                         }
                                         </footer>
-                                    </div>
+                                    </div>}
                                 </div>
 
                             </div>
 
-                        ))}
+                        ))
+                        }
                     
                     <div style = {{textAlign: "center"}}>
                     <Button
                         variant="primary"
-                        disabled={isLoadingMorePolls}
+                        disabled={isLoadingMorePolls || noMorePollsToLoad}
                         onClick={!isLoadingMorePolls ? handleClick : null}
                     >
-                              {isLoadingMorePolls ? 'Loading…' : 'Load More Polls'}
+                              {  noMorePollsToLoad ? ' No More Polls' : ((isLoadingMorePolls) ? 'Loading…' : 'Load More Polls') }
                     </Button>   
                     </div>
                 </div>
