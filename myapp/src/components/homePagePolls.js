@@ -22,76 +22,76 @@ function checkbut(num) {
     );
   }
 }
-function RecomPoll() {
-  return (
-    <div>
-      <link
-        rel="stylesheet"
-        href="https://www.w3schools.com/w3css/4/w3.css"
-      ></link>
+// function RecomPoll() {
+//   return (
+//     <div>
+//       <link
+//         rel="stylesheet"
+//         href="https://www.w3schools.com/w3css/4/w3.css"
+//       ></link>
 
-      <div class="w3-container ">
-        <header class="w3-container">
-          <h1 class=" w3-extralarge"></h1>
-          <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
-            Recommended Polls
-          </h1>
-        </header>
+//       <div class="w3-container ">
+//         <header class="w3-container">
+//           <h1 class=" w3-extralarge"></h1>
+//           <h1 class="w3-threequarter w3-extralarge w3-opacity " style = {{textAlign: "left"}}>
+//             Recommended Polls
+//           </h1>
+//         </header>
 
-        <div class="card-columns">
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-sand">
-                <h1 class="w3-large ">"Favorite topping on a pizza?"</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID="FFcmP1ZAsVc2eYWNNk9Y" />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">14 days ago(open)</h5>
-              </footer>
-            </div>
-          </div>
+//         <div class="card-columns">
+//           <div class="card">
+//             <div class="w3-card-4 ">
+//               <header class="w3-container w3-sand">
+//                 <h1 class="w3-large ">"Favorite topping on a pizza?"</h1>
+//               </header>
+//               <div class="w3-container ">
+//                 <p>
+//                   <PollResults pollID="FFcmP1ZAsVc2eYWNNk9Y" />
+//                 </p>
+//               </div>
+//               <footer class="w3-container ">
+//                 <h5 class="w3-tiny">14 days ago(open)</h5>
+//               </footer>
+//             </div>
+//           </div>
 
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-sand">
-                <h1 class="w3-large">"Favorite soda drink?"</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID="M6qsfGs1daQlI3Luqiib" />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">16 days ago(open)</h5>
-              </footer>
-            </div>
-          </div>
-          <div class="card">
-            <div class="w3-card-4 ">
-              <header class="w3-container w3-sand">
-                <h1 class="w3-large">What's your favorite book?</h1>
-              </header>
-              <div class="w3-container ">
-                <p>
-                  <PollResults pollID="ldWrJjKj7wPudp3ovuWO" />
-                </p>
-              </div>
-              <footer class="w3-container ">
-                <h5 class="w3-tiny">1 days ago(open)</h5>
-              </footer>
-            </div>
-          </div>
-        </div>
+//           <div class="card">
+//             <div class="w3-card-4 ">
+//               <header class="w3-container w3-sand">
+//                 <h1 class="w3-large">"Favorite soda drink?"</h1>
+//               </header>
+//               <div class="w3-container ">
+//                 <p>
+//                   <PollResults pollID="M6qsfGs1daQlI3Luqiib" />
+//                 </p>
+//               </div>
+//               <footer class="w3-container ">
+//                 <h5 class="w3-tiny">16 days ago(open)</h5>
+//               </footer>
+//             </div>
+//           </div>
+//           <div class="card">
+//             <div class="w3-card-4 ">
+//               <header class="w3-container w3-sand">
+//                 <h1 class="w3-large">What's your favorite book?</h1>
+//               </header>
+//               <div class="w3-container ">
+//                 <p>
+//                   <PollResults pollID="ldWrJjKj7wPudp3ovuWO" />
+//                 </p>
+//               </div>
+//               <footer class="w3-container ">
+//                 <h5 class="w3-tiny">1 days ago(open)</h5>
+//               </footer>
+//             </div>
+//           </div>
+//         </div>
 
-        <h1 class=" w3-extralarge"></h1>
-      </div>
-    </div>
-  );
-}
+//         <h1 class=" w3-extralarge"></h1>
+//       </div>
+//     </div>
+//   );
+// }
 function Poppoll() {
   const [qlist, setqList] = React.useState(initialList);
   // const [alist, setaList] = React.useState(initialList);
@@ -234,7 +234,7 @@ function Repoll() {
 function HomePagePolls() {
   return (
     <div>
-      <RecomPoll />
+      {/* <RecomPoll /> */}
       <Poppoll />
       <Repoll />
     </div>
