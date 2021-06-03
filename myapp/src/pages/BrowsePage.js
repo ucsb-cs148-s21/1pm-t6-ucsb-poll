@@ -159,7 +159,7 @@ const BrowsePage = ({ match }) => {
                                         </p>
                                         </div>
                                         <footer class="w3-container ">
-                                        {(dlist[i] > 0) ? 
+                                        {(dlist[i+1] > 0) ? 
                                             <h5 class="w3-tiny">Closing in {dlist[i+1]} days</h5> : 
                                             <h5 class="w3-tiny">Closed {-(dlist[i+1])} days ago</h5>
                                         }
@@ -185,7 +185,7 @@ const BrowsePage = ({ match }) => {
                                         </p>
                                         </div>
                                         <footer class="w3-container ">
-                                        {(dlist[i] > 0) ? 
+                                        {(dlist[i+2] > 0) ? 
                                             <h5 class="w3-tiny">Closing in {dlist[i+2]} days</h5> : 
                                             <h5 class="w3-tiny">Closed {-(dlist[i+2])} days ago</h5>
                                         }
