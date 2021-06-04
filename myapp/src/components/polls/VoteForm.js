@@ -68,7 +68,7 @@ const VoteForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    var vote = [];
+
     vote.push(enterVoteOp1);
     vote.push(enterVoteOp2);
 
@@ -108,7 +108,12 @@ const VoteForm = (props) => {
     setEnterVoteOp8('');
 
   };
-
+  var newDate = new Date()
+  var date_raw = newDate.getDate().toLocaleString();
+  var date_month = (newDate.getMonth()+1).toLocaleString();
+  var date_year = newDate.getFullYear().toLocaleString();
+  var ndate_year= date_year.replace(",", "");
+  var rightDate = ndate_year+"-"+date_month+"-"+ date_raw;
   return (
     <form onSubmit={submitHandler}>
       
@@ -143,7 +148,7 @@ const VoteForm = (props) => {
           <label>Due Date</label>
           <input
             type='date'
-            min='2021-01-01'
+            min={rightDate}
             max='2022-12-31'
             value={enterDueDate}
             onChange={dateChangeHandler}
