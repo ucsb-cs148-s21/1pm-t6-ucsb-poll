@@ -1,0 +1,4 @@
+- Created profile page to display basic user info
+- Added links from profile page to user's recently voted polls
+- As the deployment document coordinator, I brought our deployment instructions up to date after our MVP.
+- I led retro 3.
