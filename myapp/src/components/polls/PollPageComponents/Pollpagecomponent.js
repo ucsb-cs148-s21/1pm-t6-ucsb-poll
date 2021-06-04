@@ -2,7 +2,34 @@ import React, {Component, useState, useEffect } from 'react';
 import useSWR from "swr";
 import PollResults from "../PollResults";
 
+function convertCategory(category) {
+    if (category == "art")
+        return "Art and Literature"
+    else if (category == "career")
+        return "Career"
+    else if (category === "food")
+        return "Food and Drink"
+    else if (category === "fun")
+        return "Fun and Games"
+    else if (category === "movies") 
+        return "Movies and TV"
+    else if (category === "music") 
+        return "Music"
+    else if (category === "school") 
+        return "School" 
+    else if (category === "travel") 
+        return "Travel"
+    else if (category == "other")
+        return "Other"
+    else
+        return ""
+
+}
+
+
+
 export function Getpollinfo(pollID){
+    const [creator, setCreator] = useState("");
     
     pollID = pollID.pollID
     const fetcher = url => fetch(url).then(res => res.json())
@@ -48,7 +75,7 @@ export function Getpollinfo(pollID){
         status="(already closed)"    
     }
     const attend=d[0].attend
-    const category=d[0].category
+    const category= convertCategory(d[0].category)
     const date=d[0].date
     const dueDate=d[0].dueDate
     const options = d[0].options
@@ -56,7 +83,9 @@ export function Getpollinfo(pollID){
     const days = ((Math.floor(Date.now() / 1000) - d[0].date.seconds)/(60*60*24)).toFixed(0);
     const hours = (((Math.floor(Date.now() / 1000) - d[0].date.seconds)%(60*60*24))/(60*60)).toFixed(0);
     
-
+    if (d[0].creator && creator !== "by " + d[0].creator) {
+        setCreator("by " + d[0].creator);
+    }
     
     return (
     <div>
@@ -69,7 +98,12 @@ export function Getpollinfo(pollID){
         <div class="w3-panel" class="w3-left-align">
             <h1><b> {question}</b></h1>
             <br></br>
-            <p> Created {/*by <b>name</b>*/}  {days} days ago {status}</p>
+            <div class="ui blue labels">
+{                (category !== "") && <a class="ui label">
+                    {category}
+                </a>}
+            </div>
+            <p> Created {creator} {days} days ago {status}</p>
         </div>
         <br></br>
         <PollResults pollID={pollID} />

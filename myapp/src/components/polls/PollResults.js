@@ -56,6 +56,7 @@ class PollResults extends Component {
                 pollID: this.props.pollID,
                 email:this.props.email,
                 totalVotes: this.props.totalVotes,
+                showResults: !(this.props.answerable), 
                 choosen:false,
                 loading: false
             });
