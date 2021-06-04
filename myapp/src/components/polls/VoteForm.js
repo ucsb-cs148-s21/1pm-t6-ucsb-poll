@@ -170,7 +170,7 @@ const VoteForm = (props) => {
           />
         </div>
         <div className='new-VoteOp__control'>
-          <label>Vote option1</label>
+          <label>Vote Option1</label>
           <input
             type='text'
             value={enterVoteOp1}
@@ -178,7 +178,7 @@ const VoteForm = (props) => {
           />
         </div>
         <div className='new-VoteOp__control'>
-          <label>Vote option2</label>
+          <label>Vote Option2</label>
           <input
             type='text'
             value={enterVoteOp2}
@@ -187,7 +187,7 @@ const VoteForm = (props) => {
         </div>
 {        numberOfOptions >= 3 && 
           <div className='new-VoteOp__control'>
-          <label>Vote option3</label>
+          <label>Vote Option3</label>
           <input
             type='text'
             value={enterVoteOp3}
@@ -197,7 +197,7 @@ const VoteForm = (props) => {
 
         { numberOfOptions >= 4 && 
           <div className='new-VoteOp__control'>
-          <label>Vote option4</label>
+          <label>Vote Option4</label>
           <input
             type='text'
             value={enterVoteOp4}
@@ -207,7 +207,7 @@ const VoteForm = (props) => {
         
         { numberOfOptions >= 5 && 
           <div className='new-VoteOp__control'>
-          <label>Vote option5</label>
+          <label>Vote Option5</label>
           <input
             type='text'
             value={enterVoteOp5}
@@ -217,7 +217,7 @@ const VoteForm = (props) => {
         
         { numberOfOptions >= 6 && 
           <div className='new-VoteOp__control'>
-          <label>Vote option6</label>
+          <label>Vote Option6</label>
           <input
             type='text'
             value={enterVoteOp6}
@@ -227,7 +227,7 @@ const VoteForm = (props) => {
         
         { numberOfOptions >= 7 && 
           <div className='new-VoteOp__control'>
-          <label>Vote option7</label>
+          <label>Vote Option7</label>
           <input
             type='text'
             value={enterVoteOp7}
@@ -237,7 +237,7 @@ const VoteForm = (props) => {
         
         { numberOfOptions >= 8 && 
           <div className='new-VoteOp__control'>
-          <label>Vote option8</label>
+          <label>Vote Option8</label>
           <input
             type='text'
             value={enterVoteOp8}
