@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import './VoteForm.css';
  
 const VoteForm = (props) => {
+  const { isAuthenticated, user } = useAuth0();
+  const [email, setEmail] = useState("temp@temp.com");
+
+  if (user && user.email !== email) {
+    setEmail(user.email); 
+  }
   const [enteredQuestions, setEnteredQuestions] = useState('');
   const [enteredCategories, setEnteredCategories] = useState('art');
   const [enterDueDate, setEnterDueDate] = useState('');
@@ -92,6 +99,7 @@ const VoteForm = (props) => {
       answerable: true,
       date: new Date(enterDueDate),
       options: vote,
+      email: email,
     };
 
     props.onSaveVoteData(VoteData);

@@ -7,10 +7,12 @@ function ProfileRecent(props) {
 	const { isAuthenticated, getAccessTokenSilently: getToken, user } = useAuth0();
 	const [info, setInfo] = useState([]);
   const [recent, setRecent] = useState([]);
-    if (isAuthenticated)
-        var email = user.email;
-    else
-        var email = "temp";
+  const [email, setEmail] = useState(props.email);
+
+
+  if (email !== props.email) {
+    setEmail(props.email);
+  }
         
     (async() => {
     while(!isAuthenticated) // define the condition as you like
@@ -33,27 +35,27 @@ function ProfileRecent(props) {
       }
     }
 
-
-    const { data1 } = useSWR(
+    const { data: data1, error: error1 } = useSWR(
       `/api/getUserCreationHistory/${email}`,
       fetcher
       );
-  if(data !== undefined && props.id === "creation"){
-    if(data.length != info.length)
-      setInfo(data);
+  if(data1 !== undefined && props.id === "creation"){
+
+    if(data1.length != info.length || !info ||  data1[0][0] !== info[0][0])
+      setInfo(data1);
     else
     {
-      if(data[0].length != info[0].length)
-        setInfo(data);
+      if(data1[0].length != info[0].length )
+        setInfo(data1);
     }
   }
-
-    console.log("info", info)
+  // console.log ("data1", data1);
+  // console.log("info", info)
 
 	return (
 
     <List divided relaxed>
-      {info[1] && info[1].map((item, index) => {
+      {info[0] && info[1].map((item, index) => {
           return (
             <List.Item href={'/#/poll/\"' + info[0][index]+'\"'} >
               {/* <List.Icon name='github' size='large' verticalAlign='middle' /> */}
@@ -65,14 +67,7 @@ function ProfileRecent(props) {
       )})}
   </List>
 
-    //  <div>
-    //  <div>
-    //   {info[1] && info[1].map((item, index) => {
-    //       return <div class="card">
-    //       <div class="card-header"><a href={'/#/poll/\"' + info[0][index]+'\"'}>{item}</a></div></div>
-    //     })}
-    // </div>
-    // </div>
+
     );
 }
 

@@ -147,7 +147,7 @@ app.get('/api/getUserCreationHistory/:userID', (req, res) => {
       nestedArray.push(date);
       nestedArray.push(category);
 
-      console.log("arr: ", nestedArray);
+      console.log("creation arr: ", nestedArray);
       res.json(nestedArray);
     });
 });
@@ -243,6 +243,7 @@ app.post("/addNewPoll", (req, res) => {
     })
     .then(function (docRef) {
       console.log("Doc Succesfully Written");
+      console.log(req.body.email);
       db.collection("users").doc(req.body.email).collection("creationHistory").doc(docRef.id).set({
         question: req.body.question, 
         date : new Date(),

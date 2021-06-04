@@ -17,9 +17,8 @@ const NewVote = (props) => {
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
+              body: ({
                   ...enteredVoteData,
-                  email: user.email
               }),
           });
           console.log(`result=${JSON.stringify(result)}`);  

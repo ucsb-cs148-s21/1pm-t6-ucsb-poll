@@ -44,7 +44,7 @@ function RecomPoll() {
             <div class="w3-card-4 ">
               <header class="w3-container w3-sand">
                     <Link to={"/poll/"+idlist[0]}>
-                      <h1 class="w3-large ">"Favorite topping on a pizza?"</h1>
+                      <h1 class="w3-large" style = {{fontWeight: 600, margin: 10 }} >"Favorite topping on a pizza?"</h1>
                     </Link>
               </header>
 
@@ -60,7 +60,7 @@ function RecomPoll() {
             <div class="w3-card-4 ">
               <header class="w3-container w3-sand">
                     <Link to={"/poll/"+idlist[1]}>
-                      <h1 class="w3-large ">"Favorite soda drink?"</h1>
+                      <h1 class="w3-large " style = {{fontWeight: 600, margin: 10 }}>"Favorite soda drink?"</h1>
                     </Link>
               </header>
               <div class="w3-container ">
@@ -74,7 +74,7 @@ function RecomPoll() {
             <div class="w3-card-4 ">
               <header class="w3-container w3-sand">
                     <Link to={"/poll/"+idlist[2]}>
-                      <h1 class="w3-large ">"What's your favorite book?"</h1>
+                      <h1 class="w3-large " style = {{fontWeight: 600, margin: 10 }}>"What's your favorite book?"</h1>
                     </Link>
               </header>
               <div class="w3-container ">
@@ -136,7 +136,7 @@ function Poppoll() {
                 <div class="w3-card-4 ">
                   <header class="w3-container w3-pale-green">
                     <Link to={"/poll/"+idlist[i]}>
-                      <h1 class="w3-large ">{qlist[i]}</h1>
+                      <h1 class="w3-large "style = {{fontWeight: 600, margin: 10 }} >{qlist[i]}</h1>
                     </Link>
                   </header>
                   <div class="w3-container ">
@@ -205,7 +205,7 @@ function Repoll() {
               <div class="w3-card-4 ">
                 <header class="w3-container w3-light-blue">
                   <Link to={"/poll/"+idlist[i]}>
-                    <h1 class="w3-large ">{qlist[i]}</h1>
+                    <h1 class="w3-large " style = {{fontWeight: 600, margin: 10 }}>{qlist[i]}</h1>
                   </Link>
                 </header>
                 <div class="w3-container ">
