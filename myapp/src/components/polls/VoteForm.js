@@ -109,8 +109,9 @@ const VoteForm = (props) => {
 
   };
   var newDate = new Date()
-  var date_raw = newDate.getDate().toLocaleString();
-  var date_month = (newDate.getMonth()+1).toLocaleString();
+
+  var date_raw = ('0'+newDate.getDate()).slice(-2).toLocaleString();
+  var date_month = ('0'+(newDate.getMonth()+1)).slice(-2).toLocaleString();
   var date_year = newDate.getFullYear().toLocaleString();
   var ndate_year= date_year.replace(",", "");
   var rightDate = ndate_year+"-"+date_month+"-"+ date_raw;
