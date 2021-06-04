@@ -44,6 +44,7 @@ class PollResults extends Component {
 
     componentDidUpdate(prevProps) {
         //check to see if anything has changed since last update. if so, we must reinitialize our values. 
+        // removed prevProps.totalVotes !== this.props.totalVotes
         if (prevProps.pollID !== this.props.pollID || prevProps.email !== this.props.email || prevProps.answerable !== this.props.answerable || prevProps.members[0].name !== this.props.members[0].name ) {
             this.setState({loading: true});
             this.setState({ 

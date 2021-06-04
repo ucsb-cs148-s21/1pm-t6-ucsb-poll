@@ -1,0 +1,3 @@
+- Created most of the poll card view and voting functionality
+- Set up auth0 login
+- Added filter by category to browse page

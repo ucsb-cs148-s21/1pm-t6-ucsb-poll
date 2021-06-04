@@ -1,0 +1,3 @@
+- I started the project by writing demo poll files which shows how to write basic functions for creating polls and get the results. I believe it helps for the later development when we really write the solid app consisting of the frontend, backend, and database. 
+- For our app, I wrote most elements of the poll creation components in the front end. 
+- I also communicated and discussed the UX needs as UX coordinator.
