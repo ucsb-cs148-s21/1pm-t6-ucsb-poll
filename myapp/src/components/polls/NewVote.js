@@ -6,7 +6,7 @@ import './NewVote.css';
 import { ThemeProvider } from 'react-bootstrap';
 
 const NewVote = (props) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
   const [isEditing, setIsEditing] = useState(false);
 
   const saveVoteDataHandler = (enteredVoteData) => {
@@ -17,8 +17,8 @@ const NewVote = (props) => {
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
-                  ...enteredVoteData
+              body: ({
+                  ...enteredVoteData,
               }),
           });
           console.log(`result=${JSON.stringify(result)}`);  

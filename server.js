@@ -97,24 +97,57 @@ app.get('/api/getUserVote/:userID/voteHistory/:pollID', (req, res) => {
   });
 });
 
+//user voting history
 app.get('/api/getUserVotingHistory/:userID', (req, res) => {
-  console.log("Client has requested server to get user voting history : ", req.params.pollID);
+  console.log("Client has requested server to get user voting history : ", req.params.userID);
   const pollID=[];
   const questions=[];
+  const date = [];
   //const date=[];
   //const option =[];
-  db.collection("users").doc(req.params.userID).collection("pollHistory").get() 
+  db.collection("users").doc(req.params.userID).collection("pollHistory").orderBy("date","desc").get() 
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         pollID.push((doc.id));
         questions.push((`${doc.data().question}`));
+        date.push(doc.data().date.toDate());
 
       });
 
       const nestedArray = [];
       nestedArray.push(pollID);
       nestedArray.push(questions);
+      nestedArray.push(date);
+
       console.log("arr: ", nestedArray);
+      res.json(nestedArray);
+    });
+});
+
+//user creation history
+app.get('/api/getUserCreationHistory/:userID', (req, res) => {
+  console.log("Client has requested server to get user creation history : ", req.params.userID);
+  const pollID=[];
+  const questions=[];
+  const date = [];
+  const category = [];
+
+  db.collection("users").doc(req.params.userID).collection("creationHistory").orderBy("date","desc").get() 
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        pollID.push((doc.id));
+        questions.push((`${doc.data().question}`));
+        date.push(doc.data().date.toDate());
+        category.push(doc.data().category)
+      });
+
+      const nestedArray = [];
+      nestedArray.push(pollID);
+      nestedArray.push(questions);
+      nestedArray.push(date);
+      nestedArray.push(category);
+
+      console.log("creation arr: ", nestedArray);
       res.json(nestedArray);
     });
 });
@@ -185,7 +218,12 @@ app.post("/addNewPoll", (req, res) => {
   console.log("Server requested to add new poll to DB");
   console.log("request: ", req.body);
   let today = new Date();
-  db.collection("polls").doc().set({
+
+
+
+
+
+  db.collection("polls").add({
     answerable: req.body.answerable,
     date: today, // change date to current date
     dueDate: req.body.date, 
@@ -196,11 +234,21 @@ app.post("/addNewPoll", (req, res) => {
     option1: 0,
     option2: 0,
     option3: 0,
+    option4: 0,
+    option5: 0,
+    option6: 0,
+    option7: 0,
     attend: 0,
     
     })
-    .then(function () {
+    .then(function (docRef) {
       console.log("Doc Succesfully Written");
+      console.log(req.body.email);
+      db.collection("users").doc(req.body.email).collection("creationHistory").doc(docRef.id).set({
+        question: req.body.question, 
+        date : new Date(),
+        category: req.body.category, 
+      })
     })
     .catch(function (error) {
       console.error("Error caught: ", error);

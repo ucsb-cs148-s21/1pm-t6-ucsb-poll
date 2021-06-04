@@ -15,7 +15,7 @@ const Main = () => {
     <ScrollToTop/>
     <Switch> {/* The Switch decides which component to show based on the current URL.*/}
       <Route exact path='/' component={HomePage}></Route>
-      <Route exact path='/profile' component={ProfilePage} />
+      <Route exact path='/profile/:userid?' component={ProfilePage} />
       <Route exact path="/poll/:pollid" component={PollPage} /> 
       <Route exact path="/browse/:filter?" component={BrowsePage} /> 
       <Route exact path="/create" component={CreatePollPage} /> 
