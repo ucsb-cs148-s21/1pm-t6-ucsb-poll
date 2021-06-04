@@ -68,7 +68,7 @@ const VoteForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
+    var vote = [];
     vote.push(enterVoteOp1);
     vote.push(enterVoteOp2);
 
