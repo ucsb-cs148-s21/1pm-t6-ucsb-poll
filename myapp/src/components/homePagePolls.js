@@ -233,7 +233,7 @@ function Repoll() {
 function HomePagePolls() {
   return (
     <div>
-      {/* <RecomPoll /> */}
+      <RecomPoll />
       <Poppoll />
       <Repoll />
     </div>
