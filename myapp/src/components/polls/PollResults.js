@@ -174,7 +174,7 @@ class PollResults extends Component {
 
     render() {
         const { showResults, answerable,  totalVotes, choosen, voted, email } = this.state
-        const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar"]
+        const bars = ["RedBar", "BlueBar", "GreenBar", "YellowBar", "PurpleBar", "TurquoiseBar", "OrangeBar", "PinkBar"]
         if (this.state.loading)
             return (<Spinner animation="border" variant="success"/>)
         return (

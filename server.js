@@ -207,6 +207,38 @@ app.post("/api/addVote", (req, res) => {
     })
   }
 
+  else if (req.body.option === 4) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option4" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
+    })
+  }
+
+  else if (req.body.option === 5) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option5" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
+    })
+  }
+
+  else if (req.body.option === 6) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option6" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
+    })
+  }
+
+  else if (req.body.option === 7) {
+    db.collection("polls").doc(req.body.pollID).update({
+      "option7" : firebase.firestore.FieldValue.increment(1),
+      "attend" :  firebase.firestore.FieldValue.increment(1)
+
+    })
+  }
+
   res.send()
 
 });
