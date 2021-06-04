@@ -19,6 +19,22 @@
     background-color:#f6ff76;
 }
 
+.PurpleBar {
+    background-color:#b547f5;
+}
+
+.TurquoiseBar {
+    background-color:#47f5f5;
+}
+
+.OrangeBar {
+    background-color:#fdc751;
+}
+
+.PinkBar {
+    background-color:#f78bc6;
+}
+
 
 #blockContainer {
     display: flex;
