@@ -36,7 +36,7 @@ const BrowsePage = ({ match }) => {
         fetch(`/api/getPollInformation/${filterType}/${numOfPolls}/${categoryFilter}`)
         .then((res) => res.json())
         .then((data) => {
-            if (data[0].length === qlist.length) {
+            if (data[0].length === qlist.length && numOfPolls!== 12) {
                 console.log("data:", data[0])
                 console.log("q", qlist)
                 setNoMorePolls(true);
@@ -119,7 +119,7 @@ const BrowsePage = ({ match }) => {
                     </h1>
                     </header>
 
-                        {idlist.map((element, i) => (
+                        {arrayOfNums.map((i) => (
                             <div class="card-deck" style = {{marginLeft:100, marginRight: 100, marginBottom: 30}}>
 
                             {idlist[i]&&

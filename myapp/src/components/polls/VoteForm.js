@@ -6,9 +6,14 @@ import './VoteForm.css';
 const VoteForm = (props) => {
   const { isAuthenticated, user } = useAuth0();
   const [email, setEmail] = useState("temp@temp.com");
+  const [name, setName] = useState ("temp");
 
   if (user && user.email !== email) {
     setEmail(user.email); 
+  }
+
+  if (user && user.name !== name) {
+    setName(user.name); 
   }
   const [enteredQuestions, setEnteredQuestions] = useState('');
   const [enteredCategories, setEnteredCategories] = useState('art');
@@ -100,6 +105,7 @@ const VoteForm = (props) => {
       date: new Date(enterDueDate),
       options: vote,
       email: email,
+      name: name,
     };
 
     props.onSaveVoteData(VoteData);

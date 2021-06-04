@@ -271,6 +271,7 @@ app.post("/addNewPoll", (req, res) => {
     option6: 0,
     option7: 0,
     attend: 0,
+    creator: req.body.name,
     
     })
     .then(function (docRef) {
