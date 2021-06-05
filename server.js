@@ -219,10 +219,6 @@ app.post("/addNewPoll", (req, res) => {
   console.log("request: ", req.body);
   let today = new Date();
 
-
-
-
-
   db.collection("polls").add({
     answerable: req.body.answerable,
     date: today, // change date to current date
@@ -240,6 +236,7 @@ app.post("/addNewPoll", (req, res) => {
     option7: 0,
     attend: 0,
     creator: req.body.name,
+    email: req.body.email,
     
     })
     .then(function (docRef) {
@@ -264,6 +261,7 @@ app.get('/getPoll/:pollID', (req, res) => {
 
   pollDoc.get().then((doc) => {
     if (doc.exists) {
+        console.log("Got poll: ", doc.data())
         res.send(doc.data())
     } else {
         console.log("No such poll with id " + req.params.pollID);
