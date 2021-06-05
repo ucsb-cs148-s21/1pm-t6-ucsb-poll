@@ -2,6 +2,7 @@
 - unique poll page (not include comment)
 - set up url for polls with roter 
 - autocomplete search front&back
+- some change on vote&result view
+- help on finding bugs
 - user manual
-- help some on finding bugs
-- slightly change on vote&result view
+
