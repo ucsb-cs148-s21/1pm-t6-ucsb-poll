@@ -1,6 +1,7 @@
 import React, {Component, useState, useEffect } from 'react';
 import useSWR from "swr";
 import PollResults from "../PollResults";
+import { Link} from "react-router-dom";
 
 function convertCategory(category) {
     if (category == "art")
@@ -50,7 +51,7 @@ export function Getpollinfo(pollID){
     var d = (data && JSON.stringify(data))
 
 
-
+    
     d = '[' + d
     d += ']'
     d = JSON.parse(d)
@@ -82,11 +83,13 @@ export function Getpollinfo(pollID){
     const question = d[0].question
     const days = ((Math.floor(Date.now() / 1000) - d[0].date.seconds)/(60*60*24)).toFixed(0);
     const hours = (((Math.floor(Date.now() / 1000) - d[0].date.seconds)%(60*60*24))/(60*60)).toFixed(0);
+    const email = d[0].email
     
     if (d[0].creator && creator !== "by " + d[0].creator) {
         setCreator("by " + d[0].creator);
     }
-    
+    console.log("d0", d[0])
+
     return (
     <div>
         <link
@@ -103,7 +106,7 @@ export function Getpollinfo(pollID){
                     {category}
                 </a>}
             </div>
-            <p> Created {creator} {days} days ago {status}</p>
+            <p> Created {creator && <Link to={"/profile/" + email} style = {{color: "blue", textDecoration: "underline",}}>{creator}</Link>} {days} days ago {status}</p>
         </div>
         <br></br>
         <PollResults pollID={pollID} />

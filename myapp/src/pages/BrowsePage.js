@@ -3,6 +3,9 @@ import { Link} from "react-router-dom";
 import {DropdownButton, Dropdown} from "react-bootstrap";
 import PollResults from "../components/polls/PollResults.js";
 import Button from 'react-bootstrap/Button'
+
+
+
 const BrowsePage = ({ match }) => {
     const {
       params: { filter },
@@ -30,6 +33,12 @@ const BrowsePage = ({ match }) => {
         setArrayOfNums([0,3,6,9]);
         setNumOfPolls(12);
     }
+
+    useEffect(() => {
+        setNoMorePolls(false);
+        setNumOfPolls(12);
+        setArrayOfNums([0,3,6,9]);
+    }, [filterType, categoryFilter]);
   
     useEffect(() => {
         setIsLoadingMorePolls(true);
@@ -37,8 +46,8 @@ const BrowsePage = ({ match }) => {
         .then((res) => res.json())
         .then((data) => {
             if (data[0].length === qlist.length && numOfPolls!== 12) {
-                console.log("data:", data[0])
-                console.log("q", qlist)
+                // console.log("data:", data[0])
+                // console.log("q", qlist)
                 setNoMorePolls(true);
                 //no more polls to be found
             }
@@ -47,7 +56,11 @@ const BrowsePage = ({ match }) => {
             setdList(data[2]);
             setidList(data[3]);
             //setIsLoading(false);
+
+            setArrayOfNums(composeNewArr(data[0].length))
             setIsLoadingMorePolls(false);
+
+            ///??
 
         })
         .catch((error) => console.log(error));
@@ -80,6 +93,19 @@ const BrowsePage = ({ match }) => {
         // console.log(e.target.id);
 
     } 
+
+    // create new array based on how many polls we actually have
+    // probably unnecessary, given how we check for undef in jsx.
+    const composeNewArr = (num) => {
+        var arr = [];
+        var i;
+        for (i = 0; i < Math.ceil(num/3); i++) {
+            arr.push(i*3);
+        }
+        return arr;
+        // setNumOfPolls((Math.ceil(num/3)));
+    }
+    
     
   
     return (
@@ -120,80 +146,80 @@ const BrowsePage = ({ match }) => {
                     </header>
 
                         {arrayOfNums.map((i) => (
+                            ( idlist[i] &&                                 
                             <div class="card-deck" style = {{marginLeft:100, marginRight: 100, marginBottom: 30}}>
-
-                            {idlist[i]&&
-                                <div class="card">
-                                    <div class="w3-card-4 ">
-                                        <header class="w3-container w3-light-blue">
-                                        <Link to={"/poll/"+idlist[i]}>
-                                            <h1 class="w3-large" style = {{fontWeight: 600, margin: 10 }}>{qlist[i]}</h1>
-                                        </Link>
-                                        </header>
-                                        <div class="w3-container ">
-                                        <p>
-                                            <PollResults pollID={(idlist[i] + "").substring(1, 21)} />
-                                        </p>
+                                {idlist[i]&&
+                                    <div class="card">
+                                        <div class="w3-card-4 ">
+                                            <header class="w3-container w3-light-blue">
+                                            <Link to={"/poll/"+idlist[i]}>
+                                                <h1 class="w3-large" style = {{fontWeight: 600, margin: 10 }}>{qlist[i]}</h1>
+                                            </Link>
+                                            </header>
+                                            <div class="w3-container ">
+                                            <p>
+                                                <PollResults pollID={(idlist[i] + "").substring(1, 21)} />
+                                            </p>
+                                            </div>
+                                            <footer class="w3-container ">
+                                            {(dlist[i] > 0) ? 
+                                                <h5 class="w3-tiny">Closing in {dlist[i]} days</h5> : 
+                                                <h5 class="w3-tiny">Closed {-(dlist[i])} days ago</h5>
+                                            }
+                                            </footer>
                                         </div>
-                                        <footer class="w3-container ">
-                                        {(dlist[i] > 0) ? 
-                                            <h5 class="w3-tiny">Closing in {dlist[i]} days</h5> : 
-                                            <h5 class="w3-tiny">Closed {-(dlist[i])} days ago</h5>
-                                        }
-                                        </footer>
                                     </div>
-                                </div>
-                            }
+                                }
 
-                                <div class="card">
-                                    {idlist[i+ 1]&&                        
-                                    <div class="w3-card-4 ">
-                                        <header class="w3-container w3-light-blue" >
-                                        <Link to={"/poll/"+idlist[i+1]}>
-                                            <h1 class="w3-large "style = {{fontWeight: 600, margin: 10 }} >{qlist[i+1]}</h1>
-                                        </Link>
-                                        </header>
-                                        <div class="w3-container ">
-                                        <p>
-                                            <PollResults pollID={(idlist[i+1] + "").substring(1, 21)} />
-                                        </p>
-                                        </div>
-                                        <footer class="w3-container ">
-                                        {(dlist[i+1] > 0) ? 
-                                            <h5 class="w3-tiny">Closing in {dlist[i+1]} days</h5> : 
-                                            <h5 class="w3-tiny">Closed {-(dlist[i+1])} days ago</h5>
-                                        }
-                                        </footer>
-                                    </div>}
-                                </div>
-                                
+                                    <div class="card">
+                                        {idlist[i+ 1]&&                        
+                                        <div class="w3-card-4 ">
+                                            <header class="w3-container w3-light-blue" >
+                                            <Link to={"/poll/"+idlist[i+1]}>
+                                                <h1 class="w3-large "style = {{fontWeight: 600, margin: 10 }} >{qlist[i+1]}</h1>
+                                            </Link>
+                                            </header>
+                                            <div class="w3-container ">
+                                            <p>
+                                                <PollResults pollID={(idlist[i+1] + "").substring(1, 21)} />
+                                            </p>
+                                            </div>
+                                            <footer class="w3-container ">
+                                            {(dlist[i+1] > 0) ? 
+                                                <h5 class="w3-tiny">Closing in {dlist[i+1]} days</h5> : 
+                                                <h5 class="w3-tiny">Closed {-(dlist[i+1])} days ago</h5>
+                                            }
+                                            </footer>
+                                        </div>}
+                                    </div>
+                                    
 
 
-                                <div class="card">
-                                     {idlist[i+ 2]&&      
+                                    <div class="card">
+                                        {idlist[i+ 2]&&      
 
-                                    <div class="w3-card-4 ">
-                                        
-                                        <header class="w3-container w3-light-blue" >
-                                        <Link to={"/poll/"+idlist[i+2]}>
-                                            <h1 class ="w3-large " style = {{fontWeight: 600, margin: 10 }}>{qlist[i+2]}</h1>
-                                        </Link>
-                                        </header>
-                                        <div class="w3-container ">
-                                        <p>
-                                            <PollResults pollID={(idlist[i+2] + "").substring(1, 21)} />
-                                        </p>
-                                        </div>
-                                        <footer class="w3-container ">
-                                        {(dlist[i+2] > 0) ? 
-                                            <h5 class="w3-tiny">Closing in {dlist[i+2]} days</h5> : 
-                                            <h5 class="w3-tiny">Closed {-(dlist[i+2])} days ago</h5>
-                                        }
-                                        </footer>
-                                    </div>}
-                                </div>
+                                        <div class="w3-card-4 ">
+                                            
+                                            <header class="w3-container w3-light-blue" >
+                                            <Link to={"/poll/"+idlist[i+2]}>
+                                                <h1 class ="w3-large " style = {{fontWeight: 600, margin: 10 }}>{qlist[i+2]}</h1>
+                                            </Link>
+                                            </header>
+                                            <div class="w3-container ">
+                                            <p>
+                                                <PollResults pollID={(idlist[i+2] + "").substring(1, 21)} />
+                                            </p>
+                                            </div>
+                                            <footer class="w3-container ">
+                                            {(dlist[i+2] > 0) ? 
+                                                <h5 class="w3-tiny">Closing in {dlist[i+2]} days</h5> : 
+                                                <h5 class="w3-tiny">Closed {-(dlist[i+2])} days ago</h5>
+                                            }
+                                            </footer>
+                                        </div>}
+                                    </div>
 
-                            </div>
+                                </div>)
 
                         ))
                         }
