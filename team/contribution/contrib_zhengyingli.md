@@ -1,0 +1,7 @@
+home page front&back (not include vote&result view)
+unique poll page (not include comment)
+set up url for polls with roter 
+autocomplete search front&back
+user manual
+help some on finding bugs
+slightly change on vote&result view
