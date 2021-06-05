@@ -4,4 +4,3 @@
 - Added navbar and page routing 
 - Added design to profile page and additional history
 - Refactored poll results view (and also a lot of bug fixes)
-- Small things here and there that I don't remember anymore
