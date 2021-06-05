@@ -4,3 +4,4 @@
 - Added navbar and page routing 
 - Added design to profile page and additional history
 - Refactored poll results view (and also a lot of bug fixes)
+- Also contributed small snippets of code here and there to help with other people's features
