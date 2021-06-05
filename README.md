@@ -5,6 +5,8 @@ Techstack: React / Node.js / (Express) / Firebase
 
 UCSB Polls will give information on what the student body's favorite beer is, what their favorite class was, what their favorite restaurant in IV is, etc. Users should be able to log in with their @ucsb.edu account and then vote and share different polls. 
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 Users:
 - Users that look up, create, and vote on polls
 - Admins can remove polls to the system
@@ -59,7 +61,9 @@ Write usage instructions. Structuring it as a walkthrough can help structure thi
 - vote on the newly created poll (it will be listed under recent polls) 
 
 # Known Problems
-- Code is very messy for the front page. We will combine some of the code into one file to make the components more clear. 
+- Code is messy 
+- Authentication not ideally secure (api is not secure)
+
 
 
 # Contributing
@@ -70,7 +74,8 @@ Commit your changes: git commit -am 'Add some feature'
 Push to the branch: git push origin my-new-feature  
 Submit a pull request :D
 
-# Getting Started with Create React App
+# Deployment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+View our [Heroku Deployment](https://cs148-1pm-t6-ucsb-poll.herokuapp.com/).
+
 
