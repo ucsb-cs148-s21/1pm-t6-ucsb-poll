@@ -64,7 +64,7 @@ Prerequisites: Javascript, Node.js, express
 
 # Design Documentations
 
-[Design Document] (./docs/DESIGN.md)
+[Design Document](./docs/DESIGN.md)
 
 # Known Problems
 
