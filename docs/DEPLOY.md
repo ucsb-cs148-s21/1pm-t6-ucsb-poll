@@ -18,7 +18,7 @@
         REACT_APP_AUTH0_CLIENT_ID=XXXXXXX  
         REACT_APP_AUTH0_AUDIENCE=XXXXXX 
 - **Set up Firebase**\
-    (Create project, initialize cloud firestore, copy config details, put in server.js file)\     
+    (Create project, initialize cloud firestore, copy config details, put in server.js file)     
     Create a new project on Firebase. \
     Initialize cloud firestore for this project. (Click on Cloud Firestore on the left hand nav bar, and then click on "Create Database") \
     Firebase will provide a set of config details. You can find them by going to project overview and clicking on the "< / >" or by going to your project settings under the gear icon and finding the < / > section.\
