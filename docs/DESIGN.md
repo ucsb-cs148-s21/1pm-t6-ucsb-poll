@@ -15,8 +15,8 @@
 
 ## Design Process Documentation 
 We decided to use React stack early on (Sprint 1 meeting?) 
-Most major decisions occured in our sprint 2 planning meeting.
-https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll/blob/main/team/sprint02/sprint02.md
+Most major decisions occured in our [spring 2 planning meeting](https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll/blob/main/team/sprint02/sprint02.md).
+
   - Deciding to use Node.js instead of Springboot
   - Deciding to use Firebase instead of MongoDB
   - (Creation of our design document?)
