@@ -31,12 +31,12 @@ const HomePage = () => {
 
           <HomePagePolls />
 
-//           {isAuthenticated &&
-//             <div class="card">
-//               <div class="card-header">Create a New Poll</div>
-//               <NewVote />
-//             </div>
-//           }
+          {/* {isAuthenticated &&
+            <div class="card">
+              <div class="card-header">Create a New Poll</div>
+              <NewVote />
+            </div>
+          } */}
           
         </div>
       </div>
