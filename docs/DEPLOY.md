@@ -26,8 +26,20 @@ Navigate to the "Applications" page and click the "Create Application" button. C
     (Create project, initialize cloud firestore, copy config details, put in server.js file)\     
     Create a new project on Firebase. \
     Initialize cloud firestore for this project. (Click on Cloud Firestore on the left hand nav bar, and then click on "Create Database") \
-    Firebase will provide a set of config details, copy these.\
-    Insert these credentials at the beginning of the server.js file.
+    Firebase will provide a set of config details. You can find them by going to project overview and clicking on the "< / >" or by going to your project settings under the gear icon and finding the < / > section.\
+    These values will look like
+   
+   var firebaseConfig = {
+    apiKey: "xxxx",
+    authDomain: "xxxx",
+    projectId: "xxxx",
+    storageBucket: "xxxx",
+    messagingSenderId: "xxxx",
+    appId: "xxxx",
+    measurementId: "xxxx"
+  };
+  
+    Insert these credentials at the beginning of the server.js file, where firebaseConfig is located. Replace the current credentials with your own. 
     
 - **Deploy To Heroku**\
         Push repository to GitHub and link to a new Heroku webapp.\
