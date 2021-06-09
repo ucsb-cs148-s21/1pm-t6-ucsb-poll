@@ -39,7 +39,7 @@
 
 - **Deploy To Heroku**\
         Push repository to GitHub and link to a new Heroku webapp.\
-        Input environment variables for Auth0. Under settings --> Config Vars, input the three auth0 credentials key/token pairs REACT_APP_AUTH0_DOMAIN, REACT_APP_AUTH0_CLIENT_ID, REACT_APP_AUTH0_AUDIENCE.
+        Input environment variables for Auth0. Under settings --> Config Vars, input the three auth0 credentials key/token pairs REACT_APP_AUTH0_DOMAIN, REACT_APP_AUTH0_CLIENT_ID, REACT_APP_AUTH0_AUDIENCE. Use the same ones as the values for your local host .env.local file. 
         
     <!--- set up express ? -->
 <!--- - cd in myapp & npm run build? (Trouble shooting if heroku is not working properly) -->
@@ -47,6 +47,6 @@
 - **Running on Local Host**\
     cd into myapp and run: 'npm install' and then 'npm run build'\
     Go back into the root project directory and run: 'npm install' and then 'npm start' to run the project on localhost:8080.\
-    Note: You can run the front end and back end seperately too. 
+    Note: You can run the front end and back end separately too. Just open two terminals and npm start in both the myapp directory and the rootdirectory. 
 
 
