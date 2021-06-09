@@ -1,4 +1,4 @@
-# ./docs/SETUP_FULL.md
+# ./docs/AUTH0SETUP.md
 
 Instructions based on instructions from UCSB CS156
 . 
