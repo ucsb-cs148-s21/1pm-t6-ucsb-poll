@@ -31,7 +31,6 @@ Enter this into Heroku.com to create a new application as shown below.
 
 If your app name is, for example, `ucsb-polls-id`, then the eventual URL of this application is now, for example `https://ucsb-polls-id.herokuapp.com`
 
-![Create new app on Heroku](./images/heroku-new-app.gif)
 
 Then enter this name for the value `heroku.app` in your `temp-credentials.txt`, and enter the full url for `heroku.url`
 so that the file looks something like this:
@@ -95,7 +94,6 @@ Now, in the "Connections" tab of **your app** (not from the sidebar)
 - Ensure `google-oauth2` is checked (it should be by default).
   See image below for an example of what it should look like.
 
-![Auth0 Connections Settings](./images/auth0-connections-settings.png)
 
 Next, go back to the Settings tab of your app (the same tab where you entered the callback URIs).   
 
@@ -139,7 +137,6 @@ Next, fill in the fields as follows:
 It should end up looking like the below image (with your application name):
 
 
-![Auth0 API setup](./images/auth0-api-setup.png)
 
 Hit `Create` to create your API.
 
@@ -166,7 +163,6 @@ so, have those handy.
    click as shown in the following animation to
    create a new project.   Please call your project `cmpsc156-yourUCSBNetID`, and for the "location", select `ucsb.edu`, then `UnPaid`, as shown here:
 
-   ![New Google API Project](./images/google-api-create-new-project.gif)  
 
    Or, if you already have a `cmpsc156-yourUCSBNetID` project, select that
    project.
@@ -180,8 +176,6 @@ so, have those handy.
 9. Name your OAuth 2.0 client using the same name as your `auth0.tenant` (e.g. `cs148-ucsb-polls-id`).   Since you only need one client per Auth0 tenant, it makes sense to give these the same name.
 10. Add an authorized JavaScript origin with the value `https://insert-your-auth0-domain-here`, substituting in the value of `auth0.domain` prefixed with `https://`, e.g. `https://cs148-ucsb-polls-id.us.auth0.com`
 11. Add an authorized redirect URI, with the value `https://insert-your-auth0-domain-here/login/callback`, substituting in the value of `auth0.domain` prefixed with `https://`, and suffixed with `/login/callback/` e.g. `https://cs148-ucsb-polls-id.us.auth0.com/login/callback` 
-   It should look something like this:
-   ![](./images/google-create-oauth-client.png)
 12. Scroll down and click "Create" to create your Google OAuth App.
 13. You should see a pop-up with a "Client ID" and "Client Secret". Copy these values into your  `temp-credentials.txt` as the values of 
 `google.clientId` and `google.clientSecret`.  You'll need these in a later step.
@@ -195,7 +189,6 @@ Now, return to the browser tab open to your Auth0 application.
 - Click on "Google" and fill in the "Client ID" and "Client Secret" from the values of `google.clientId` and `google.clientSecret` that you put into your  `temp-credentials.txt` file in the previous step.
 - Make sure to scroll down and click "Save Changes" at the bottom of the dialog to save your changes.
 
-![auth0 connections social](./images/auth0-connections-social.png)
 
 ## Step 7: Setting up Custom Claims in Auth0
 
