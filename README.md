@@ -62,7 +62,7 @@ Prerequisites: Javascript, Node.js, express
 - Navigate to "Create a Poll" under "Polls" in the navigation bar. Create your own poll!
 - Go back to the home page (Or browse polls by recent). You can see your own poll (click on it, vote on it, etc)
 
-# Design Documentations
+# Design Documentation
 
 [Design Document](./docs/DESIGN.md)
 
