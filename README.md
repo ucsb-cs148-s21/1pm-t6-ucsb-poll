@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Users:
 - Users that look up, create, and vote on polls
-- Admins can remove polls to the system
+- Admins can remove polls to the system (Not added yet) 
 
 # Members
 - Jasun Chen @jasunchen
@@ -34,7 +34,7 @@ The src folder contains three main folders:
 - A 'components' folder which includes page components making up the webpages.
 - An 'auth' folder for user authentication.
 - A 'pages' folder for the pages on the website.
-- The src folder also contains a test folder, but it is not extensively used.
+- A 'tests' folder for tests but we decided not to pursue TDD for this project. 
 
 # Installation
 
@@ -53,17 +53,19 @@ Prerequisites: Javascript, Node.js, express
 
 
 # Functionality
-TODO: LINK USER MANUAL HERE
-Write usage instructions. Structuring it as a walkthrough can help structure this section, and showcase your features.
 
-- click the login button in the top right corner of the webpage to login through Auth0.
-- create a poll using the interface at the bottom of the page
-- vote on the newly created poll (it will be listed under recent polls) 
+[User Manual](./docs/MANUAL.md)
+- Click the login button in the top right corner of the webpage to login through Auth0.
+- Navigate to "Create a Poll" under "Polls" in the navigation bar. Create your own poll!
+- Go back to the home page (Or browse polls by recent). You can see your own poll (click on it, vote on it, etc)
 
 # Known Problems
-- Code is messy 
-- Authentication not ideally secure (api is not secure)
 
+- Code is messy (still some bugs left over) 
+- Authentication not ideally secure (api is not secure)
+- No anonymity yet 
+- Should switch to Firebase's bulit in authentication service ideally (but auth0 works for now)
+- No moderation implemented yet
 
 
 # Contributing
