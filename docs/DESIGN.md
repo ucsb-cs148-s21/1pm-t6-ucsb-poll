@@ -31,5 +31,8 @@ https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll/blob/main/team/sprint02/sprin
 User Interface and User Experience (UX) considerations. Your high-level task/user flow (see above) might be the first thing to document here
 
 
+![image](https://user-images.githubusercontent.com/33990609/121289322-9927b580-c899-11eb-8236-f24c3c6575db.png)
+
+
 
 
