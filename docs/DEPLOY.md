@@ -8,7 +8,7 @@
     Create a heroku deployment and link it to your repo. 
     Create an Auth0 account if you don't already have one.\
     Set up an Auth0 tenant for this webapp.
-    This process can be pretty difficult unfortunately. There are detailed instructions [here] (https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll/blob/main/docs/AUTH0SETUP.md).
+    This process can be pretty difficult unfortunately. There are detailed instructions [here](https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll/blob/main/docs/AUTH0SETUP.md).
     
 <!-- TODO: Summarize main Instructions from cs156? -->
 - **Set up app with Auth0 credentials**\
@@ -23,7 +23,8 @@
     Initialize cloud firestore for this project. (Click on Cloud Firestore on the left hand nav bar, and then click on "Create Database") \
     Firebase will provide a set of config details. You can find them by going to project overview and clicking on the "< / >" or by going to your project settings under the gear icon and finding the < / > section.\
     These values will look like
-   
+
+```javascript
    var firebaseConfig = {
     apiKey: "xxxx",
     authDomain: "xxxx",
@@ -33,7 +34,7 @@
     appId: "xxxx",
     measurementId: "xxxx"
   };
-  
+```
     Insert these credentials at the beginning of the server.js file, where firebaseConfig is located. Replace the current credentials with your own. 
     
 - **Deploy To Heroku**\
