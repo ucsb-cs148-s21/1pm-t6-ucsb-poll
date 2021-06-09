@@ -1,6 +1,6 @@
 # ./docs/AUTH0SETUP.md
 
-Instructions based on instructions from UCSB CS156
+Instructions based on instructions from [UCSB CS156](https://github.com/ucsb-cs156-w21/STARTER-jpa03/blob/main/docs/SETUP-FULL.md)
 . 
 
 ## Step 0: Get Organized
@@ -29,7 +29,7 @@ Login to Heroku.com and choose an application name. You can select something lik
 
 Enter this into Heroku.com to create a new application as shown below.  
 
-If your app name is, for example, `jpa03-cgaucho`, then the eventual URL of this application is now, for example `https://ucsb-polls-id.herokuapp.com`
+If your app name is, for example, `ucsb-polls-id`, then the eventual URL of this application is now, for example `https://ucsb-polls-id.herokuapp.com`
 
 ![Create new app on Heroku](./images/heroku-new-app.gif)
 
@@ -82,9 +82,9 @@ in the appropriate fields.
 
 | Field                 | Value                                        |
 | --------------------- | -------------------------------------------- |
-| Allowed Callback URLs | http://localhost:3000, http://localhost:8080, https://jpa03-cgaucho.herokuapp.com |
-| Allowed Logout URLs   | http://localhost:3000, http://localhost:8080, https://jpa03-cgaucho.herokuapp.com |
-| Allowed Web Origins   | http://localhost:3000, http://localhost:8080, https://jpa03-cgaucho.herokuapp.com |
+| Allowed Callback URLs | http://localhost:3000, http://localhost:8080, https://ucsb-polls-id.herokuapp.com |
+| Allowed Logout URLs   | http://localhost:3000, http://localhost:8080, https://ucsb-polls-id.herokuapp.com |
+| Allowed Web Origins   | http://localhost:3000, http://localhost:8080, https://ucsb-polls-id.herokuapp.com |
 
 
 Make sure to scroll down and click "Save Changes" at the bottom of the page.
@@ -132,8 +132,8 @@ First, click on the `Create API` button.
 Next, fill in the fields as follows:
 | Field name | Value | Description |
 |------------|-------|-------------|
-| Name | The name of your application | This is just a visual name for the Auth0 API of your application, and in principle it could be anything.  But to help keep things organized, we'll use the same value that we used for the `heroku.app`,   Example `jpa03-cgaucho`|
-| Identifier | Copy your full heroku url into this field; e.g. `https://jpa03-cgaucho.herokuapp.com` | This will end up serving as the "audience" value, the "key" that identifies custom claims in the JWT token. |
+| Name | The name of your application | This is just a visual name for the Auth0 API of your application, and in principle it could be anything.  But to help keep things organized, we'll use the same value that we used for the `heroku.app`,   Example `ucsb-polls-id`|
+| Identifier | Copy your full heroku url into this field; e.g. `https://ucsb-polls-id.herokuapp.com` | This will end up serving as the "audience" value, the "key" that identifies custom claims in the JWT token. |
 | Signing algorithm | RS256 | This determines what cryptographic algorithm is used to verify tokens. The standard is RS256, so we use that here |
 
 It should end up looking like the below image (with your application name):
@@ -156,9 +156,9 @@ username--which we can do with your UCSB username.
 The instructions below are based on the instructions <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">here</a>.
 
 You'll need the values from your `temp-credentials.txt` file for:
-* `heroku.app` (e.g. `jpa03-cgaucho`)
-* `auth0.tenant` (e.g.`ucsb-cs156-cgaucho`) 
-* `auth0.domain` (e.g. `ucsb-cs156-cgaucho.us.auth0.com`)
+* `heroku.app` (e.g. `ucsb-polls-id`)
+* `auth0.tenant` (e.g.`cs148-ucsb-polls-id`) 
+* `auth0.domain` (e.g. `cs148-ucsb-polls-id.us.auth0.com`)
 so, have those handy.
 
 1. Navigate to page <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">Google OAuth Instructions</a> and click where it says "Go to the Credentials Page".
