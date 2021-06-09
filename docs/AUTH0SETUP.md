@@ -254,7 +254,6 @@ On the new page, click on "Create". Give your action any name (e.g. "add to db")
 
 const axios = require("axios");
 exports.onExecutePostLogin = async (event, api) => {
-    //await axios.post("/addNewUser", { params: { name: "test", email: "test@gmail.com" }});
     axios.post('https://ucsb-polls-id.herokuapp.com/addNewUser', {
         name: event.user.name,
         email: event.user.email,
