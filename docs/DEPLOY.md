@@ -4,17 +4,12 @@
     ```
     git clone git@github.com:ucsb-cs148-s21/1pm-t6-ucsb-poll.git
     ```
-- **Set up Auth0 credentials for this app**\
+- **Set up Auth0 credentials and heroku for this app**\
+    Create a heroku deployment and link it to your repo. 
     Create an Auth0 account if you don't already have one.\
     Set up an Auth0 tenant for this webapp.
+    This process can be pretty difficult unfortunately. There are detailed instructions [here] (https://github.com/ucsb-cs148-s21/1pm-t6-ucsb-poll/blob/main/docs/AUTH0SETUP.md).
     
-Navigate to the "Applications" page and click the "Create Application" button. Create a "Single Page Application." Then go settings and fill in the application URIs according to these values. Replace exampleHerokuName with the actual name of your heroku app. 
-| Field                 | Value                                        |
-| --------------------- | -------------------------------------------- |
-| Allowed Callback URLs | http://localhost:3000, http://localhost:8080, https://exampleHerokuName.herokuapp.com |
-| Allowed Logout URLs   | http://localhost:3000, http://localhost:8080, https://exampleHerokuName.herokuapp.com |
-| Allowed Web Origins   | http://localhost:3000, http://localhost:8080, https://exampleHerokuName.herokuapp.com |
-        
 <!-- TODO: Summarize main Instructions from cs156? -->
 - **Set up app with Auth0 credentials**\
     cd into "myapp" and create a file called “.env.local”. This way you’ll be able to use Auth0 on localhost. That file should contain only these three lines, replacing the first     set of Xs with the Auth0 domain, the second set with the Auth0 client ID, and the thrid set with the link to the heroku for this webapp:
