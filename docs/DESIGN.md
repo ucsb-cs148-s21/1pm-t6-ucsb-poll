@@ -34,7 +34,7 @@ Additionally, we decided to improve upon and make major UI choices as a result o
 
 We created the following user flow diagram: 
 
-![image](https://user-images.githubusercontent.com/35500507/121302156-d9377880-c92b-11eb-8da9-2370699d21dc.png)
+![image](https://user-images.githubusercontent.com/35500507/121431533-1a6f6d00-c9ac-11eb-99b8-643c7194712f.png)
 These paths indicate how the user can interact with our webapp. Some features require you to be logged in and are therefore locked behind authentication. Unauthenticated users still have access to browsing polls and viewing their results. 
 
 
