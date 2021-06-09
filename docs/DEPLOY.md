@@ -35,8 +35,8 @@
     measurementId: "xxxx"
   };
 ```
-    Insert these credentials at the beginning of the server.js file, where firebaseConfig is located. Replace the current credentials with your own. 
-    
+   Insert these credentials at the beginning of the server.js file, where firebaseConfig is located. Replace the current credentials with your own. 
+
 - **Deploy To Heroku**\
         Push repository to GitHub and link to a new Heroku webapp.\
         Input environment variables for Auth0. Under settings --> Config Vars, input the three auth0 credentials key/token pairs REACT_APP_AUTH0_DOMAIN, REACT_APP_AUTH0_CLIENT_ID, REACT_APP_AUTH0_AUDIENCE.
