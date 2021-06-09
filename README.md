@@ -18,10 +18,6 @@ Users:
 - Zhengying Li @zhengyingl
 - Daniel Shamtob @dshamtob
 
-# Final Presentation 
-
-https://youtu.be/H-vttr9SO-A
-
 # Repository Structure
 
 The backend is in the root directory under server.js.
@@ -87,4 +83,7 @@ Submit a pull request :D
 
 View our [Heroku Deployment](https://cs148-1pm-t6-ucsb-poll.herokuapp.com/).
 
+# Final Presentation 
+
+https://youtu.be/H-vttr9SO-A
 
